@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://adammare08-maker.github.io/Hub-IA/</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://adammare08-maker.github.io/Hub-IA/outils</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://adammare08-maker.github.io/Hub-IA/outil/lumina-scribe</loc>
+    <lastmod>2026-01-19</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://adammare08-maker.github.io/Hub-IA/outil/pixel-alchemy</loc>
+    <lastmod>2026-01-19</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://adammare08-maker.github.io/Hub-IA/outil/vox-aura</loc>
+    <lastmod>2026-01-19</lastmod>
+    <priority>0.70</priority>
+  </url>
+</urlset>
