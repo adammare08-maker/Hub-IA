@@ -1,280 +1,375 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Hub - Laboratoire d'Outils Originaux</title>
-    <meta name="description" content="Plateforme regroupant des outils IA expérimentaux pour créateurs.">
-    <!-- Google Fonts -->
+    <title>IA Hub - Outils IA Utiles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS for utility classes -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-<script type="importmap">
+    <script type="importmap">
 {
   "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0"
   }
 }
 </script>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- NAVIGATION BAR -->
-    <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <nav class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="javascript:void(0)" onclick="showSection('home')" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transform group-hover:rotate-12 transition-transform">IA</div>
-                <span class="text-xl font-bold tracking-tight">Hub</span>
-            </a>
-            <div class="flex space-x-6 text-sm font-medium">
-                <a href="javascript:void(0)" onclick="showSection('home')" class="hover:text-indigo-600 transition-colors">Accueil</a>
-                <a href="javascript:void(0)" onclick="showSection('tools')" class="hover:text-indigo-600 transition-colors">Outils</a>
-                <a href="javascript:void(0)" onclick="showSection('partners')" class="hover:text-indigo-600 transition-colors">Partenaires</a>
-            </div>
-        </nav>
-    </header>
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="#" onclick="showPage('home')" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transform group-hover:rotate-12 transition-transform">
+                        IA
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">Hub</span>
+                </a>
 
-    <main class="pt-16 min-h-screen">
-        
-        <!-- SECTION: ACCUEIL -->
-        <section id="home" class="section-active flex flex-col items-center justify-center px-4 py-20 text-center relative overflow-hidden">
-            <div class="absolute top-1/4 -left-20 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-            <div class="absolute bottom-1/4 -right-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-
-            <div class="max-w-4xl space-y-10 animate-fade-in relative z-10">
-                <div class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold tracking-widest uppercase">
-                    Propulsé par Gemini 2.5 & 3
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" onclick="showPage('home')" class="nav-link text-sm font-medium transition-colors hover:text-indigo-600 text-slate-600" data-page="home">Accueil</a>
+                    <a href="#" onclick="showPage('tools')" class="nav-link text-sm font-medium transition-colors hover:text-indigo-600 text-slate-600" data-page="tools">Outils</a>
+                    <a href="#" onclick="showPage('partners')" class="nav-link text-sm font-medium transition-colors hover:text-indigo-600 text-slate-600" data-page="partners">Partenaires</a>
                 </div>
-                <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
-                    Le Futur de la <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-500">Création IA</span>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-slate-900 p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" onclick="showPage('home')" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50">Accueil</a>
+                <a href="#" onclick="showPage('tools')" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50">Outils</a>
+                <a href="#" onclick="showPage('partners')" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50">Partenaires</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="content-area" class="flex-grow">
+        
+        <!-- HOME SECTION -->
+        <section id="page-home" class="page-view flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-4">
+            <div class="max-w-3xl text-center space-y-8 animate-in fade-in duration-700">
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase">
+                    Plateforme All-in-One
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    Tous les outils IA utiles, <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                        au même endroit
+                    </span>
                 </h1>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
-                    Accédez à une suite d'outils expérimentaux conçus pour les créateurs, les développeurs et les visionnaires.
+                    Créez, automatisez et gagnez du temps avec notre sélection d'outils IA simples et performants.
                 </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
-                    <button onclick="showSection('tools')" class="w-full sm:w-auto px-10 py-5 bg-slate-900 text-white rounded-2xl font-bold shadow-2xl hover:bg-indigo-600 transition-all transform hover:-translate-y-1">
-                        Explorer le Lab
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="showPage('tools')" class="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white rounded-2xl font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300">
+                        Découvrir les outils
                     </button>
-                    <button onclick="showSection('partners')" class="w-full sm:w-auto px-10 py-5 bg-white border border-slate-200 text-slate-900 rounded-2xl font-bold hover:bg-slate-50 transition-all">
-                        Devenir Partenaire
+                    <button onclick="showPage('partners')" class="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-2xl font-semibold hover:bg-slate-50 transition-all">
+                        Devenir partenaire
                     </button>
+                </div>
+                <div class="pt-16 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">
+                    <div class="flex flex-col items-center"><span class="text-2xl font-bold">100+</span><span class="text-sm">Outils listés</span></div>
+                    <div class="flex flex-col items-center"><span class="text-2xl font-bold">10k+</span><span class="text-sm">Utilisateurs</span></div>
+                    <div class="flex flex-col items-center"><span class="text-2xl font-bold">4.9/5</span><span class="text-sm">Avis moyens</span></div>
+                    <div class="flex flex-col items-center"><span class="text-2xl font-bold">24/7</span><span class="text-sm">Support</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: OUTILS (BIBLIOTHÈQUE) -->
-        <section id="tools" class="hidden max-w-7xl mx-auto px-4 py-12 animate-fade-in">
-            <div class="mb-12">
-                <h2 class="text-4xl font-black text-slate-900 mb-4">Bibliothèque d'outils</h2>
-                <p class="text-slate-600">Choisissez une technologie pour commencer votre transmutation créative.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Lumina Scribe -->
-                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
-                    <div>
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">✨</div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Texte</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Lumina Scribe</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-8">Transformez vos pensées brutes en textes poétiques ou techniques.</p>
-                    </div>
-                    <button onclick="openPlayground('Lumina Scribe', '✨', 'from-blue-500 to-indigo-600', 'Scribe')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
-                </article>
-
-                <!-- Pixel Alchemy -->
-                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
-                    <div>
-                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">🔮</div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Image</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Pixel Alchemy</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-8">Transmutez des concepts abstraits en chefs-d'œuvre visuels.</p>
-                    </div>
-                    <button onclick="openPlayground('Pixel Alchemy', '🔮', 'from-purple-500 to-pink-600', 'Alchemy')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
-                </article>
-
-                <!-- Vox Aura -->
-                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
-                    <div>
-                        <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">🌊</div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Audio</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Vox Aura</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-8">Donnez une voix céleste à vos écrits avec une haute fidélité.</p>
-                    </div>
-                    <button onclick="openPlayground('Vox Aura', '🌊', 'from-cyan-500 to-blue-600', 'Aura')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
-                </article>
-
-                <!-- Visionary Lens -->
-                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
-                    <div>
-                        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">👁️</div>
-                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Vision</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Visionary Lens</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-8">L'IA qui voit au-delà des apparences et analyse vos images.</p>
-                    </div>
-                    <button onclick="openPlayground('Visionary Lens', '👁️', 'from-emerald-500 to-teal-600', 'Lens')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
-                </article>
-            </div>
-        </section>
-
-        <!-- SECTION: PLAYGROUND (DÉTAIL OUTIL) -->
-        <section id="playground" class="hidden max-w-4xl mx-auto px-4 py-12 animate-fade-in">
-            <button onclick="showSection('tools')" class="inline-flex items-center text-slate-500 hover:text-indigo-600 font-medium mb-8 group transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        <!-- TOOLS LIST SECTION -->
+        <section id="page-tools" class="page-view hidden max-w-7xl mx-auto px-4 py-8">
+            <button onclick="showPage('home')" class="inline-flex items-center text-slate-500 hover:text-indigo-600 font-medium mb-8 transition-colors group">
+                <svg class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Retour à la bibliothèque
+                Retour à l'accueil
             </button>
-
-            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 glass-card">
-                <div id="pg-header" class="p-10 text-white relative">
-                    <div id="pg-icon-bg" class="absolute top-0 right-0 p-10 text-8xl opacity-10 font-black pointer-events-none">✨</div>
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-5 mb-4">
-                            <span id="pg-icon" class="text-5xl">✨</span>
-                            <h2 id="pg-name" class="text-4xl font-black tracking-tight">Lumina Scribe</h2>
-                        </div>
-                        <p id="pg-desc" class="text-lg opacity-90 max-w-xl font-light">Espace d'expérimentation IA en temps réel.</p>
-                    </div>
-                </div>
-
-                <div class="p-10 space-y-8">
-                    <div class="space-y-3">
-                        <label class="text-sm font-bold text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 bg-indigo-600 rounded-full"></span>
-                            Entrée utilisateur
-                        </label>
-                        <textarea id="pg-input" class="w-full p-6 rounded-[1.5rem] border border-slate-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all h-40 resize-none text-lg leading-relaxed placeholder:text-slate-300" placeholder="Décrivez votre projet ici..."></textarea>
-                    </div>
-
-                    <button onclick="simulateIA()" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black hover:bg-indigo-600 transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
-                        Exécuter la Transmutation
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </button>
-
-                    <div id="pg-result-container" class="hidden animate-fade-in space-y-4">
-                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                            Résultat généré
-                        </h3>
-                        <div id="pg-result" class="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 text-slate-800 leading-relaxed font-light text-lg italic">
-                            Traitement en cours...
-                        </div>
-                    </div>
-                </div>
+            <header class="mb-12 text-center md:text-left">
+                <h1 class="text-3xl font-bold text-slate-900 mb-4">Bibliothèque d'outils</h1>
+                <p class="text-slate-600">Trouvez l'outil idéal pour propulser votre créativité ou votre business.</p>
+            </header>
+            <div id="category-filters" class="flex flex-wrap gap-2 mb-10 pb-4 border-b border-slate-100 overflow-x-auto scrollbar-hide">
+                <!-- Filters injected by JS -->
+            </div>
+            <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cards injected by JS -->
             </div>
         </section>
 
-        <!-- SECTION: PARTENAIRES -->
-        <section id="partners" class="hidden max-w-5xl mx-auto px-4 py-20 animate-fade-in">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-black text-slate-900 mb-6">Rejoignez l'écosystème</h2>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Exposez vos solutions IA à notre communauté de créateurs actifs.</p>
+        <!-- TOOL DETAIL SECTION (PLAYGROUND) -->
+        <section id="page-tool-detail" class="page-view hidden max-w-4xl mx-auto px-4 py-8">
+            <button onclick="showPage('tools')" class="inline-flex items-center text-indigo-600 font-medium mb-8 transition-colors group hover:underline">
+                <svg class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Retour aux outils
+            </button>
+            <div id="playground-container" class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+                <!-- Content injected by JS -->
             </div>
+        </section>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <div class="flex gap-5">
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 text-indigo-600 font-bold shadow-sm">✔</div>
-                        <div>
-                            <h4 class="text-xl font-bold">Visibilité Immédiate</h4>
-                            <p class="text-slate-500">Accédez à plus de 10k créateurs par mois.</p>
+        <!-- PARTNERS SECTION -->
+        <section id="page-partners" class="page-view hidden max-w-5xl mx-auto px-4 py-8">
+            <button onclick="showPage('home')" class="inline-flex items-center text-slate-500 hover:text-indigo-600 font-medium mb-8 transition-colors group">
+                <svg class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Retour à l'accueil
+            </button>
+            <div class="text-center mb-16">
+                <h1 class="text-4xl font-bold text-slate-900 mb-6">Rejoignez l'écosystème IA Hub</h1>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Vous avez créé un outil IA exceptionnel ? Exposez-le à des milliers de créateurs et entreprises chaque jour.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-900">Pourquoi nous rejoindre ?</h2>
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Visibilité immédiate</h3>
+                                <p class="text-sm text-slate-600">Accédez à une audience qualifiée cherchant activement des solutions IA.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-5">
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 text-indigo-600 font-bold shadow-sm">✔</div>
-                        <div>
-                            <h4 class="text-xl font-bold">Intégration API Simple</h4>
-                            <p class="text-slate-500">Un onboarding technique en moins de 24h.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-5">
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 text-indigo-600 font-bold shadow-sm">✔</div>
-                        <div>
-                            <h4 class="text-xl font-bold">Partage de Revenus</h4>
-                            <p class="text-slate-500">Monétisez vos modèles directement via notre plateforme.</p>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Dashboard analytics</h3>
+                                <p class="text-sm text-slate-600">Suivez vos clics et conversions en temps réel.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-slate-900 p-12 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-40 h-40 bg-indigo-500/20 blur-3xl group-hover:bg-indigo-500/30 transition-colors"></div>
-                    <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs mb-4 block">Lab Partner Program</span>
-                    <h3 class="text-4xl font-black mb-4">49€<span class="text-sm font-normal text-slate-400 ml-2">/ mois</span></h3>
-                    <p class="text-slate-400 mb-8 font-light">Inclut le badge partenaire certifié, les analytics avancées et le support 24/7.</p>
-                    <button onclick="alert('Contactez-nous à partner@iahub.io pour démarrer !')" class="w-full py-5 bg-indigo-600 rounded-2xl font-bold hover:bg-indigo-500 transition-all shadow-xl">Postuler au programme</button>
+                <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
+                    <div class="text-indigo-400 font-bold mb-2 uppercase tracking-widest text-xs">Tarification claire</div>
+                    <h2 class="text-3xl font-bold mb-6">Devenir Partenaire</h2>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-center py-4 border-b border-slate-800"><span class="text-slate-400">Mensuel</span><span class="font-bold text-xl">49€</span></div>
+                        <div class="flex justify-between items-center py-4 border-b border-slate-800"><span class="text-slate-400">Commission</span><span class="font-bold text-xl">5%</span></div>
+                    </div>
+                    <button class="w-full py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold transition-all transform hover:scale-[1.02]">Devenir partenaire maintenant</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 py-16">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex items-center justify-center gap-2 mb-6">
-                <div class="w-6 h-6 bg-slate-900 rounded flex items-center justify-center text-white text-[10px] font-bold">IA</div>
-                <span class="font-bold tracking-tight">Hub Laboratory</span>
-            </div>
-            <p class="text-slate-400 text-sm mb-8">© 2024 IA Hub Laboratory. Plateforme statique optimisée pour GitHub Pages.</p>
-            <div class="flex justify-center gap-10 text-xs font-bold uppercase tracking-widest text-slate-400">
-                <a href="#" class="hover:text-indigo-600 transition-colors">Mentions</a>
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500">
+            <p class="text-sm">© 2024 IA Hub. Propulsé par Gemini.</p>
+            <div class="flex justify-center gap-6 mt-4">
+                <a href="#" class="hover:text-indigo-600 transition-colors">Mentions Légales</a>
                 <a href="#" class="hover:text-indigo-600 transition-colors">Confidentialité</a>
                 <a href="#" class="hover:text-indigo-600 transition-colors">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- NAVIGATION LOGIC -->
-    <script>
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('section').forEach(sec => {
-                sec.classList.add('hidden');
-                sec.classList.remove('section-active');
+    <script type="module">
+        import { GoogleGenAI } from "@google/genai";
+
+        const TOOLS = [
+            { id: 'lumina-scribe', name: 'Lumina Scribe', description: 'Transformez vos pensées brutes en textes poétiques ou techniques avec une précision chirurgicale.', category: 'IA Texte', icon: '✨', function: 'scribe', color: 'from-blue-500 to-indigo-600' },
+            { id: 'pixel-alchemy', name: 'Pixel Alchemy', description: 'Transmutez des concepts abstraits en chefs-d\'œuvre visuels grâce à notre moteur de rendu onirique.', category: 'IA Image', icon: '🔮', function: 'alchemy', color: 'from-purple-500 to-pink-600' },
+            { id: 'vox-aura', name: 'Vox Aura', description: 'Donnez une voix céleste à vos écrits. Synthèse vocale de haute fidélité pour vos projets narratifs.', category: 'IA Audio', icon: '🌊', function: 'aura', color: 'from-cyan-500 to-blue-600' },
+            { id: 'visionary-lens', name: 'Visionary Lens', description: 'L\'IA qui voit au-delà des apparences. Analysez et décryptez le contenu de n\'importe quelle image.', category: 'IA Image', icon: '👁️', function: 'lens', color: 'from-emerald-500 to-teal-600' }
+        ];
+
+        let currentCategory = 'Tous';
+        let currentTool = null;
+        let imageFileBase64 = null;
+
+        window.showPage = (pageId, toolId = null) => {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+            window.scrollTo(0, 0);
+            
+            // Sync nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if(link.getAttribute('data-page') === pageId) {
+                    link.classList.add('text-indigo-600');
+                    link.classList.remove('text-slate-600');
+                } else {
+                    link.classList.remove('text-indigo-600');
+                    link.classList.add('text-slate-600');
+                }
             });
-            // Show selected section
-            const activeSec = document.getElementById(sectionId);
-            activeSec.classList.remove('hidden');
-            activeSec.classList.add('section-active');
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
 
-        function openPlayground(name, icon, colorClass, type) {
-            // Update Playground Content
-            document.getElementById('pg-name').innerText = name;
-            document.getElementById('pg-icon').innerText = icon;
-            document.getElementById('pg-icon-bg').innerText = icon;
+            if(pageId === 'tools') renderToolsGrid();
+            if(pageId === 'tool-detail') renderPlayground(toolId);
             
-            const header = document.getElementById('pg-header');
-            header.className = `p-10 text-white relative bg-gradient-to-br ${colorClass}`;
-            
-            // Clear previous results
-            document.getElementById('pg-input').value = '';
-            document.getElementById('pg-result-container').classList.add('hidden');
-            
-            showSection('playground');
-        }
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+        };
 
-        function simulateIA() {
-            const input = document.getElementById('pg-input').value;
-            if(!input) return alert('Veuillez saisir une instruction.');
+        const renderToolsGrid = () => {
+            const categories = ['Tous', ...new Set(TOOLS.map(t => t.category))];
+            const filterContainer = document.getElementById('category-filters');
+            filterContainer.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat}')" class="px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${currentCategory === cat ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-indigo-300'}">
+                    ${cat === 'Tous' ? 'Tous les outils' : cat}
+                </button>
+            `).join('');
+
+            const grid = document.getElementById('tools-grid');
+            const filtered = currentCategory === 'Tous' ? TOOLS : TOOLS.filter(t => t.category === currentCategory);
             
-            const resultContainer = document.getElementById('pg-result-container');
-            const resultText = document.getElementById('pg-result');
+            grid.innerHTML = filtered.map(tool => `
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 bg-gradient-to-br ${tool.color} rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:rotate-6 transition-transform shadow-lg">
+                            ${tool.icon}
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-slate-500 px-2 py-1 bg-slate-100 rounded-full">${tool.category}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">${tool.name}</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">${tool.description}</p>
+                    </div>
+                    <button onclick="showPage('tool-detail', '${tool.id}')" class="inline-flex items-center justify-center px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-semibold hover:bg-indigo-600 transition-colors w-full">
+                        Lancer le Playground
+                    </button>
+                </div>
+            `).join('');
+        };
+
+        window.setCategory = (cat) => {
+            currentCategory = cat;
+            renderToolsGrid();
+        };
+
+        const renderPlayground = (toolId) => {
+            const tool = TOOLS.find(t => t.id === toolId);
+            currentTool = tool;
+            imageFileBase64 = null;
+            const container = document.getElementById('playground-container');
             
-            resultContainer.classList.remove('hidden');
-            resultText.innerText = "Analyse des vecteurs en cours...";
+            container.innerHTML = `
+                <div class="p-8 bg-gradient-to-r ${tool.color} text-white">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-4xl">${tool.icon}</span>
+                        <h1 class="text-3xl font-bold">${tool.name}</h1>
+                    </div>
+                    <p class="opacity-90">${tool.description}</p>
+                </div>
+                <div class="p-8 space-y-6">
+                    ${tool.function === 'lens' ? `
+                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50">
+                            <div id="image-preview" class="hidden"><img id="preview-img" class="max-h-64 mx-auto rounded-lg mb-4"></div>
+                            <div id="upload-prompt" class="text-slate-400">Cliquez pour uploader une image</div>
+                            <input type="file" onchange="handleFile(event)" class="hidden" id="img-upload" accept="image/*">
+                            <label for="img-upload" class="cursor-pointer text-indigo-600 font-bold block mt-2">Choisir un fichier</label>
+                        </div>
+                    ` : ''}
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">
+                            ${tool.function === 'alchemy' ? 'Décrivez votre vision :' : 'Votre texte :'}
+                        </label>
+                        <textarea id="playground-input" class="w-full p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none h-32 resize-none" placeholder="Tapez ici..."></textarea>
+                    </div>
+                    <button id="run-btn" onclick="executeAI()" class="w-full py-4 rounded-xl font-bold text-white bg-slate-900 hover:bg-indigo-600 shadow-lg">
+                        Exécuter l'outil
+                    </button>
+                    <div id="playground-output" class="hidden mt-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 animate-in fade-in slide-in-from-bottom-4">
+                        <h3 class="font-bold mb-4 text-slate-900 uppercase text-xs tracking-widest">Résultat :</h3>
+                        <div id="output-content"></div>
+                    </div>
+                </div>
+            `;
+        };
+
+        window.handleFile = (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                imageFileBase64 = reader.result;
+                document.getElementById('preview-img').src = reader.result;
+                document.getElementById('image-preview').classList.remove('hidden');
+                document.getElementById('upload-prompt').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.executeAI = async () => {
+            const input = document.getElementById('playground-input').value;
+            const btn = document.getElementById('run-btn');
+            const outputBox = document.getElementById('playground-output');
+            const content = document.getElementById('output-content');
             
-            setTimeout(() => {
-                resultText.innerText = "La transmutation a réussi. L'IA a généré une réponse contextuelle basée sur votre instruction : \"" + input.substring(0, 50) + "...\"";
-            }, 1500);
-        }
+            if(!input && currentTool.function !== 'lens') return;
+
+            btn.disabled = true;
+            btn.innerText = "Génération...";
+            btn.classList.add('bg-slate-400');
+
+            try {
+                const ai = new GoogleGenAI({ apiKey: "API_KEY_HERE" }); // Key is handled by context
+                let result = null;
+
+                if (currentTool.function === 'scribe') {
+                    const response = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: input });
+                    result = `<p class="whitespace-pre-wrap">${response.text}</p>`;
+                } else if (currentTool.function === 'alchemy') {
+                    const response = await ai.models.generateContent({ model: 'gemini-2.5-flash-image', contents: { parts: [{ text: input }] } });
+                    const imgData = response.candidates[0].content.parts.find(p => p.inlineData)?.inlineData.data;
+                    result = imgData ? `<img src="data:image/png;base64,${imgData}" class="w-full rounded-xl shadow-lg">` : "Erreur image.";
+                } else if (currentTool.function === 'lens' && imageFileBase64) {
+                    const base64Data = imageFileBase64.split(',')[1];
+                    const response = await ai.models.generateContent({
+                        model: 'gemini-3-flash-preview',
+                        contents: { parts: [{ inlineData: { data: base64Data, mimeType: 'image/jpeg' } }, { text: input || "Analyse." }] }
+                    });
+                    result = `<p>${response.text}</p>`;
+                } else if (currentTool.function === 'aura') {
+                    const response = await ai.models.generateContent({ 
+                        model: "gemini-2.5-flash-preview-tts", 
+                        contents: [{ parts: [{ text: input }] }],
+                        config: { responseModalities: ["AUDIO"] }
+                    });
+                    const audio = response.candidates[0].content.parts[0].inlineData.data;
+                    result = `<audio controls src="data:audio/pcm;base64,${audio}" class="w-full"></audio>`;
+                }
+
+                content.innerHTML = result;
+                outputBox.classList.remove('hidden');
+            } catch (err) {
+                content.innerHTML = `<span class="text-red-500">Erreur : ${err.message}</span>`;
+                outputBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Exécuter l'outil";
+                btn.classList.remove('bg-slate-400');
+            }
+        };
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').onclick = () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        };
+
+        // Init
+        showPage('home');
     </script>
 </body>
 </html>
