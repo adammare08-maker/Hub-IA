@@ -11,6 +11,8 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .page-view { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
     <script type="importmap">
     {
@@ -26,196 +28,103 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <a href="#" onclick="showPage('home')" class="flex items-center gap-2 group">
-                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transform group-hover:rotate-12 transition-transform">
-                        IA
-                    </div>
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transform group-hover:rotate-12 transition-transform">IA</div>
                     <span class="text-xl font-bold tracking-tight text-slate-900">Hub</span>
                 </a>
-
                 <div class="hidden md:flex space-x-8">
-                    <a href="#" onclick="showPage('home')" class="nav-link text-sm font-medium transition-colors hover:text-indigo-600 text-slate-600" data-page="home">Accueil</a>
-                    <a href="#" onclick="showPage('tools')" class="nav-link text-sm font-medium transition-colors hover:text-indigo-600 text-slate-600" data-page="tools">Outils</a>
-                    <a href="#" onclick="showPage('partners')" class="nav-link text-sm font-medium transition-colors hover:text-indigo-600 text-slate-600" data-page="partners">Partenaires</a>
+                    <a href="#" onclick="showPage('home')" class="nav-link text-sm font-medium hover:text-indigo-600 transition-colors">Accueil</a>
+                    <a href="#" onclick="showPage('tools')" class="nav-link text-sm font-medium hover:text-indigo-600 transition-colors">Outils</a>
+                    <a href="#" onclick="showPage('partners')" class="nav-link text-sm font-medium hover:text-indigo-600 transition-colors">Partenaires</a>
                 </div>
-
                 <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-slate-900 p-2">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
+                    <button id="mobile-menu-btn" class="p-2"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#" onclick="showPage('home')" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50">Accueil</a>
-                <a href="#" onclick="showPage('tools')" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50">Outils</a>
-                <a href="#" onclick="showPage('partners')" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:bg-slate-50">Partenaires</a>
-            </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
+            <a href="#" onclick="showPage('home')" class="block font-medium">Accueil</a>
+            <a href="#" onclick="showPage('tools')" class="block font-medium">Outils</a>
+            <a href="#" onclick="showPage('partners')" class="block font-medium">Partenaires</a>
         </div>
     </nav>
 
-    <main id="content-area" class="flex-grow">
-        
-        <section id="page-home" class="page-view flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-4">
-            <div class="max-w-3xl text-center space-y-8">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase">
-                    Plateforme All-in-One
-                </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                    Tous les outils IA utiles, <br />
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                        au même endroit
-                    </span>
-                </h1>
-                <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
-                    Créez, automatisez et gagnez du temps avec notre sélection d'outils IA simples et performants.
-                </p>
-                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button onclick="showPage('tools')" class="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white rounded-2xl font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300">
-                        Découvrir les outils
-                    </button>
-                    <button onclick="showPage('partners')" class="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-2xl font-semibold hover:bg-slate-50 transition-all">
-                        Devenir partenaire
-                    </button>
-                </div>
-            </div>
+    <main id="content-area">
+        <section id="page-home" class="page-view flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Tous les outils IA utiles, <br><span class="text-indigo-600">au même endroit</span></h1>
+            <p class="text-xl text-slate-600 mb-8 max-w-2xl">Créez et gagnez du temps avec notre sélection d'outils performants.</p>
+            <button onclick="showPage('tools')" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg hover:bg-indigo-700 transition-all">Découvrir les outils</button>
         </section>
 
         <section id="page-tools" class="page-view hidden max-w-7xl mx-auto px-4 py-8">
-            <button onclick="showPage('home')" class="inline-flex items-center text-slate-500 hover:text-indigo-600 font-medium mb-8 transition-colors group">
-                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Retour à l'accueil
-            </button>
-            <header class="mb-12 text-center md:text-left">
-                <h1 class="text-3xl font-bold text-slate-900 mb-4">Bibliothèque d'outils</h1>
-                <p class="text-slate-600">Trouvez l'outil idéal pour propulser votre créativité ou votre business.</p>
-            </header>
-            <div id="category-filters" class="flex flex-wrap gap-2 mb-10 pb-4 border-b border-slate-100 overflow-x-auto scrollbar-hide"></div>
+            <div id="category-filters" class="flex gap-2 mb-8 overflow-x-auto pb-2"></div>
             <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
         <section id="page-tool-detail" class="page-view hidden max-w-4xl mx-auto px-4 py-8">
-            <button onclick="showPage('tools')" class="inline-flex items-center text-indigo-600 font-medium mb-8 hover:underline">
-                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Retour aux outils
-            </button>
+            <button onclick="showPage('tools')" class="mb-6 text-indigo-600 font-bold">← Retour</button>
             <div id="playground-container" class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100"></div>
         </section>
 
-        <section id="page-partners" class="page-view hidden max-w-5xl mx-auto px-4 py-8">
-            <button onclick="showPage('home')" class="inline-flex items-center text-slate-500 hover:text-indigo-600 font-medium mb-8">
-                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Retour à l'accueil
-            </button>
-            <div class="text-center mb-16">
-                <h1 class="text-4xl font-bold text-slate-900 mb-6">Rejoignez l'écosystème IA Hub</h1>
-            </div>
-            <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl max-w-md mx-auto">
-                <h2 class="text-3xl font-bold mb-6">Devenir Partenaire</h2>
-                <button class="w-full py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-bold transition-all">Devenir partenaire maintenant</button>
+        <section id="page-partners" class="page-view hidden max-w-5xl mx-auto px-4 py-8 text-center">
+            <h1 class="text-4xl font-bold mb-8">Devenir Partenaire</h1>
+            <div class="bg-slate-900 p-8 rounded-3xl text-white max-w-md mx-auto">
+                <p class="mb-6">Exposez votre outil à notre communauté.</p>
+                <button class="w-full py-4 bg-indigo-500 rounded-xl font-bold">Postuler</button>
             </div>
         </section>
     </main>
-
-    <footer class="bg-white border-t border-slate-200 py-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500">
-            <p class="text-sm">© 2024 IA Hub. Propulsé par Gemini.</p>
-        </div>
-    </footer>
 
     <script type="module">
         import { GoogleGenAI } from "@google/genai";
 
         const TOOLS = [
-            { id: 'lumina-scribe', name: 'Lumina Scribe', description: 'Transformez vos pensées brutes en textes poétiques ou techniques.', category: 'IA Texte', icon: '✨', function: 'scribe', color: 'from-blue-500 to-indigo-600' },
-            { id: 'pixel-alchemy', name: 'Pixel Alchemy', description: 'Générez des visuels époustouflants à partir de vos descriptions.', category: 'IA Image', icon: '🔮', function: 'alchemy', color: 'from-purple-500 to-pink-600' },
-            { id: 'vox-aura', name: 'Vox Aura', description: 'Synthèse vocale de haute fidélité pour vos projets.', category: 'IA Audio', icon: '🌊', function: 'aura', color: 'from-cyan-500 to-blue-600' },
-            { id: 'visionary-lens', name: 'Visionary Lens', description: 'Analysez et décryptez le contenu de n\'importe quelle image.', category: 'IA Image', icon: '👁️', function: 'lens', color: 'from-emerald-500 to-teal-600' }
+            { id: 'lumina-scribe', name: 'Lumina Scribe', description: 'Rédaction assistée par IA.', category: 'IA Texte', icon: '✨', function: 'scribe', color: 'from-blue-500 to-indigo-600' },
+            { id: 'pixel-alchemy', name: 'Pixel Alchemy', description: 'Génération d\'images (Coming Soon).', category: 'IA Image', icon: '🔮', function: 'alchemy', color: 'from-purple-500 to-pink-600' },
+            { id: 'visionary-lens', name: 'Visionary Lens', description: 'Analyse d\'images.', category: 'IA Image', icon: '👁️', function: 'lens', color: 'from-emerald-500 to-teal-600' }
         ];
 
         let currentCategory = 'Tous';
         let currentTool = null;
         let imageFileBase64 = null;
 
+        // AJOUTE TA CLÉ ICI
+        const API_KEY = "TON_API_KEY_ICI"; 
+
         window.showPage = (pageId, toolId = null) => {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${pageId}`).classList.remove('hidden');
-            
             if(pageId === 'tools') renderToolsGrid();
             if(pageId === 'tool-detail') renderPlayground(toolId);
-            
             document.getElementById('mobile-menu').classList.add('hidden');
         };
 
         const renderToolsGrid = () => {
-            const categories = ['Tous', ...new Set(TOOLS.map(t => t.category))];
-            document.getElementById('category-filters').innerHTML = categories.map(cat => `
-                <button onclick="setCategory('${cat}')" class="px-4 py-2 rounded-full text-sm font-medium transition-all ${currentCategory === cat ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600 border border-slate-200'}">
-                    ${cat === 'Tous' ? 'Tous les outils' : cat}
-                </button>
-            `).join('');
-
+            const grid = document.getElementById('tools-grid');
             const filtered = currentCategory === 'Tous' ? TOOLS : TOOLS.filter(t => t.category === currentCategory);
-            document.getElementById('tools-grid').innerHTML = filtered.map(tool => `
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:shadow-lg transition-all flex flex-col justify-between h-full">
-                    <div>
-                        <div class="w-14 h-14 bg-gradient-to-br ${tool.color} rounded-2xl flex items-center justify-center text-3xl mb-4 text-white">${tool.icon}</div>
-                        <h3 class="text-xl font-bold mb-2">${tool.name}</h3>
-                        <p class="text-slate-600 text-sm mb-6">${tool.description}</p>
-                    </div>
-                    <button onclick="showPage('tool-detail', '${tool.id}')" class="py-3 bg-slate-900 text-white rounded-xl text-sm font-semibold hover:bg-indigo-600 transition-colors">Lancer l'outil</button>
+            grid.innerHTML = filtered.map(tool => `
+                <div class="bg-white p-6 rounded-2xl border hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br ${tool.color} rounded-lg flex items-center justify-center text-2xl mb-4 text-white">${tool.icon}</div>
+                    <h3 class="font-bold text-lg">${tool.name}</h3>
+                    <p class="text-sm text-slate-500 mb-4">${tool.description}</p>
+                    <button onclick="showPage('tool-detail', '${tool.id}')" class="w-full py-2 bg-slate-900 text-white rounded-lg text-sm">Lancer</button>
                 </div>
             `).join('');
-        };
-
-        window.setCategory = (cat) => {
-            currentCategory = cat;
-            renderToolsGrid();
         };
 
         const renderPlayground = (toolId) => {
             const tool = TOOLS.find(t => t.id === toolId);
             currentTool = tool;
-            imageFileBase64 = null;
             document.getElementById('playground-container').innerHTML = `
-                <div class="p-8 bg-gradient-to-r ${tool.color} text-white">
-                    <h1 class="text-3xl font-bold">${tool.icon} ${tool.name}</h1>
-                </div>
-                <div class="p-8 space-y-6">
-                    ${tool.function === 'lens' ? `
-                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50">
-                            <input type="file" onchange="handleFile(event)" id="img-upload" class="hidden" accept="image/*">
-                            <label for="img-upload" class="cursor-pointer text-indigo-600 font-bold">Choisir une image</label>
-                            <div id="image-preview" class="hidden mt-4"><img id="preview-img" class="max-h-64 mx-auto rounded-lg"></div>
-                        </div>
-                    ` : ''}
-                    <textarea id="playground-input" class="w-full p-4 rounded-xl border border-slate-200 h-32" placeholder="Entrez votre texte ici..."></textarea>
-                    <button id="run-btn" onclick="executeAI()" class="w-full py-4 rounded-xl font-bold text-white bg-slate-900 hover:bg-indigo-600 transition-all">Exécuter l'outil</button>
-                    <div id="playground-output" class="hidden mt-8 p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                        <h3 class="font-bold mb-4 text-xs uppercase tracking-widest">Résultat :</h3>
-                        <div id="output-content"></div>
+                <div class="p-6 bg-gradient-to-r ${tool.color} text-white font-bold text-xl">${tool.name}</div>
+                <div class="p-6 space-y-4">
+                    ${tool.function === 'lens' ? '<input type="file" id="img-upload" class="block w-full text-sm" accept="image/*">' : ''}
+                    <textarea id="playground-input" class="w-full p-4 border rounded-xl h-32" placeholder="Entrez votre prompt..."></textarea>
+                    <button id="run-btn" onclick="executeAI()" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold">Générer</button>
+                    <div id="playground-output" class="hidden p-4 bg-slate-50 rounded-xl border mt-4">
+                        <div id="output-content" class="text-sm leading-relaxed"></div>
                     </div>
                 </div>
             `;
-        };
-
-        window.handleFile = (e) => {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                imageFileBase64 = reader.result;
-                document.getElementById('preview-img').src = reader.result;
-                document.getElementById('image-preview').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
         };
 
         window.executeAI = async () => {
@@ -223,44 +132,29 @@
             const btn = document.getElementById('run-btn');
             const outputBox = document.getElementById('playground-output');
             const content = document.getElementById('output-content');
+
+            if (!API_KEY || API_KEY === "TON_API_KEY_ICI") return alert("Ajoute ta clé API dans le code !");
             
-            // NOTE: Vous devez définir votre clé API ici pour que cela fonctionne en local
-            const API_KEY = ""; 
-
-            if (!API_KEY) {
-                alert("Veuillez configurer votre clé API Gemini dans le code.");
-                return;
-            }
-
             btn.disabled = true;
-            btn.innerText = "Génération...";
+            btn.innerText = "Calcul en cours...";
 
             try {
                 const genAI = new GoogleGenAI(API_KEY);
-                let result = "";
-
-                if (currentTool.function === 'scribe') {
-                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-                    const res = await model.generateContent(input);
-                    result = `<p class="whitespace-pre-wrap">${res.response.text()}</p>`;
-                } 
-                // Note: Les autres fonctions (image/audio) nécessitent des modèles spécifiques
-                else {
-                    result = "Cette fonctionnalité nécessite une configuration de modèle spécifique (Pro/Flash).";
-                }
-
-                content.innerHTML = result;
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                const result = await model.generateContent(input);
+                
+                content.innerHTML = result.response.text().replace(/\n/g, '<br>');
                 outputBox.classList.remove('hidden');
             } catch (err) {
-                content.innerHTML = `<span class="text-red-500">Erreur : ${err.message}</span>`;
+                content.innerHTML = "Erreur : " + err.message;
                 outputBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Exécuter l'outil";
+                btn.innerText = "Générer";
             }
         };
 
-        // Initialisation
+        document.getElementById('mobile-menu-btn').onclick = () => document.getElementById('mobile-menu').classList.toggle('hidden');
         showPage('home');
     </script>
 </body>
