@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://adammare08-maker.github.io/Hub-IA/sitemap.xml
-
