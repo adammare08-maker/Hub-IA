@@ -1,65 +1,280 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>IA Hub – Outils d’intelligence artificielle</title>
-    <meta name="description" content="IA Hub est une plateforme qui regroupe des outils d’intelligence artificielle utiles pour créer, apprendre et travailler plus vite." />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Hub - Laboratoire d'Outils Originaux</title>
+    <meta name="description" content="Plateforme regroupant des outils IA expérimentaux pour créateurs.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
-
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@19.2.3",
-        "react-dom": "https://esm.sh/react-dom@19.2.3",
-        "react-router-dom": "https://esm.sh/react-router-dom@7.11.0",
-        "@google/generative-ai": "https://esm.sh/@google/generative-ai@1.34.0"
-      }
-    }
-    </script>
+    <link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+  }
+}
+</script>
 </head>
-
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- CONTENU POUR GOOGLE (important) -->
-    <main class="max-w-3xl mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-4">
-            IA Hub – Outils d’intelligence artificielle
-        </h1>
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <nav class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="javascript:void(0)" onclick="showSection('home')" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transform group-hover:rotate-12 transition-transform">IA</div>
+                <span class="text-xl font-bold tracking-tight">Hub</span>
+            </a>
+            <div class="flex space-x-6 text-sm font-medium">
+                <a href="javascript:void(0)" onclick="showSection('home')" class="hover:text-indigo-600 transition-colors">Accueil</a>
+                <a href="javascript:void(0)" onclick="showSection('tools')" class="hover:text-indigo-600 transition-colors">Outils</a>
+                <a href="javascript:void(0)" onclick="showSection('partners')" class="hover:text-indigo-600 transition-colors">Partenaires</a>
+            </div>
+        </nav>
+    </header>
 
-        <p class="mb-4">
-            IA Hub est une plateforme dédiée à l’intelligence artificielle.
-            Elle regroupe des outils IA pour la création de contenu, le code,
-            la productivité et l’apprentissage.
-        </p>
+    <main class="pt-16 min-h-screen">
+        
+        <!-- SECTION: ACCUEIL -->
+        <section id="home" class="section-active flex flex-col items-center justify-center px-4 py-20 text-center relative overflow-hidden">
+            <div class="absolute top-1/4 -left-20 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute bottom-1/4 -right-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
-        <p class="mb-6">
-            Le site propose une sélection d’outils IA simples, efficaces et
-            accessibles aux débutants comme aux utilisateurs avancés.
-        </p>
+            <div class="max-w-4xl space-y-10 animate-fade-in relative z-10">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold tracking-widest uppercase">
+                    Propulsé par Gemini 2.5 & 3
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
+                    Le Futur de la <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-500">Création IA</span>
+                </h1>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+                    Accédez à une suite d'outils expérimentaux conçus pour les créateurs, les développeurs et les visionnaires.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
+                    <button onclick="showSection('tools')" class="w-full sm:w-auto px-10 py-5 bg-slate-900 text-white rounded-2xl font-bold shadow-2xl hover:bg-indigo-600 transition-all transform hover:-translate-y-1">
+                        Explorer le Lab
+                    </button>
+                    <button onclick="showSection('partners')" class="w-full sm:w-auto px-10 py-5 bg-white border border-slate-200 text-slate-900 rounded-2xl font-bold hover:bg-slate-50 transition-all">
+                        Devenir Partenaire
+                    </button>
+                </div>
+            </div>
+        </section>
 
-        <ul class="list-disc pl-5 mb-8">
-            <li>Outils IA pour écrire et créer</li>
-            <li>Outils IA pour coder plus vite</li>
-            <li>Outils IA pour apprendre et s’organiser</li>
-        </ul>
+        <!-- SECTION: OUTILS (BIBLIOTHÈQUE) -->
+        <section id="tools" class="hidden max-w-7xl mx-auto px-4 py-12 animate-fade-in">
+            <div class="mb-12">
+                <h2 class="text-4xl font-black text-slate-900 mb-4">Bibliothèque d'outils</h2>
+                <p class="text-slate-600">Choisissez une technologie pour commencer votre transmutation créative.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Lumina Scribe -->
+                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
+                    <div>
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">✨</div>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Texte</span>
+                        <h3 class="text-2xl font-bold mt-4 mb-2">Lumina Scribe</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-8">Transformez vos pensées brutes en textes poétiques ou techniques.</p>
+                    </div>
+                    <button onclick="openPlayground('Lumina Scribe', '✨', 'from-blue-500 to-indigo-600', 'Scribe')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
+                </article>
+
+                <!-- Pixel Alchemy -->
+                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
+                    <div>
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">🔮</div>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Image</span>
+                        <h3 class="text-2xl font-bold mt-4 mb-2">Pixel Alchemy</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-8">Transmutez des concepts abstraits en chefs-d'œuvre visuels.</p>
+                    </div>
+                    <button onclick="openPlayground('Pixel Alchemy', '🔮', 'from-purple-500 to-pink-600', 'Alchemy')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
+                </article>
+
+                <!-- Vox Aura -->
+                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
+                    <div>
+                        <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">🌊</div>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Audio</span>
+                        <h3 class="text-2xl font-bold mt-4 mb-2">Vox Aura</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-8">Donnez une voix céleste à vos écrits avec une haute fidélité.</p>
+                    </div>
+                    <button onclick="openPlayground('Vox Aura', '🌊', 'from-cyan-500 to-blue-600', 'Aura')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
+                </article>
+
+                <!-- Visionary Lens -->
+                <article class="tool-card bg-white p-8 rounded-[2rem] border border-slate-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm hover:shadow-xl group">
+                    <div>
+                        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:rotate-6 transition-transform">👁️</div>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">IA Vision</span>
+                        <h3 class="text-2xl font-bold mt-4 mb-2">Visionary Lens</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-8">L'IA qui voit au-delà des apparences et analyse vos images.</p>
+                    </div>
+                    <button onclick="openPlayground('Visionary Lens', '👁️', 'from-emerald-500 to-teal-600', 'Lens')" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-indigo-600 transition-colors">Lancer le Playground</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECTION: PLAYGROUND (DÉTAIL OUTIL) -->
+        <section id="playground" class="hidden max-w-4xl mx-auto px-4 py-12 animate-fade-in">
+            <button onclick="showSection('tools')" class="inline-flex items-center text-slate-500 hover:text-indigo-600 font-medium mb-8 group transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Retour à la bibliothèque
+            </button>
+
+            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 glass-card">
+                <div id="pg-header" class="p-10 text-white relative">
+                    <div id="pg-icon-bg" class="absolute top-0 right-0 p-10 text-8xl opacity-10 font-black pointer-events-none">✨</div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-4">
+                            <span id="pg-icon" class="text-5xl">✨</span>
+                            <h2 id="pg-name" class="text-4xl font-black tracking-tight">Lumina Scribe</h2>
+                        </div>
+                        <p id="pg-desc" class="text-lg opacity-90 max-w-xl font-light">Espace d'expérimentation IA en temps réel.</p>
+                    </div>
+                </div>
+
+                <div class="p-10 space-y-8">
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-indigo-600 rounded-full"></span>
+                            Entrée utilisateur
+                        </label>
+                        <textarea id="pg-input" class="w-full p-6 rounded-[1.5rem] border border-slate-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all h-40 resize-none text-lg leading-relaxed placeholder:text-slate-300" placeholder="Décrivez votre projet ici..."></textarea>
+                    </div>
+
+                    <button onclick="simulateIA()" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black hover:bg-indigo-600 transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
+                        Exécuter la Transmutation
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </button>
+
+                    <div id="pg-result-container" class="hidden animate-fade-in space-y-4">
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                            Résultat généré
+                        </h3>
+                        <div id="pg-result" class="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 text-slate-800 leading-relaxed font-light text-lg italic">
+                            Traitement en cours...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: PARTENAIRES -->
+        <section id="partners" class="hidden max-w-5xl mx-auto px-4 py-20 animate-fade-in">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-slate-900 mb-6">Rejoignez l'écosystème</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Exposez vos solutions IA à notre communauté de créateurs actifs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="flex gap-5">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 text-indigo-600 font-bold shadow-sm">✔</div>
+                        <div>
+                            <h4 class="text-xl font-bold">Visibilité Immédiate</h4>
+                            <p class="text-slate-500">Accédez à plus de 10k créateurs par mois.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-5">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 text-indigo-600 font-bold shadow-sm">✔</div>
+                        <div>
+                            <h4 class="text-xl font-bold">Intégration API Simple</h4>
+                            <p class="text-slate-500">Un onboarding technique en moins de 24h.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-5">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 text-indigo-600 font-bold shadow-sm">✔</div>
+                        <div>
+                            <h4 class="text-xl font-bold">Partage de Revenus</h4>
+                            <p class="text-slate-500">Monétisez vos modèles directement via notre plateforme.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-900 p-12 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-indigo-500/20 blur-3xl group-hover:bg-indigo-500/30 transition-colors"></div>
+                    <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs mb-4 block">Lab Partner Program</span>
+                    <h3 class="text-4xl font-black mb-4">49€<span class="text-sm font-normal text-slate-400 ml-2">/ mois</span></h3>
+                    <p class="text-slate-400 mb-8 font-light">Inclut le badge partenaire certifié, les analytics avancées et le support 24/7.</p>
+                    <button onclick="alert('Contactez-nous à partner@iahub.io pour démarrer !')" class="w-full py-5 bg-indigo-600 rounded-2xl font-bold hover:bg-indigo-500 transition-all shadow-xl">Postuler au programme</button>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- React démarre ici -->
-    <div id="root"></div>
+    <footer class="bg-white border-t border-slate-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <div class="w-6 h-6 bg-slate-900 rounded flex items-center justify-center text-white text-[10px] font-bold">IA</div>
+                <span class="font-bold tracking-tight">Hub Laboratory</span>
+            </div>
+            <p class="text-slate-400 text-sm mb-8">© 2024 IA Hub Laboratory. Plateforme statique optimisée pour GitHub Pages.</p>
+            <div class="flex justify-center gap-10 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <a href="#" class="hover:text-indigo-600 transition-colors">Mentions</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors">Confidentialité</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
 
-    <noscript>Vous devez activer JavaScript pour utiliser ce site.</noscript>
+    <!-- NAVIGATION LOGIC -->
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(sec => {
+                sec.classList.add('hidden');
+                sec.classList.remove('section-active');
+            });
+            // Show selected section
+            const activeSec = document.getElementById(sectionId);
+            activeSec.classList.remove('hidden');
+            activeSec.classList.add('section-active');
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openPlayground(name, icon, colorClass, type) {
+            // Update Playground Content
+            document.getElementById('pg-name').innerText = name;
+            document.getElementById('pg-icon').innerText = icon;
+            document.getElementById('pg-icon-bg').innerText = icon;
+            
+            const header = document.getElementById('pg-header');
+            header.className = `p-10 text-white relative bg-gradient-to-br ${colorClass}`;
+            
+            // Clear previous results
+            document.getElementById('pg-input').value = '';
+            document.getElementById('pg-result-container').classList.add('hidden');
+            
+            showSection('playground');
+        }
+
+        function simulateIA() {
+            const input = document.getElementById('pg-input').value;
+            if(!input) return alert('Veuillez saisir une instruction.');
+            
+            const resultContainer = document.getElementById('pg-result-container');
+            const resultText = document.getElementById('pg-result');
+            
+            resultContainer.classList.remove('hidden');
+            resultText.innerText = "Analyse des vecteurs en cours...";
+            
+            setTimeout(() => {
+                resultText.innerText = "La transmutation a réussi. L'IA a généré une réponse contextuelle basée sur votre instruction : \"" + input.substring(0, 50) + "...\"";
+            }, 1500);
+        }
+    </script>
 </body>
 </html>
