@@ -77,6 +77,9 @@
     <script type="module">
         import { GoogleGenAI } from "@google/genai";
 
+        // --- CONFIGURATION ---
+        const API_KEY = "TON_API_KEY_ICI"; 
+
         const TOOLS = [
             { id: 'lumina-scribe', name: 'Lumina Scribe', description: 'Rédaction assistée par IA.', category: 'IA Texte', icon: '✨', function: 'scribe', color: 'from-blue-500 to-indigo-600' },
             { id: 'pixel-alchemy', name: 'Pixel Alchemy', description: 'Génération d\'images (Coming Soon).', category: 'IA Image', icon: '🔮', function: 'alchemy', color: 'from-purple-500 to-pink-600' },
@@ -85,11 +88,8 @@
 
         let currentCategory = 'Tous';
         let currentTool = null;
-        let imageFileBase64 = null;
 
-        // AJOUTE TA CLÉ ICI
-        const API_KEY = "TON_API_KEY_ICI"; 
-
+        // --- FONCTIONS DE NAVIGATION ---
         window.showPage = (pageId, toolId = null) => {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${pageId}`).classList.remove('hidden');
@@ -127,6 +127,7 @@
             `;
         };
 
+        // --- EXECUTION IA ---
         window.executeAI = async () => {
             const input = document.getElementById('playground-input').value;
             const btn = document.getElementById('run-btn');
@@ -155,6 +156,8 @@
         };
 
         document.getElementById('mobile-menu-btn').onclick = () => document.getElementById('mobile-menu').classList.toggle('hidden');
+        
+        // Initialisation
         showPage('home');
     </script>
 </body>
