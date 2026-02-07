@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.post("/api/generate", async (req, res) => {
-  const API_KEY = process.env.GOOGLE_API_KEY;
+  const API_KEY = "AIzaSyCJ5xmSu-HcLJvwilwRkiz6_LLOheL7_Qc"
 
   const r = await fetch(
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY,
