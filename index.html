@@ -14,13 +14,6 @@
         .page-view { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
-    <script type="importmap">
-    {
-      "imports": {
-        "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
-      }
-    }
-    </script>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
@@ -75,11 +68,7 @@
     </main>
 
     <script type="module">
-        import { GoogleGenAI } from "@google/genai";
-
         // --- CONFIGURATION ---
-        const API_KEY = "TON_API_KEY_ICI"; 
-
         const TOOLS = [
             { id: 'lumina-scribe', name: 'Lumina Scribe', description: 'Rédaction assistée par IA.', category: 'IA Texte', icon: '✨', function: 'scribe', color: 'from-blue-500 to-indigo-600' },
             { id: 'pixel-alchemy', name: 'Pixel Alchemy', description: 'Génération d\'images (Coming Soon).', category: 'IA Image', icon: '🔮', function: 'alchemy', color: 'from-purple-500 to-pink-600' },
@@ -134,17 +123,28 @@
             const outputBox = document.getElementById('playground-output');
             const content = document.getElementById('output-content');
 
-            if (!API_KEY || API_KEY === "TON_API_KEY_ICI") return alert("Ajoute ta clé API dans le code !");
+            if (!input) return alert("Veuillez entrer un prompt");
             
             btn.disabled = true;
             btn.innerText = "Calcul en cours...";
 
             try {
-                const genAI = new GoogleGenAI(API_KEY);
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-                const result = await model.generateContent(input);
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: input })
+                });
+
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    content.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+                } else if (data.error) {
+                    content.innerHTML = "Erreur : " + (data.error.message || data.error);
+                } else {
+                    content.innerHTML = "Réponse inattendue de l'IA";
+                }
                 
-                content.innerHTML = result.response.text().replace(/\n/g, '<br>');
                 outputBox.classList.remove('hidden');
             } catch (err) {
                 content.innerHTML = "Erreur : " + err.message;

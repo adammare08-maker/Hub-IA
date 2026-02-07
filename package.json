@@ -1,0 +1,25 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server-local.js",
+    "build": "echo 'Static site'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adammare08-maker/Hub-IA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/adammare08-maker/Hub-IA/issues"
+  },
+  "homepage": "https://github.com/adammare08-maker/Hub-IA#readme",
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1"
+  }
+}
