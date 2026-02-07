@@ -1,9 +1,19 @@
 import 'dotenv/config';
 import express from "express";
+import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public'));
+
+// Servir les fichiers spécifiques de manière sécurisée
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/style.css', (req, res) => res.sendFile(path.join(__dirname, 'style.css')));
+app.get('/googled4bcc4ae1e7f259d.html', (req, res) => res.sendFile(path.join(__dirname, 'googled4bcc4ae1e7f259d.html')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
 
 app.post("/api/generate", async (req, res) => {
   const apiKey = process.env.GOOGLE_API_KEY;
@@ -12,7 +22,6 @@ app.post("/api/generate", async (req, res) => {
   }
 
   try {
-    // Utilisation du modèle gemini-flash-latest qui est confirmé dans ListModels
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
       {
