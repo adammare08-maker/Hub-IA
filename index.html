@@ -135,11 +135,7 @@
             btn.disabled = true;
             btn.innerText = "Calcul en cours...";
 
-            try {
-                const genAI = new GoogleGenAI(API_KEY);
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-                const result = await model.generateContent(input);
-                
+        
                 content.innerHTML = result.response.text().replace(/\n/g, '<br>');
                 outputBox.classList.remove('hidden');
             } catch (err) {
