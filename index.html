@@ -75,12 +75,8 @@
     </main>
 
     <script type="module">
-        import { GoogleGenAI } from "@google/genai";
-
-        // --- CONFIGURATION ---
-        const API_KEY = "TON_API_KEY_ICI"; 
-
-        const TOOLS = [
+    
+      const TOOLS = [
             { id: 'lumina-scribe', name: 'Lumina Scribe', description: 'Rédaction assistée par IA.', category: 'IA Texte', icon: '✨', function: 'scribe', color: 'from-blue-500 to-indigo-600' },
             { id: 'pixel-alchemy', name: 'Pixel Alchemy', description: 'Génération d\'images (Coming Soon).', category: 'IA Image', icon: '🔮', function: 'alchemy', color: 'from-purple-500 to-pink-600' },
             { id: 'visionary-lens', name: 'Visionary Lens', description: 'Analyse d\'images.', category: 'IA Image', icon: '👁️', function: 'lens', color: 'from-emerald-500 to-teal-600' }
