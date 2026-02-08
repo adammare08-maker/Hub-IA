@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-const API_KEY = "MA_CLé_API";
+const API_KEY = process.env.GOOGLE_API_KEY; // récupère la clé depuis le .env
 const PORT = process.env.PORT || 3000;
 
 // Route pour générer du texte avec Google Gemini
