@@ -125,31 +125,35 @@
 
         // --- EXECUTION IA ---
         window.executeAI = async () => {
-            const input = document.getElementById('playground-input').value;
-            const btn = document.getElementById('run-btn');
-            const outputBox = document.getElementById('playground-output');
-            const content = document.getElementById('output-content');
+  const input = document.getElementById("playground-input").value;
+  const btn = document.getElementById("run-btn");
+  const outputBox = document.getElementById("playground-output");
+  const content = document.getElementById("output-content");
 
-            if (!API_KEY || API_KEY === "TON_API_KEY_ICI") return alert("Ajoute ta clé API dans le code !");
-            
-            btn.disabled = true;
-            btn.innerText = "Calcul en cours...";
+  btn.disabled = true;
+  btn.innerText = "Calcul en cours...";
 
-        
-                content.innerHTML = result.response.text().replace(/\n/g, '<br>');
-                outputBox.classList.remove('hidden');
-            } catch (err) {
-                content.innerHTML = "Erreur : " + err.message;
-                outputBox.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "Générer";
-            }
-        };
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: input })
+    });
 
+    const data = await res.json();
+    content.innerHTML = data.text.replace(/\n/g, "<br>");
+    outputBox.classList.remove("hidden");
+  } catch (err) {
+    content.innerHTML = "Erreur IA";
+    outputBox.classList.remove("hidden");
+  } finally {
+    btn.disabled = false;
+    btn.innerText = "Générer";
+  }
+};
+             
         document.getElementById('mobile-menu-btn').onclick = () => document.getElementById('mobile-menu').classList.toggle('hidden');
-        
-        // Initialisation
+          // Initialisation
         showPage('home');
     </script>
 </body>
