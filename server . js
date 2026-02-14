@@ -8,6 +8,8 @@ app.use(express.json());
 const API_KEY = process.env.GOOGLE_API_KEY;
 const PORT = process.env.PORT || 3000;
 
+// Test si la clé API est bien lue
+console.log("Clé API lue :", API_KEY ? "OK" : "Non trouvée");
 app.post("/api/generate", async (req, res) => {
   try {
     const prompt = req.body.prompt;
