@@ -1,14 +1,13 @@
-import "dotenv/config";        // charge les variables du .env
+import "dotenv/config";
 import express from "express";
 import fetch from "node-fetch";
 
 const app = express();
 app.use(express.json());
 
-const API_KEY = process.env.GOOGLE_API_KEY; // récupère la clé depuis le .env
+const API_KEY = process.env.GOOGLE_API_KEY;
 const PORT = process.env.PORT || 3000;
 
-// Route pour générer du texte avec Google Gemini
 app.post("/api/generate", async (req, res) => {
   try {
     const prompt = req.body.prompt;
@@ -26,13 +25,14 @@ app.post("/api/generate", async (req, res) => {
     );
 
     const data = await r.json();
+
     res.json({
       text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Aucune réponse"
     });
 
   } catch (err) {
-    res.status(500).json({ error: "Erreur serveur : " + err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.listen(PORT, () => console.log(`✅ Backend sécurisé lancé sur le port ${PORT}`));
+app.listen(PORT, () => console.log("✅ Backend sécurisé lancé sur le port " + PORT));
