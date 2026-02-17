@@ -5,11 +5,15 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-const API_KEY = process.env.GOOGLE_API_KEY;
+const CHAT_KEY = process.env.GEMINI_CHAT_KEY;
+const IMAGE_KEY = process.env.GEMINI_IMAGE_KEY;
+const ANALYSE_KEY = process.env.GEMINI_ANALYSE_KEY;
 const PORT = process.env.PORT || 3000;
 
 // Test si la clé API est bien lue
-console.log("Clé API lue :", API_KEY ? "OK" : "Non trouvée");
+console.log("Clé CHAT :", CHAT_KEY ? "OK" : "Non trouvée");
+console.log("Clé IMAGE :", IMAGE_KEY ? "OK" : "Non trouvée");
+console.log("Clé ANALYSE :", ANALYSE_KEY ? "OK" : "Non trouvée");
 app.post("/api/generate", async (req, res) => {
   try {
     const prompt = req.body.prompt;
