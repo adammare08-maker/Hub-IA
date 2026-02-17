@@ -5,15 +5,15 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-const CHAT_KEY = process.env.GEMINI_CHAT_KEY;
-const IMAGE_KEY = process.env.GEMINI_IMAGE_KEY;
-const ANALYSE_KEY = process.env.GEMINI_ANALYSE_KEY;
+const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY;
+const PIXEL_KEY = process.env.PIXEL_ALCHEMY_KEY;
+const VISION_KEY = process.env.VISIONARY_LENS_KEY;
 const PORT = process.env.PORT || 3000;
 
 // Test si la clé API est bien lue
-console.log("Clé CHAT :", CHAT_KEY ? "OK" : "Non trouvée");
-console.log("Clé IMAGE :", IMAGE_KEY ? "OK" : "Non trouvée");
-console.log("Clé ANALYSE :", ANALYSE_KEY ? "OK" : "Non trouvée");
+console.log("Lumina Scribe :", LUMINA_KEY ? "OK" : "Non trouvée");
+console.log("Pixel Alchemy :", PIXEL_KEY ? "OK" : "Non trouvée");
+console.log("Visionary Lens :", VISION_KEY ? "OK" : "Non trouvée");
 app.post("/api/generate", async (req, res) => {
   try {
     const prompt = req.body.prompt;
