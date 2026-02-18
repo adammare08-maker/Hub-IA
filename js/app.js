@@ -15,14 +15,20 @@ btn.onclick = async () => {
       body: JSON.stringify({ prompt })
     });
 
+    // 👉 Vérifie si le serveur répond bien
+    if (!res.ok) {
+      throw new Error("Serveur a répondu avec une erreur");
+    }
+
     const data = await res.json();
 
-    // ✅ on affiche la réponse envoyée par le backend
-    output.innerText = data.text;
+    console.log("Réponse serveur :", data); // 👈 pour debug
 
+    output.innerText = data.text || "Pas de réponse IA";
     output.classList.remove("hidden");
+
   } catch (e) {
-    console.error(e);
+    console.error("Erreur fetch :", e);
     output.innerText = "Erreur IA";
     output.classList.remove("hidden");
   }
