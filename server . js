@@ -11,9 +11,9 @@ const Visionary_KEY = process.env.Visionary_Lens_KEY; // ta clé Lumina
 const PORT = process.env.PORT || 3000;
 
 // Vérifie que la clé est bien chargée
-console.log("Lumina Scribe :", LUMINA_KEY ? "OK" : "Non trouvée");
-console.log("Pixel KEY :", Pixel_KEY ? "OK" : "Non trouvée");
-console.log("Visionary KEY :", Visionary_KEY ? "OK" : "Non trouvée");
+console.log("Lumina Scribe KEY :", LUMINA_KEY ? "OK" : "trouvée");
+console.log("Pixel KEY :", Pixel_KEY ? "OK" : "trouvée");
+console.log("Visionary KEY :", Visionary_KEY ? "OK" : "trouvée");
 
 // Endpoint sécurisé pour générer du contenu
 app.post("/api/generate", async (req, res) => {
@@ -24,8 +24,6 @@ app.post("/api/generate", async (req, res) => {
     // Appel à l'API Lumina côté serveur
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${LUMINA_KEY}`,
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${Pixel_KEY}`,
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${Visionary_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
