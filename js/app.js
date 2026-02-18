@@ -9,18 +9,20 @@ btn.onclick = async () => {
   btn.innerText = "Génération...";
 
   try {
-    const res = await fetch("/api/generate", {
+    const res = await fetch("http://localhost:3000/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt })
     });
 
     const data = await res.json();
-    output.innerText =
-      data.candidates[0].content.parts[0].text;
+
+    // ✅ on affiche la réponse envoyée par le backend
+    output.innerText = data.text;
 
     output.classList.remove("hidden");
   } catch (e) {
+    console.error(e);
     output.innerText = "Erreur IA";
     output.classList.remove("hidden");
   }
