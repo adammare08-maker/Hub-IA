@@ -5,22 +5,21 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY;
-const PIXEL_KEY = process.env.PIXEL_ALCHEMY_KEY;
-const VISION_KEY = process.env.VISIONARY_LENS_KEY;
+const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY; // ta clé Lumina
 const PORT = process.env.PORT || 3000;
 
-// Test si la clé API est bien lue
+// Vérifie que la clé est bien chargée
 console.log("Lumina Scribe :", LUMINA_KEY ? "OK" : "Non trouvée");
-console.log("Pixel Alchemy :", PIXEL_KEY ? "OK" : "Non trouvée");
-console.log("Visionary Lens :", VISION_KEY ? "OK" : "Non trouvée");
+
+// Endpoint sécurisé pour générer du contenu
 app.post("/api/generate", async (req, res) => {
   try {
-    const prompt = req.body.prompt;
+    const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: "Prompt manquant" });
 
+    // Appel à l'API Lumina côté serveur
     const r = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${LUMINA_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,10 +34,10 @@ app.post("/api/generate", async (req, res) => {
     res.json({
       text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Aucune réponse"
     });
-
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Erreur serveur : " + err.message });
   }
 });
 
-app.listen(PORT, () => console.log("✅ Backend sécurisé lancé sur le port " + PORT));
+app.listen(PORT, () => console.log(`✅ Backend sécurisé lancé sur le port ${PORT}`));
