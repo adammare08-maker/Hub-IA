@@ -5,23 +5,20 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY; // ta clé Lumina
-const Pixel_KEY = process.env.Pixel_Alchemy_KEY; // ta clé Lumina
-const Visionary_KEY = process.env.Visionary_Lens_KEY; // ta clé Lumina
+const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY;
+const PIXEL_KEY = process.env.PIXEL_ALCHEMY_KEY;
+const VISIONARY_KEY = process.env.VISIONARY_LENS_KEY;
 const PORT = process.env.PORT || 3000;
 
-// Vérifie que la clé est bien chargée
-console.log("Lumina Scribe KEY :", LUMINA_KEY ? "OK" : "trouvée");
-console.log("Pixel KEY :", Pixel_KEY ? "OK" : "trouvée");
-console.log("Visionary KEY :", Visionary_KEY ? "OK" : "trouvée");
+console.log("Lumina KEY :", LUMINA_KEY ? "OK" : "MANQUANTE");
+console.log("Pixel KEY :", PIXEL_KEY ? "OK" : "MANQUANTE");
+console.log("Visionary KEY :", VISIONARY_KEY ? "OK" : "MANQUANTE");
 
-// Endpoint sécurisé pour générer du contenu
 app.post("/api/generate", async (req, res) => {
   try {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: "Prompt manquant" });
 
-    // Appel à l'API Lumina côté serveur
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${LUMINA_KEY}`,
       {
@@ -34,14 +31,18 @@ app.post("/api/generate", async (req, res) => {
     );
 
     const data = await r.json();
+    console.log("Réponse Gemini :", data);
 
     res.json({
-      text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Aucune réponse"
+      text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Aucune réponse IA"
     });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Erreur serveur : " + err.message });
+    console.error("Erreur serveur :", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.listen(PORT, () => console.log(`✅ Backend sécurisé lancé sur le port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`✅ Backend sécurisé lancé sur http://localhost:${PORT}`)
+);
