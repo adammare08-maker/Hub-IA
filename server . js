@@ -6,13 +6,9 @@ const app = express();
 app.use(express.json());
 
 const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY;
-const PIXEL_KEY = process.env.PIXEL_ALCHEMY_KEY;
-const VISIONARY_KEY = process.env.VISIONARY_LENS_KEY;
 const PORT = process.env.PORT || 3000;
 
 console.log("Lumina KEY :", LUMINA_KEY ? "OK" : "MANQUANTE");
-console.log("Pixel KEY :", PIXEL_KEY ? "OK" : "MANQUANTE");
-console.log("Visionary KEY :", VISIONARY_KEY ? "OK" : "MANQUANTE");
 
 app.post("/api/generate", async (req, res) => {
   try {
@@ -31,10 +27,10 @@ app.post("/api/generate", async (req, res) => {
     );
 
     const data = await r.json();
-    console.log("Réponse Gemini :", data);
+    console.log("Réponse API :", data);
 
     res.json({
-      text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Aucune réponse IA"
+      text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Pas de réponse IA"
     });
 
   } catch (err) {
@@ -44,5 +40,5 @@ app.post("/api/generate", async (req, res) => {
 });
 
 app.listen(PORT, () =>
-  console.log(`✅ Backend sécurisé lancé sur http://localhost:${PORT}`)
+  console.log(`Backend lancé sur http://localhost:${PORT}`)
 );
