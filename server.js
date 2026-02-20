@@ -10,10 +10,18 @@ const PORT = process.env.PORT || 3000;
 
 console.log("Lumina KEY :", LUMINA_KEY ? "OK" : "MANQUANTE");
 
+app.get("/", (req, res) => {
+  res.send("Backend IAHub OK");
+});
+
 app.post("/api/generate", async (req, res) => {
   try {
+    if (!LUMINA_KEY)
+      return res.status(500).json({ error: "Clé API manquante" });
+
     const { prompt } = req.body;
-    if (!prompt) return res.status(400).json({ error: "Prompt manquant" });
+    if (!prompt)
+      return res.status(400).json({ error: "Prompt manquant" });
 
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${LUMINA_KEY}`,
@@ -27,10 +35,12 @@ app.post("/api/generate", async (req, res) => {
     );
 
     const data = await r.json();
-    console.log("Réponse API :", data);
+    console.log("API RESPONSE:", JSON.stringify(data, null, 2));
 
     res.json({
-      text: data.candidates?.[0]?.content?.parts?.[0]?.text || "Pas de réponse IA"
+      text:
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "Pas de réponse IA"
     });
 
   } catch (err) {
