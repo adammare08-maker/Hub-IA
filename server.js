@@ -50,5 +50,5 @@ app.post("/api/generate", async (req, res) => {
 });
 
 app.listen(PORT, () =>
-  console.log(`Backend lancé sur http://localhost:${PORT}`)
+  console.log(`Backend lancé sur https://adammare08-maker.github.io/Hub-IA/:${PORT}`)
 );
