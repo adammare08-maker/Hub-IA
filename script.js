@@ -8,44 +8,41 @@ fetch("https://hub-ia.[ton-compte].workers.dev", {
 .then(res => res.json())
 .then(data => console.log(data));
 
-// Exemple de fonction pour envoyer un message au Worker
-async function envoyerMessageAuWorker(message) {
+// server.js pour Railway
+import express from "express";
+import fetch from "node-fetch";
+
+const app = express();
+app.use(express.json());
+
+app.post("/api", async (req, res) => {
   try {
-    // Envoie la requête POST avec la charge utile JSON
-    const response = await fetch("https://hub-ia.[ton-compte].workers.dev", {
+    const message = req.body.message;
+
+    // Exemple d'appels aux 3 IA (à adapter avec tes clés et endpoints réels)
+    const ia1 = await fetch("https://api.lumina.io", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message: message })
-    });
+      headers: { "Authorization": "Bearer CLE_LUMINA", "Content-Type": "application/json" },
+      body: JSON.stringify({ input: message })
+    }).then(r => r.json());
 
-    // Récupère la réponse en JSON
-    const data = await response.json();
+    const ia2 = await fetch("https://api.pixel.io", {
+      method: "POST",
+      headers: { "Authorization": "Bearer CLE_PIXEL", "Content-Type": "application/json" },
+      body: JSON.stringify({ input: message })
+    }).then(r => r.json());
 
-    // Affiche les réponses des 3 IA dans la console
-    console.log("IA 1 :", data.ia1);
-    console.log("IA 2 :", data.ia2);
-    console.log("IA 3 :", data.ia3);
+    const ia3 = await fetch("https://api.visionary.io", {
+      method: "POST",
+      headers: { "Authorization": "Bearer CLE_VISIONARY", "Content-Type": "application/json" },
+      body: JSON.stringify({ input: message })
+    }).then(r => r.json());
 
-    // Retourne les données pour les utiliser ailleurs
-    return data;
-
-  } catch (error) {
-    console.error("Erreur lors de la requête au Worker :", error);
-    return null;
-  }
-}
-
-// Exemple d'utilisation : envoyer un message depuis un bouton ou un champ de saisie
-document.getElementById("envoyerBtn").addEventListener("click", async () => {
-  const message = document.getElementById("inputMessage").value;
-  const reponses = await envoyerMessageAuWorker(message);
-
-  if (reponses) {
-    // Exemple : afficher les réponses dans la page HTML
-    document.getElementById("resultatIA1").textContent = reponses.ia1?.response || "Pas de réponse";
-    document.getElementById("resultatIA2").textContent = reponses.ia2?.response || "Pas de réponse";
-    document.getElementById("resultatIA3").textContent = reponses.ia3?.response || "Pas de réponse";
+    res.json({ ia1, ia2, ia3 });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
