@@ -1,48 +1,30 @@
-fetch("https://hub-ia.[ton-compte].workers.dev", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ message: "Bonjour Worker !" })
-})
-.then(res => res.json())
-.then(data => console.log(data));
-
-// server.js pour Railway
-import express from "express";
-import fetch from "node-fetch";
-
-const app = express();
-app.use(express.json());
-
-app.post("/api", async (req, res) => {
+// script.js
+async function envoyerMessage(message) {
   try {
-    const message = req.body.message;
-
-    // Exemple d'appels aux 3 IA (à adapter avec tes clés et endpoints réels)
-    const ia1 = await fetch("https://api.lumina.io", {
+    const response = await fetch("https://[ton-projet-railway].railway.app/api", {
       method: "POST",
-      headers: { "Authorization": "Bearer CLE_LUMINA", "Content-Type": "application/json" },
-      body: JSON.stringify({ input: message })
-    }).then(r => r.json());
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
 
-    const ia2 = await fetch("https://api.pixel.io", {
-      method: "POST",
-      headers: { "Authorization": "Bearer CLE_PIXEL", "Content-Type": "application/json" },
-      body: JSON.stringify({ input: message })
-    }).then(r => r.json());
+    const data = await response.json();
 
-    const ia3 = await fetch("https://api.visionary.io", {
-      method: "POST",
-      headers: { "Authorization": "Bearer CLE_VISIONARY", "Content-Type": "application/json" },
-      body: JSON.stringify({ input: message })
-    }).then(r => r.json());
+    console.log("IA 1:", data.ia1);
+    console.log("IA 2:", data.ia2);
+    console.log("IA 3:", data.ia3);
 
-    res.json({ ia1, ia2, ia3 });
+    // Affichage simple dans la page
+    document.getElementById("resultatIA1").textContent = data.ia1?.response || "Pas de réponse";
+    document.getElementById("resultatIA2").textContent = data.ia2?.response || "Pas de réponse";
+    document.getElementById("resultatIA3").textContent = data.ia3?.response || "Pas de réponse";
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Erreur:", err);
   }
-});
+}
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Exemple de bouton pour envoyer le message
+document.getElementById("envoyerBtn").addEventListener("click", () => {
+  const message = document.getElementById("inputMessage").value;
+  envoyerMessage(message);
+});
