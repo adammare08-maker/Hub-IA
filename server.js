@@ -1,54 +1,55 @@
-import "dotenv/config";
+// server.js
 import express from "express";
 import fetch from "node-fetch";
+import dotenv from "dotenv";
+
+dotenv.config(); // pour utiliser les clés API dans .env
 
 const app = express();
 app.use(express.json());
 
-const LUMINA_KEY = process.env.LUMINA_SCRIBE_KEY;
-const PORT = process.env.PORT || 3000;
-
-console.log("Lumina KEY :", LUMINA_KEY ? "OK" : "MANQUANTE");
-
-app.get("/", (req, res) => {
-  res.send("Backend IAHub OK");
-});
-
-app.post("/api/generate", async (req, res) => {
+// Endpoint principal pour recevoir les messages et appeler les IA
+app.post("/api", async (req, res) => {
   try {
-    if (!LUMINA_KEY)
-      return res.status(500).json({ error: "Clé API manquante" });
+    const message = req.body.message;
+    if (!message) return res.status(400).json({ error: "Message vide" });
 
-    const { prompt } = req.body;
-    if (!prompt)
-      return res.status(400).json({ error: "Prompt manquant" });
+    // Appel IA 1
+    const ia1 = await fetch("https://api.lumina.io", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.CLE_LUMINA}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: message })
+    }).then(r => r.json());
 
-    const r = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${LUMINA_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }]
-        })
-      }
-    );
+    // Appel IA 2
+    const ia2 = await fetch("https://api.pixel.io", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.CLE_PIXEL}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: message })
+    }).then(r => r.json());
 
-    const data = await r.json();
-    console.log("API RESPONSE:", JSON.stringify(data, null, 2));
+    // Appel IA 3
+    const ia3 = await fetch("https://api.visionary.io", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.CLE_VISIONARY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: message })
+    }).then(r => r.json());
 
-    res.json({
-      text:
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "Pas de réponse IA"
-    });
+    res.json({ ia1, ia2, ia3 });
 
   } catch (err) {
-    console.error("Erreur serveur :", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-app.listen(PORT, () =>
-  console.log(`Backend lancé sur https://adammare08-maker.github.io/Hub-IA/:${PORT}`)
-);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
