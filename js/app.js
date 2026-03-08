@@ -5,6 +5,9 @@ btn.onclick = async () => {
   const prompt = document.getElementById("prompt").value;
   if (!prompt) return alert("Entre un prompt");
 
+  btn.disabled = true;
+  btn.innerText = "Génération...";
+
   try {
     const res = await fetch("/api/generate", {
       method: "POST",
@@ -13,12 +16,15 @@ btn.onclick = async () => {
     });
 
     const data = await res.json();
-    console.log("Réponse serveur :", data);
-
-    output.innerText = data.text;
+    output.innerText = data.text || data.error || "Erreur IA";
+    output.classList.remove("hidden");
 
   } catch (e) {
-    console.error("Erreur fetch :", e);
+    console.error(e);
     output.innerText = "Erreur IA";
+    output.classList.remove("hidden");
   }
+
+  btn.disabled = false;
+  btn.innerText = "Générer";
 };
