@@ -7,10 +7,7 @@ const corsHeaders = {
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      "Content-Type": "application/json",
-      ...corsHeaders
-    }
+    headers: { "Content-Type": "application/json", ...corsHeaders }
   });
 }
 
@@ -26,7 +23,7 @@ export default {
     if (url.pathname === "/api/generate" && request.method === "POST") {
       try {
         if (!env.LUMINA_SCRIBE_KEY) {
-          return json({ error: "Clé API manquante côté serveur." }, 500);
+          return json({ error: "Clé API manquante." }, 500);
         }
 
         const body = await request.json();
@@ -50,35 +47,32 @@ export default {
         contents.push({ role: "user", parts: [{ text: prompt.trim() }] });
 
         const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.LUMINA_SCRIBE_KEY}`,
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + env.LUMINA_SCRIBE_KEY,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               contents,
-              generationConfig: {
-                maxOutputTokens: 1024,
-                temperature: 0.7
-              }
+              generationConfig: { maxOutputTokens: 1024, temperature: 0.7 }
             })
           }
         );
 
         if (!response.ok) {
-          const errorData = await response.json();
-          return json({ error: "Erreur de l'API Gemini.", details: errorData?.error?.message }, 502);
+          const err = await response.json();
+          return json({ error: "Erreur Gemini API.", details: err?.error?.message }, 502);
         }
 
         const data = await response.json();
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-        return json({ text: text || "Pas de réponse IA" });
+        return json({ text: text || "Pas de réponse IA." });
 
       } catch (err) {
         return json({ error: err.message }, 500);
       }
     }
 
-    return new Response("Backend IAHub OK", { headers: corsHeaders });
+    return new Response("IAHub Worker OK", { headers: corsHeaders });
   }
 };
