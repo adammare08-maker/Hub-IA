@@ -1,5 +1,5 @@
 // URL de ton Worker Cloudflare — remplace par ton URL après déploiement
-const API_URL = "https://iahub.TON-COMPTE.workers.dev/api/generate";
+const API_URL = "https://iahub.adammare08.workers.dev/api/generate";
 
 const TOOLS = {
   'lumina-scribe': {
