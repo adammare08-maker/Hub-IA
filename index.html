@@ -6,157 +6,273 @@
   <title>IA Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: #f8f9fb; color: #111; min-height: 100vh; }
 
-    nav { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e8eaed; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 56px; }
-    .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; text-decoration: none; color: inherit; cursor: pointer; border: none; background: none; }
-    .logo-icon { width: 30px; height: 30px; background: #4f46e5; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 700; }
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: #f8f9fb;
+      color: #111;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: #fff; border-bottom: 1px solid #e8eaed;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 700; font-size: 17px;
+      background: none; border: none; cursor: pointer;
+      color: #111; font-family: inherit;
+    }
+    .logo-icon {
+      width: 30px; height: 30px; background: #4f46e5;
+      border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; color: #fff; font-size: 12px; font-weight: 700;
+    }
     .nav-links { display: flex; align-items: center; gap: 20px; }
-    .nav-link { font-size: 14px; color: #555; text-decoration: none; background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; }
+    .nav-link {
+      font-size: 14px; color: #555;
+      background: none; border: none; cursor: pointer;
+      padding: 0; font-family: inherit;
+    }
     .nav-link:hover { color: #4f46e5; }
-    .nav-link.active { color: #4f46e5; font-weight: 500; }
-    .btn-partner { font-size: 13px; padding: 7px 16px; background: #4f46e5; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 500; transition: background .15s; }
+    .nav-link.active { color: #4f46e5; font-weight: 600; }
+    .btn-partner {
+      font-size: 13px; padding: 7px 16px;
+      background: #4f46e5; color: #fff; border: none;
+      border-radius: 8px; cursor: pointer;
+      font-family: inherit; font-weight: 500;
+    }
     .btn-partner:hover { background: #4338ca; }
 
+    /* ── PAGES ── */
     .page { display: none; }
     .page.active { display: flex; }
 
-    #page-home { flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: calc(100vh - 56px); padding: 40px 24px; }
-    .home-badge { display: inline-block; background: #eef2ff; color: #4f46e5; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 24px; border: 1px solid #c7d2fe; }
-    .home-title { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+    /* ── ACCUEIL ── */
+    #page-home {
+      flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      min-height: calc(100vh - 56px); padding: 40px 24px;
+    }
+    .home-badge {
+      display: inline-block; background: #eef2ff; color: #4f46e5;
+      font-size: 12px; font-weight: 600; padding: 4px 12px;
+      border-radius: 20px; margin-bottom: 24px; border: 1px solid #c7d2fe;
+    }
+    .home-title {
+      font-size: clamp(36px, 6vw, 64px); font-weight: 800;
+      line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px;
+    }
     .home-title span { color: #4f46e5; }
-    .home-sub { font-size: 18px; color: #666; max-width: 480px; line-height: 1.6; margin-bottom: 36px; }
-    .home-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 56px; }
-    .btn-primary { padding: 14px 32px; background: #4f46e5; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; }
+    .home-sub {
+      font-size: 18px; color: #666; max-width: 480px;
+      line-height: 1.6; margin-bottom: 36px;
+    }
+    .home-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 56px;
+    }
+    .btn-primary {
+      padding: 14px 32px; background: #4f46e5; color: #fff;
+      border: none; border-radius: 12px; font-size: 15px;
+      font-weight: 600; cursor: pointer; font-family: inherit;
+    }
     .btn-primary:hover { background: #4338ca; }
-    .btn-outline { padding: 14px 32px; background: #fff; color: #333; border: 1px solid #dde0e5; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: border-color .15s; }
+    .btn-outline {
+      padding: 14px 32px; background: #fff; color: #333;
+      border: 1px solid #dde0e5; border-radius: 12px;
+      font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit;
+    }
     .btn-outline:hover { border-color: #aaa; }
     .home-stats { display: flex; align-items: center; gap: 32px; }
     .stat { text-align: center; }
-    .stat-num { font-size: 22px; font-weight: 700; color: #111; }
+    .stat-num { font-size: 22px; font-weight: 700; }
     .stat-label { font-size: 13px; color: #999; margin-top: 2px; }
-    .stat-divider { width: 1px; height: 36px; background: #e8eaed; }
+    .stat-div { width: 1px; height: 36px; background: #e8eaed; }
 
+    /* ── OUTILS ── */
     #page-tools { flex-direction: row; height: calc(100vh - 56px); }
-    .sidebar { width: 220px; min-width: 220px; background: #fff; border-right: 1px solid #e8eaed; padding: 16px 10px; overflow-y: auto; }
-    .sidebar-label { font-size: 11px; font-weight: 600; color: #aaa; letter-spacing: .06em; text-transform: uppercase; padding: 0 8px; margin-bottom: 8px; }
-    .tool-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 10px; border-radius: 8px; border: none; background: none; cursor: pointer; text-align: left; font-size: 14px; color: #333; transition: background .1s; font-family: inherit; }
+
+    .sidebar {
+      width: 220px; min-width: 220px; background: #fff;
+      border-right: 1px solid #e8eaed;
+      padding: 16px 10px; overflow-y: auto;
+    }
+    .sidebar-label {
+      font-size: 11px; font-weight: 600; color: #aaa;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 0 8px; margin-bottom: 8px;
+    }
+    .tool-btn {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; padding: 9px 10px; border-radius: 8px;
+      border: none; background: none; cursor: pointer;
+      text-align: left; font-size: 14px; color: #333;
+      font-family: inherit;
+    }
     .tool-btn:hover { background: #f3f4f6; }
-    .tool-btn.active { background: #eef2ff; color: #4f46e5; font-weight: 500; }
-    .tool-icon { font-size: 18px; width: 26px; text-align: center; flex-shrink: 0; }
+    .tool-btn.active { background: #eef2ff; color: #4f46e5; font-weight: 600; }
+    .t-icon { font-size: 18px; width: 26px; text-align: center; flex-shrink: 0; }
 
     .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #ccc; }
+    .empty-state {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; color: #ccc;
+    }
     .empty-state .big { font-size: 32px; }
     .empty-state p { font-size: 14px; }
 
+    /* ── PLAYGROUND ── */
     .playground { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .play-header { padding: 14px 24px; border-bottom: 1px solid #e8eaed; display: flex; align-items: center; gap: 12px; background: #fff; }
+    .play-head {
+      padding: 14px 24px; border-bottom: 1px solid #e8eaed;
+      display: flex; align-items: center; gap: 12px; background: #fff;
+    }
     .play-icon { font-size: 20px; }
     .play-title { font-size: 15px; font-weight: 600; }
     .play-cat { font-size: 12px; color: #999; }
-    .play-body { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; width: 100%; }
+    .play-body {
+      flex: 1; overflow-y: auto; padding: 20px 24px;
+      display: flex; flex-direction: column; gap: 12px;
+      max-width: 760px; width: 100%;
+    }
 
-    textarea { width: 100%; padding: 12px 14px; border: 1px solid #dde0e5; border-radius: 10px; font-family: inherit; font-size: 14px; line-height: 1.65; resize: vertical; background: #fff; color: #111; transition: border-color .15s, box-shadow .15s; }
+    textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1px solid #dde0e5; border-radius: 10px;
+      font-family: inherit; font-size: 14px; line-height: 1.65;
+      resize: vertical; background: #fff; color: #111;
+    }
     textarea:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,.1); }
-    .row-between { display: flex; align-items: center; justify-content: space-between; }
-    .field-label { font-size: 13px; font-weight: 500; color: #555; }
-    .char-count { font-size: 12px; color: #ccc; }
-    .char-count.warn { color: #e53e3e; }
 
-    .btn-run { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; background: #4f46e5; color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s; width: 100%; font-family: inherit; }
+    .row { display: flex; align-items: center; justify-content: space-between; }
+    .field-label { font-size: 13px; font-weight: 500; color: #555; }
+    .cc { font-size: 12px; color: #ccc; }
+    .cc.warn { color: #e53e3e; }
+    .hint { font-size: 11px; color: #bbb; margin-top: 4px; }
+
+    .btn-run {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 20px; background: #4f46e5; color: #fff;
+      border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+      cursor: pointer; width: 100%; font-family: inherit;
+    }
     .btn-run:hover:not(:disabled) { background: #4338ca; }
     .btn-run:disabled { opacity: .6; cursor: default; }
 
     .result-box { background: #fff; border: 1px solid #e8eaed; border-radius: 10px; overflow: hidden; }
-    .result-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-bottom: 1px solid #f0f1f3; }
+    .result-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px; border-bottom: 1px solid #f0f1f3;
+    }
     .result-label { font-size: 12px; font-weight: 600; color: #666; }
     .btn-copy { font-size: 12px; color: #4f46e5; background: none; border: none; cursor: pointer; font-family: inherit; }
-    .result-content { padding: 14px; font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
-    .result-error { color: #c53030; }
+    .result-text { padding: 14px; font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
+    .result-err { color: #c53030; }
 
-    .spinner { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .65s linear infinite; }
+    .spinner {
+      width: 15px; height: 15px;
+      border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin .65s linear infinite;
+      display: inline-block;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    #page-partners { flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 56px); padding: 60px 24px; text-align: center; }
-    .partner-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
-    .partner-sub { font-size: 16px; color: #666; max-width: 440px; line-height: 1.6; margin-bottom: 40px; }
-    .partner-perks { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
-    .perk { background: #fff; border: 1px solid #e8eaed; border-radius: 14px; padding: 20px 24px; width: 180px; text-align: center; }
+    /* ── PARTENAIRES ── */
+    #page-partners {
+      flex-direction: column; align-items: center; justify-content: center;
+      min-height: calc(100vh - 56px); padding: 60px 24px; text-align: center;
+    }
+    .p-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 12px; }
+    .p-sub { font-size: 16px; color: #666; max-width: 440px; line-height: 1.6; margin-bottom: 40px; }
+    .perks { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+    .perk { background: #fff; border: 1px solid #e8eaed; border-radius: 14px; padding: 20px 24px; width: 180px; }
     .perk-icon { font-size: 24px; margin-bottom: 10px; }
     .perk-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
     .perk-desc { font-size: 12px; color: #999; line-height: 1.5; }
-    .partner-form { background: #111; color: #fff; padding: 32px; border-radius: 20px; width: 100%; max-width: 380px; }
-    .partner-form h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .partner-form p { font-size: 13px; color: #888; margin-bottom: 20px; }
-    .partner-form input { width: 100%; padding: 11px 14px; background: #222; border: 1px solid #333; border-radius: 9px; color: #fff; font-size: 14px; font-family: inherit; margin-bottom: 10px; }
-    .partner-form input:focus { outline: none; border-color: #4f46e5; }
-    .partner-form input::placeholder { color: #555; }
-    .partner-form button { width: 100%; padding: 12px; background: #4f46e5; color: #fff; border: none; border-radius: 9px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; }
-    .partner-form button:hover { background: #4338ca; }
+    .p-form { background: #111; color: #fff; padding: 32px; border-radius: 20px; width: 100%; max-width: 380px; }
+    .p-form h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .p-form p { font-size: 13px; color: #888; margin-bottom: 20px; }
+    .p-form input {
+      width: 100%; padding: 11px 14px; background: #222;
+      border: 1px solid #333; border-radius: 9px;
+      color: #fff; font-size: 14px; font-family: inherit; margin-bottom: 10px;
+    }
+    .p-form input:focus { outline: none; border-color: #4f46e5; }
+    .p-form input::placeholder { color: #555; }
+    .p-form button {
+      width: 100%; padding: 12px; background: #4f46e5; color: #fff;
+      border: none; border-radius: 9px; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    .p-form button:hover { background: #4338ca; }
 
     @media (max-width: 600px) {
       .sidebar { width: 56px; min-width: 56px; padding: 12px 4px; }
-      .tool-btn span:not(.tool-icon) { display: none; }
+      .tool-btn span:not(.t-icon) { display: none; }
       .tool-btn { justify-content: center; }
       .sidebar-label { display: none; }
-      nav .btn-partner span { display: none; }
-      .play-body { padding: 16px; }
+      .play-body { padding: 14px; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <button class="logo" onclick="show('home')">
+  <button class="logo" onclick="goTo('home')">
     <span class="logo-icon">IA</span>
     Hub
   </button>
   <div class="nav-links">
-    <button class="nav-link active" id="nav-home" onclick="show('home')">Accueil</button>
-    <button class="nav-link" id="nav-tools" onclick="show('tools')">Outils</button>
-    <button class="btn-partner" onclick="show('partners')">Devenir partenaire</button>
+    <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
+    <button class="nav-link" id="nav-tools" onclick="goTo('tools')">Outils</button>
+    <button class="btn-partner" onclick="goTo('partners')">Devenir partenaire</button>
   </div>
 </nav>
 
+<!-- PAGE ACCUEIL -->
 <div class="page active" id="page-home">
   <div class="home-badge">Propulsé par Gemini AI</div>
   <h1 class="home-title">Tous les outils IA,<br><span>au même endroit.</span></h1>
   <p class="home-sub">Écrivez, codez et créez plus vite avec notre sélection d'outils IA performants.</p>
   <div class="home-actions">
-    <button class="btn-primary" onclick="show('tools')">Découvrir les outils</button>
-    <button class="btn-outline" onclick="show('partners')">Devenir partenaire</button>
+    <button class="btn-primary" onclick="goTo('tools')">Découvrir les outils</button>
+    <button class="btn-outline" onclick="goTo('partners')">Devenir partenaire</button>
   </div>
   <div class="home-stats">
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Outils IA</div></div>
-    <div class="stat-divider"></div>
+    <div class="stat-div"></div>
     <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Gratuit</div></div>
-    <div class="stat-divider"></div>
+    <div class="stat-div"></div>
     <div class="stat"><div class="stat-num">Gemini</div><div class="stat-label">Propulsé par</div></div>
   </div>
 </div>
 
+<!-- PAGE OUTILS -->
 <div class="page" id="page-tools">
   <aside class="sidebar">
     <div class="sidebar-label">Outils</div>
-    <button class="tool-btn" data-id="lumina-scribe" onclick="open_tool('lumina-scribe')">
-      <span class="tool-icon">✨</span>
-      <span>Lumina Scribe</span>
+    <button class="tool-btn" data-id="lumina-scribe" onclick="openTool('lumina-scribe')">
+      <span class="t-icon">✨</span><span>Lumina Scribe</span>
     </button>
-    <button class="tool-btn" data-id="code-sage" onclick="open_tool('code-sage')">
-      <span class="tool-icon">💻</span>
-      <span>Code Sage</span>
+    <button class="tool-btn" data-id="code-sage" onclick="openTool('code-sage')">
+      <span class="t-icon">💻</span><span>Code Sage</span>
     </button>
-    <button class="tool-btn" data-id="visionary-lens" onclick="open_tool('visionary-lens')">
-      <span class="tool-icon">👁️</span>
-      <span>Visionary Lens</span>
+    <button class="tool-btn" data-id="visionary-lens" onclick="openTool('visionary-lens')">
+      <span class="t-icon">👁️</span><span>Visionary Lens</span>
     </button>
-    <button class="tool-btn" data-id="pixel-alchemy" onclick="open_tool('pixel-alchemy')">
-      <span class="tool-icon">🔮</span>
-      <span>Pixel Alchemy</span>
+    <button class="tool-btn" data-id="pixel-alchemy" onclick="openTool('pixel-alchemy')">
+      <span class="t-icon">🔮</span><span>Pixel Alchemy</span>
     </button>
   </aside>
   <main class="main" id="main">
@@ -167,10 +283,11 @@
   </main>
 </div>
 
+<!-- PAGE PARTENAIRES -->
 <div class="page" id="page-partners">
-  <h2 class="partner-title">Devenir Partenaire</h2>
-  <p class="partner-sub">Exposez votre outil IA à notre communauté et touchez des milliers d'utilisateurs.</p>
-  <div class="partner-perks">
+  <h2 class="p-title">Devenir Partenaire</h2>
+  <p class="p-sub">Exposez votre outil IA à notre communauté et touchez des milliers d'utilisateurs.</p>
+  <div class="perks">
     <div class="perk">
       <div class="perk-icon">🎯</div>
       <div class="perk-name">Visibilité</div>
@@ -187,7 +304,7 @@
       <div class="perk-desc">Performances en temps réel</div>
     </div>
   </div>
-  <div class="partner-form">
+  <div class="p-form">
     <h3>Postuler maintenant</h3>
     <p>Nous revenons vers vous sous 48h</p>
     <input type="text" placeholder="Nom de votre outil">
@@ -196,6 +313,139 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<script>
+  // ── REMPLACE PAR TON URL WORKER CLOUDFLARE APRÈS DÉPLOIEMENT ──
+  const API_URL = "https://iahub.TON-COMPTE.workers.dev/api/generate";
+
+  const TOOLS = {
+    "lumina-scribe": {
+      name: "Lumina Scribe", icon: "✨", cat: "IA Texte",
+      placeholder: "Ex : Rédige un email professionnel pour reporter une réunion…",
+      system: "Tu es Lumina Scribe, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
+    },
+    "code-sage": {
+      name: "Code Sage", icon: "💻", cat: "IA Code",
+      placeholder: "Ex : Écris une fonction JavaScript qui trie un tableau par date…",
+      system: "Tu es Code Sage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
+    },
+    "visionary-lens": {
+      name: "Visionary Lens", icon: "👁️", cat: "IA Vision",
+      placeholder: "Ex : Décris cette image en détail ou pose une question à son sujet…",
+      system: "Tu es Visionary Lens, expert en analyse visuelle. Réponds en français."
+    },
+    "pixel-alchemy": {
+      name: "Pixel Alchemy", icon: "🔮", cat: "IA Image",
+      placeholder: "Ex : Un coucher de soleil sur la mer, style aquarelle…",
+      system: "Tu es Pixel Alchemy, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
+    }
+  };
+
+  let activeTool = null;
+
+  // ── NAVIGATION ──
+  function goTo(page) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page-" + page).classList.add("active");
+    document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+    if (page === "home")  document.getElementById("nav-home").classList.add("active");
+    if (page === "tools") document.getElementById("nav-tools").classList.add("active");
+  }
+
+  // ── OUVRIR UN OUTIL ──
+  function openTool(id) {
+    goTo("tools");
+    activeTool = id;
+    const t = TOOLS[id];
+
+    document.querySelectorAll(".tool-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('[data-id="' + id + '"]').classList.add("active");
+
+    document.getElementById("main").innerHTML =
+      '<div class="playground">' +
+        '<div class="play-head">' +
+          '<span class="play-icon">' + t.icon + '</span>' +
+          '<div>' +
+            '<div class="play-title">' + t.name + '</div>' +
+            '<div class="play-cat">' + t.cat + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="play-body">' +
+          '<div>' +
+            '<div class="row" style="margin-bottom:6px">' +
+              '<span class="field-label">Prompt</span>' +
+              '<span class="cc" id="cc">0 / 4000</span>' +
+            '</div>' +
+            '<textarea id="prompt-input" rows="6" maxlength="4000" placeholder="' + t.placeholder + '" oninput="countChars(this)" onkeydown="if((event.ctrlKey||event.metaKey)&&event.key===\'Enter\')sendPromptToAPI()"></textarea>' +
+            '<div class="hint">Ctrl+Entrée pour générer</div>' +
+          '</div>' +
+          '<button class="btn-run" id="run-btn" onclick="sendPromptToAPI()">' +
+            '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
+            ' Générer' +
+          '</button>' +
+          '<div id="result-area"></div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById("prompt-input").focus();
+  }
+
+  // ── COMPTEUR CARACTÈRES ──
+  function countChars(el) {
+    const n = el.value.length;
+    const el2 = document.getElementById("cc");
+    el2.textContent = n + " / 4000";
+    el2.className = "cc" + (n > 3600 ? " warn" : "");
+  }
+
+  // ── APPEL API ──
+  async function sendPromptToAPI() {
+    const input = document.getElementById("prompt-input");
+    const prompt = input.value.trim();
+    if (!prompt) { input.focus(); return; }
+
+    const btn = document.getElementById("run-btn");
+    const area = document.getElementById("result-area");
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Génération…';
+    area.innerHTML = "";
+
+    try {
+      const resp = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: prompt, systemPrompt: TOOLS[activeTool].system })
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        area.innerHTML = '<div class="result-box"><div class="result-text result-err">⚠ ' + (data.error || "Erreur inconnue") + '</div></div>';
+      } else {
+        area.innerHTML =
+          '<div class="result-box">' +
+            '<div class="result-bar">' +
+              '<span class="result-label">Résultat</span>' +
+              '<button class="btn-copy" onclick="copyResult()">Copier</button>' +
+            '</div>' +
+            '<div class="result-text" id="result-text"></div>' +
+          '</div>';
+        document.getElementById("result-text").textContent = data.text;
+      }
+
+    } catch (err) {
+      area.innerHTML = '<div class="result-box"><div class="result-text result-err">⚠ Erreur réseau. Vérifiez que le Worker Cloudflare est bien déployé.</div></div>';
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Générer';
+  }
+
+  // ── COPIER ──
+  async function copyResult() {
+    const el = document.getElementById("result-text");
+    if (el) await navigator.clipboard.writeText(el.textContent).catch(() => {});
+  }
+</script>
 </body>
 </html>
