@@ -1,7 +1,6 @@
 {
   "name": "iahub",
   "version": "1.0.0",
-  "description": "Plateforme d'outils IA propulsée par Gemini",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
