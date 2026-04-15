@@ -60,7 +60,7 @@ export default {
 
         if (!response.ok) {
           const err = await response.json();
-          return json({ error: "Erreur Gemini API.", details: err?.error?.message }, 502);
+          return json({ error: "je tenter de metttre ma clé API.", details: err?.error?.message }, 502);
         }
 
         const data = await response.json();
