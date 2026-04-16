@@ -24,7 +24,7 @@ export default {
       try {
 
         // 🔥 DEBUG CLAIR
-        if (!env.LUMINA_SCRIBE_KEY) {
+        if (!Variables et secrets.Génération_Texte) {
           return json({ error: "❌ Clé API absente dans Cloudflare." }, 500);
         }
 
