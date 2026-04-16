@@ -262,16 +262,16 @@
 <div class="page" id="page-tools">
   <aside class="sidebar">
     <div class="sidebar-label">Outils</div>
-    <button class="tool-btn" data-id="Texte" onclick="openTool('Texte')">
+    <button class="tool-btn" data-id="lumina-scribe" onclick="openTool('lumina-scribe')">
       <span class="t-icon">✨</span><span>Texte</span>
     </button>
-    <button class="tool-btn" data-id="Codage" onclick="openTool('Codage')">
+    <button class="tool-btn" data-id="code-sage" onclick="openTool('code-sage')">
       <span class="t-icon">💻</span><span>Codage</span>
     </button>
-    <button class="tool-btn" data-id="Vision" onclick="openTool('Vision')">
+    <button class="tool-btn" data-id="visionary-lens" onclick="openTool('visionary-lens')">
       <span class="t-icon">👁️</span><span>Vision</span>
     </button>
-    <button class="tool-btn" data-id="Image" onclick="openTool('Image')">
+    <button class="tool-btn" data-id="pixel-alchemy" onclick="openTool('pixel-alchemy')">
       <span class="t-icon">🔮</span><span>Image</span>
     </button>
   </aside>
@@ -314,7 +314,6 @@
 </div>
 
 <script>
-  // ── REMPLACE PAR TON URL WORKER CLOUDFLARE APRÈS DÉPLOIEMENT ──
   const API_URL = "https://hub-ia.adam-mare08.workers.dev/api/generate";
 
   const TOOLS = {
@@ -325,7 +324,7 @@
     },
     "code-sage": {
       name: "Code Sage", icon: "💻", cat: "IA qui génére du codage",
-      placeholder: "Demande à l’IA de décrire une image, une vidéo ou un texte dans les domaines smart, tech, éducation et créatif.",
+      placeholder: "Demande à l'IA de décrire une image, une vidéo ou un texte dans les domaines smart, tech, éducation et créatif.",
       system: "Tu es Code Sage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
     },
     "visionary-lens": {
@@ -342,7 +341,6 @@
 
   let activeTool = null;
 
-  // ── NAVIGATION ──
   function goTo(page) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById("page-" + page).classList.add("active");
@@ -351,7 +349,6 @@
     if (page === "tools") document.getElementById("nav-tools").classList.add("active");
   }
 
-  // ── OUVRIR UN OUTIL ──
   function openTool(id) {
     goTo("tools");
     activeTool = id;
@@ -389,7 +386,6 @@
     document.getElementById("prompt-input").focus();
   }
 
-  // ── COMPTEUR CARACTÈRES ──
   function countChars(el) {
     const n = el.value.length;
     const el2 = document.getElementById("cc");
@@ -397,7 +393,6 @@
     el2.className = "cc" + (n > 3600 ? " warn" : "");
   }
 
-  // ── APPEL API ──
   async function sendPromptToAPI() {
     const input = document.getElementById("prompt-input");
     const prompt = input.value.trim();
@@ -441,7 +436,6 @@
     btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Générer';
   }
 
-  // ── COPIER ──
   async function copyResult() {
     const el = document.getElementById("result-text");
     if (el) await navigator.clipboard.writeText(el.textContent).catch(() => {});
