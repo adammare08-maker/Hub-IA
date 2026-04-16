@@ -242,12 +242,12 @@
 
 <!-- PAGE ACCUEIL -->
 <div class="page active" id="page-home">
-  <div class="home-badge">Propulsé par Gemini AI</div>
-  <h1 class="home-title">Tous les outils IA,<br><span>au même endroit.</span></h1>
+  <div class="home-badge">Propulsé par des service AI Partonaire</div>
+  <h1 class="home-title">Tous les outils IA du Hub,<br><span>au même endroit.</span></h1>
   <p class="home-sub">Écrivez, codez et créez plus vite avec notre sélection d'outils IA performants.</p>
   <div class="home-actions">
-    <button class="btn-primary" onclick="goTo('tools')">Découvrir les outils</button>
-    <button class="btn-outline" onclick="goTo('partners')">Devenir partenaire</button>
+    <button class="btn-primary" onclick="goTo('tools')">Découvrer les outils Partenaire</button>
+    <button class="btn-outline" onclick="goTo('partners')">devenait un partenaire</button>
   </div>
   <div class="home-stats">
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Outils IA</div></div>
@@ -262,23 +262,23 @@
 <div class="page" id="page-tools">
   <aside class="sidebar">
     <div class="sidebar-label">Outils</div>
-    <button class="tool-btn" data-id="lumina-scribe" onclick="openTool('lumina-scribe')">
-      <span class="t-icon">✨</span><span>Lumina Scribe</span>
+    <button class="tool-btn" data-id="Texte" onclick="openTool('Texte')">
+      <span class="t-icon">✨</span><span>Texte</span>
     </button>
-    <button class="tool-btn" data-id="code-sage" onclick="openTool('code-sage')">
-      <span class="t-icon">💻</span><span>Code Sage</span>
+    <button class="tool-btn" data-id="Codage" onclick="openTool('Codage')">
+      <span class="t-icon">💻</span><span>Codage</span>
     </button>
-    <button class="tool-btn" data-id="visionary-lens" onclick="openTool('visionary-lens')">
-      <span class="t-icon">👁️</span><span>Visionary Lens</span>
+    <button class="tool-btn" data-id="Vision" onclick="openTool('Vision')">
+      <span class="t-icon">👁️</span><span>Vision</span>
     </button>
-    <button class="tool-btn" data-id="pixel-alchemy" onclick="openTool('pixel-alchemy')">
-      <span class="t-icon">🔮</span><span>Pixel Alchemy</span>
+    <button class="tool-btn" data-id="Image" onclick="openTool('Image')">
+      <span class="t-icon">🔮</span><span>Image</span>
     </button>
   </aside>
   <main class="main" id="main">
     <div class="empty-state">
       <div class="big">✨</div>
-      <p>Choisissez un outil pour commencer</p>
+      <p>Sélectionner un outils pour commencer a créer</p>
     </div>
   </main>
 </div>
@@ -291,12 +291,12 @@
     <div class="perk">
       <div class="perk-icon">🎯</div>
       <div class="perk-name">Audience</div>
-      <div class="perk-desc">Une audience ciblée, qualifiée et engagée</div>
+      <div class="perk-desc">Audience ciblée. Résultats mesurables.</div>
     </div>
     <div class="perk">
       <div class="perk-icon">🚀</div>
       <div class="perk-name">Déploiement</div>
-      <div class="perk-desc">Déploiement rapide. Audience ciblée et résultats en temps réel.</div>
+      <div class="perk-desc">Déploiement maîtrisé. Performance continue..</div>
     </div>
     <div class="perk">
       <div class="perk-icon">📊</div>
@@ -320,22 +320,22 @@
   const TOOLS = {
     "lumina-scribe": {
       name: "Lumina Scribe", icon: "✨", cat: "IA qui génére des Texte",
-      placeholder: "Ex : Rédige un texte pour des projet smart tech, éducation, crative",
+      placeholder: "Rédige et génére des texte pour des projet smart, tech éducation, creative",
       system: "Tu es Lumina Scribe, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
     },
     "code-sage": {
-      name: "Code Sage", icon: "💻", cat: "IA Code",
-      placeholder: "Ex : Écris une fonction JavaScript qui trie un tableau par date…",
+      name: "Code Sage", icon: "💻", cat: "IA qui génére du codage",
+      placeholder: "Demande à l’IA de décrire une image, une vidéo ou un texte dans les domaines smart, tech, éducation et créatif.",
       system: "Tu es Code Sage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
     },
     "visionary-lens": {
-      name: "Visionary Lens", icon: "👁️", cat: "IA Vision",
-      placeholder: "Ex : Décris cette image en détail ou pose une question à son sujet…",
+      name: "Visionary Lens", icon: "👁️", cat: "IA qui a de la vision",
+      placeholder: "demmendez a l'ai de décrire cette image, vidéo, texte,:smart, tech, éducation, creative",
       system: "Tu es Visionary Lens, expert en analyse visuelle. Réponds en français."
     },
     "pixel-alchemy": {
-      name: "Pixel Alchemy", icon: "🔮", cat: "IA Image",
-      placeholder: "Ex : Un coucher de soleil sur la mer, style aquarelle…",
+      name: "Pixel Alchemy", icon: "🔮", cat: "IA qui génére des image",
+      placeholder: "demmendez a l'ai de vous généré des image peysage, moderne, entre amis: smart, tech éducation, creative",
       system: "Tu es Pixel Alchemy, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
     }
   };
