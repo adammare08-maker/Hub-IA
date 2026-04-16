@@ -24,7 +24,7 @@ export default {
       try {
 
         // 🔥 DEBUG CLAIR
-        if (!Variables et secrets.Génération_Texte) {
+        if (!Variables.Génération_Texte) {
           return json({ error: "❌ Clé API absente dans Cloudflare." }, 500);
         }
 
