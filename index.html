@@ -262,22 +262,22 @@
 <div class="page" id="page-tools">
   <aside class="sidebar">
     <div class="sidebar-label">Outils</div>
-    <button class="tool-btn" data-id="Texte-génération" onclick="openTool('Texte-génération')">
-      <span class="t-icon">📝</span><span>Texte</span>
+    <button class="tool-btn" data-id="lumina-scribe" onclick="openTool('lumina-scribe')">
+      <span class="t-icon">✨</span><span>Texte</span>
     </button>
-    <button class="tool-btn" data-id="Codage-génération" onclick="openTool('Codage-génération')">
+    <button class="tool-btn" data-id="code-sage" onclick="openTool('code-sage')">
       <span class="t-icon">💻</span><span>Codage</span>
     </button>
-    <button class="tool-btn" data-id="Vision-génération" onclick="openTool('Vision-génération')">
+    <button class="tool-btn" data-id="visionary-lens" onclick="openTool('visionary-lens')">
       <span class="t-icon">👁️</span><span>Vision</span>
     </button>
-    <button class="tool-btn" data-id="Image-génération" onclick="openTool('Image-génération')">
-      <span class="t-icon">🖼️</span><span>Image</span>
-    </button> 
+    <button class="tool-btn" data-id="pixel-alchemy" onclick="openTool('pixel-alchemy')">
+      <span class="t-icon">🔮</span><span>Image</span>
+    </button>
   </aside>
   <main class="main" id="main">
     <div class="empty-state">
-      <div class="big">📝</div>
+      <div class="big">✨</div>
       <p>Sélectionner un outils pour commencer a créer</p>
     </div>
   </main>
@@ -285,8 +285,8 @@
 
 <!-- PAGE PARTENAIRES -->
 <div class="page" id="page-partners">
-  <h2 class="p-title">Devenir un Partenaire</h2>
-  <p class="p-sub">Mettez votre outil IA à notre Hub-IA et touchez des milliers d'utilisateurs.</p>
+  <h2 class="p-title">Devenir Partenaire</h2>
+  <p class="p-sub">Exposez votre outil IA à notre communauté et touchez des milliers d'utilisateurs.</p>
   <div class="perks">
     <div class="perk">
       <div class="perk-icon">🎯</div>
@@ -317,29 +317,28 @@
   const API_URL = "https://hub-ia.adam-mare08.workers.dev/api/generate";
 
   const TOOLS = {
-    "Texte-génération": {
-      name: "Texte génération", icon: "📝", cat: "IA qui génére des Texte",
+    "lumina-scribe": {
+      name: "Lumina Scribe", icon: "✨", cat: "IA qui génére des Texte",
       placeholder: "Rédige et génére des texte pour des projet smart, tech éducation, creative",
-      system: "Tu es Texte, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
+      system: "Tu es Lumina Scribe, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
     },
     "code-sage": {
       name: "Code Sage", icon: "💻", cat: "IA qui génére du codage",
       placeholder: "Demande à l'IA de décrire une image, une vidéo ou un texte dans les domaines smart, tech, éducation et créatif.",
-      system: "Tu es Codage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
+      system: "Tu es Code Sage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
     },
     "visionary-lens": {
       name: "Visionary Lens", icon: "👁️", cat: "IA qui a de la vision",
       placeholder: "demmendez a l'ai de décrire cette image, vidéo, texte,:smart, tech, éducation, creative",
-      system: "Tu es Vision, expert en analyse visuelle. Réponds en français."
+      system: "Tu es Visionary Lens, expert en analyse visuelle. Réponds en français."
     },
     "pixel-alchemy": {
-      name: "Pixel Alchemy", icon: "🖼️", cat: "IA qui génére des image",
-      placeholder: "demmendez a l'ai de vous généré des image de peysage, moderne, entre amis: smart, tech éducation, creative",
-      system: "Tu es Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
-    } 
+      name: "Pixel Alchemy", icon: "🔮", cat: "IA qui génére des image",
+      placeholder: "demmendez a l'ai de vous généré des image peysage, moderne, entre amis: smart, tech éducation, creative",
+      system: "Tu es Pixel Alchemy, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
+    }
   };
-</script>
-    
+
   let activeTool = null;
 
   function goTo(page) {
