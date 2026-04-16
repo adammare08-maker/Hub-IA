@@ -274,12 +274,6 @@
     <button class="tool-btn" data-id="Image-génération" onclick="openTool('Image-génération')">
       <span class="t-icon">🖼️</span><span>Image</span>
     </button> 
-    <button class="tool-btn" data-id="Vidéo-génération" onclick="openTool('Vidéo-génération')">
-      <span class="t-icon">🎥</span><span>Vidéo</span>
-    </button> 
-    <button class="tool-btn" data-id="Montage-génération" onclick="openTool('Montage-génération')">
-      <span class="t-icon">🎬</span><span>Montage</span>
-    </button>
   </aside>
   <main class="main" id="main">
     <div class="empty-state">
@@ -341,19 +335,11 @@
     "pixel-alchemy": {
       name: "Pixel Alchemy", icon: "🖼️", cat: "IA qui génére des image",
       placeholder: "demmendez a l'ai de vous généré des image de peysage, moderne, entre amis: smart, tech éducation, creative",
-      system: "Tu es Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
-    }, 
-    "pixel-alchemy": {
-      name: "Pixel Alchemy", icon: "🎥", cat: "IA qui génére des Vidéo",
-      placeholder: "demmendez a l'ai de vous généré des Vidéo de peysage, moderne, entre amis: smart, tech éducation, creative",
-      system: "Tu es Vidéo, expert en génération de Vidéo. L'utilisateur décrit une Vidéo. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français." 
-    }, 
-    "pixel-alchemy": {
-      name: "Pixel Alchemy", icon: "🎬", cat: "IA qui génére des Montage",
-      placeholder: "demmendez a l'ai de vous généré des Montage de peysage, moderne, entre amis: smart, tech éducation, creative",
-      system: "Tu es Vidéo, expert en génération de Vidéo. L'utilisateur décrit une Montage. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
-    } 
-  
+      tive",
+      system: "Tu es Pixel Alchemy, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
+    }
+  };
+    
   let activeTool = null;
 
   function goTo(page) {
