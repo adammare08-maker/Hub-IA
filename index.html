@@ -262,22 +262,22 @@
 <div class="page" id="page-tools">
   <aside class="sidebar">
     <div class="sidebar-label">Outils</div>
-    <button class="tool-btn" data-id="lumina-scribe" onclick="openTool('lumina-scribe')">
-      <span class="t-icon">✨</span><span>Texte</span>
+    <button class="tool-btn" data-id="génération-Texte" onclick="openTool('génération-Texte')">
+      <span class="t-icon">📝</span><span>Texte</span>
     </button>
-    <button class="tool-btn" data-id="code-sage" onclick="openTool('code-sage')">
-      <span class="t-icon">💻</span><span>Codage</span>
+    <button class="tool-btn" data-id="génération-Codage" onclick="openTool('génération-Codage')">
+      <span class="t-icon">👨‍💻</span><span>Codage</span>
     </button>
-    <button class="tool-btn" data-id="visionary-lens" onclick="openTool('visionary-lens')">
+    <button class="tool-btn" data-id="génération-Vision" onclick="openTool('génération-Vision')">
       <span class="t-icon">👁️</span><span>Vision</span>
     </button>
-    <button class="tool-btn" data-id="pixel-alchemy" onclick="openTool('pixel-alchemy')">
-      <span class="t-icon">🔮</span><span>Image</span>
+    <button class="tool-btn" data-id="génération-Image" onclick="openTool('génération-Image')">
+      <span class="t-icon">🖼️</span><span>Image</span>
     </button>
   </aside>
   <main class="main" id="main">
     <div class="empty-state">
-      <div class="big">✨</div>
+      <div class="big">📝</div>
       <p>Sélectionner un outils pour commencer a créer</p>
     </div>
   </main>
@@ -318,12 +318,12 @@
 
   const TOOLS = {
     "lumina-scribe": {
-      name: "Lumina Scribe", icon: "✨", cat: "IA qui génére des Texte",
+      name: "Lumina Scribe", icon: "📝", cat: "IA qui génére des Texte",
       placeholder: "Rédige et génére des texte pour des projet smart, tech éducation, creative",
       system: "Tu es Lumina Scribe, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
     },
     "code-sage": {
-      name: "Code Sage", icon: "💻", cat: "IA qui génére du codage",
+      name: "Code Sage", icon: "👨‍💻", cat: "IA qui génére du codage",
       placeholder: "Demande à l'IA de décrire une image, une vidéo ou un texte dans les domaines smart, tech, éducation et créatif.",
       system: "Tu es Code Sage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
     },
@@ -333,7 +333,7 @@
       system: "Tu es Visionary Lens, expert en analyse visuelle. Réponds en français."
     },
     "pixel-alchemy": {
-      name: "Pixel Alchemy", icon: "🔮", cat: "IA qui génére des image",
+      name: "Pixel Alchemy", icon: "🖼️", cat: "IA qui génére des image",
       placeholder: "demmendez a l'ai de vous généré des image peysage, moderne, entre amis: smart, tech éducation, creative",
       system: "Tu es Pixel Alchemy, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
     }
