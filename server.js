@@ -23,8 +23,8 @@ export default {
     if (url.pathname === "/api/generate" && request.method === "POST") {
       try {
 
-        // 🔥 DEBUG CLAIR
-        if (!Variables.Génération_Texte) {
+        // ✅ Vérifie la clé API correctement depuis Cloudflare
+        if (!env.GENERATION_TEXTE) {
           return json({ error: "❌ Clé API absente dans Cloudflare." }, 500);
         }
 
@@ -36,7 +36,7 @@ export default {
         }
 
         const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.LUMINA_SCRIBE_KEY}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GENERATION_TEXTE}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -53,10 +53,9 @@ export default {
 
         const data = await response.json();
 
-        // 🔥 DEBUG cloudflare
         if (!response.ok) {
           return json({
-            error: "❌ Erreur API cloudflare",
+            error: "❌ Erreur API Gemini",
             details: data
           }, 500);
         }
