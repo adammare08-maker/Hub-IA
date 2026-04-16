@@ -53,10 +53,10 @@ export default {
 
         const data = await response.json();
 
-        // 🔥 DEBUG GOOGLE
+        // 🔥 DEBUG cloudflare
         if (!response.ok) {
           return json({
-            error: "❌ Erreur API Google",
+            error: "❌ Erreur API cloudflare",
             details: data
           }, 500);
         }
