@@ -1,6 +1,12 @@
 name = "hub-iaeuro"
 main = "server.js"
-compatibility_date = "2026-04-27"
+compatibility_date = "2024-04-27"
 
-# (optionnel mais recommandé)
 workers_dev = true
+
+# Important pour Node.js
+compatibility_flags = ["nodejs_compat"]
+
+# Si tu utilises des variables plus tard
+# [vars]
+# MY_VAR = "value"
