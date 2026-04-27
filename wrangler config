@@ -1,6 +1,6 @@
-name = "Hub-ia"
+name = "hub-iaeuro"
 main = "server.js"
-compatibility_date = "2026-01-01"
+compatibility_date = "2026-04-27"
 
 # (optionnel mais recommandé)
 workers_dev = true
