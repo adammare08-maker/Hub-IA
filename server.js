@@ -29,7 +29,7 @@ export default {
         }
 
         const body = await request.json();
-        const { prompt } = body;
+        const { prompt, systemPrompt } = body;
 
         if (!prompt || typeof prompt !== "string") {
           return json({ error: "❌ Prompt invalide." }, 400);
@@ -44,7 +44,7 @@ export default {
               contents: [
                 {
                   role: "user",
-                  parts: [{ text: prompt }]
+                  parts: [{ text: systemPrompt + "\n\n" + prompt }]
                 }
               ]
             })
