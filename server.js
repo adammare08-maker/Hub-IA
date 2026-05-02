@@ -22,7 +22,7 @@ export default {
 
       // Génération de TEXTE
       if (type === 'text') {
-        const response = await fetch('https://hub-iaeuro.adam-mare08.workers.dev', {
+        const response = await fetch('https://api.together.xyz/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${env.TOGETHER_API_KEY}`,
