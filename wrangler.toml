@@ -1,6 +1,7 @@
 name = "hub-iaeuro"
-main = "server.js"
+main = "worker.js"
 compatibility_date = "2024-01-01"
 
-[vars]
-ENVIRONMENT = "production"
+[env.production]
+name = "hub-iaeuro"
+route = "hub-iaeuro.adam-mare08.workers.dev/*"
