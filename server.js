@@ -1,77 +1,99 @@
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type"
-};
-
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json", ...corsHeaders }
-  });
-}
-
 export default {
   async fetch(request, env) {
+    // CORS headers
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
 
-    if (request.method === "OPTIONS") {
+    // Handle OPTIONS (preflight)
+    if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
 
-    const url = new URL(request.url);
-
-    if (url.pathname === "/api/generate" && request.method === "POST") {
-      try {
-
-        // Vérifie que la clé API existe
-        if (!env.GENERATION_TEXTE) {
-          return json({ error: "❌ Clé API absente dans Cloudflare." }, 500);
-        }
-
-        const body = await request.json();
-        const { prompt, systemPrompt } = body;
-
-        if (!prompt || typeof prompt !== "string") {
-          return json({ error: "❌ Prompt invalide." }, 400);
-        }
-
-        // Construction du message complet
-        const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
-
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GENERATION_TEXTE}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [
-                {
-                  role: "user",
-                  parts: [{ text: fullPrompt }]
-                }
-              ]
-            })
-          }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          return json({
-            error: "❌ Erreur API Gemini",
-            details: data
-          }, 500);
-        }
-
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        return json({ text: text || "Pas de réponse." });
-
-      } catch (err) {
-        return json({ error: "❌ Erreur serveur", details: err.message }, 500);
-      }
+    // Only allow POST
+    if (request.method !== 'POST') {
+      return new Response('Method not allowed', { status: 405 });
     }
 
-    return new Response("IAHub Worker OK", { headers: corsHeaders });
+    try {
+      const { type, prompt } = await request.json();
+
+      // Génération de TEXTE
+      if (type === 'text') {
+        const response = await fetch('https://api.together.xyz/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.TOGETHER_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
+            messages: [
+              {
+                role: 'user',
+                content: prompt
+              }
+            ],
+            max_tokens: 512,
+            temperature: 0.7,
+          }),
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error?.message || 'Erreur API');
+        }
+
+        return new Response(JSON.stringify({
+          result: data.choices[0].message.content
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      // Génération d'IMAGE
+      if (type === 'image') {
+        const response = await fetch('https://api.together.xyz/v1/images/generations', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.TOGETHER_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'black-forest-labs/FLUX.1-schnell',
+            prompt: prompt,
+            width: 1024,
+            height: 1024,
+            steps: 4,
+            n: 1,
+          }),
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error?.message || 'Erreur API');
+        }
+
+        return new Response(JSON.stringify({
+          result: data.data[0].url
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      return new Response('Type invalide', { status: 400 });
+
+    } catch (error) {
+      return new Response(JSON.stringify({
+        error: error.message
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
   }
 };
