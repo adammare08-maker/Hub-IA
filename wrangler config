@@ -1,5 +1,6 @@
 name = "hub-iaeuro"
 main = "server.js"
-compatibility_date = "2024-04-27"
-workers_dev = true
-compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
