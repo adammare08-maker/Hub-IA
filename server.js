@@ -23,7 +23,7 @@ export default {
     if (url.pathname === "/api/generate" && request.method === "POST") {
       try {
 
-        // ✅ Vérifie la clé API correctement depuis Cloudflare
+        // Vérifie que la clé API existe
         if (!env.GENERATION_TEXTE) {
           return json({ error: "❌ Clé API absente dans Cloudflare." }, 500);
         }
@@ -35,8 +35,11 @@ export default {
           return json({ error: "❌ Prompt invalide." }, 400);
         }
 
+        // Construction du message complet
+        const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
+
         const response = await fetch(
-           `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GENERATION_TEXTE}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GENERATION_TEXTE}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -44,7 +47,7 @@ export default {
               contents: [
                 {
                   role: "user",
-                  parts: [{ text: systemPrompt + "\n\n" + prompt }]
+                  parts: [{ text: fullPrompt }]
                 }
               ]
             })
