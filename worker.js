@@ -1,7 +1,7 @@
 export default {
   async fetch(request, env) {
     // Récupérer la clé API depuis les variables d'environnement
-    const TOGETHER_API_KEY = env.GENERATION_TEXTE;
+    const Cloudflare_API_KEY = env.GENERATION_TEXTE;
 
     // Gérer les requêtes OPTIONS (CORS preflight)
     if (request.method === 'OPTIONS') {
