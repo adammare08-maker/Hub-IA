@@ -314,7 +314,7 @@
 </div>
 
 <script>
-  const API_URL = "https://hub-iaeuro.adam-mare08.workers.dev/api/generate";
+  const API_URL = "/api/generate";
   const TOOLS = {
     "Génération-Texte": {
       name: "Génération Texte", icon: "📝", cat: "IA qui génére des Texte",
@@ -428,7 +428,7 @@
       }
 
     } catch (err) {
-      area.innerHTML = '<div class="result-box"><div class="result-text result-err">⚠ Erreur réseau. Vérifiez que le Worker Cloudflare est bien déployé.</div></div>';
+      area.innerHTML = '<div class="result-box"><div class="result-text result-err">⚠ Erreur réseau. Vérifiez votre connexion et réessayez.</div></div>';
     }
 
     btn.disabled = false;
