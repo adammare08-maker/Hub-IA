@@ -4,24 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IA Hub — Tous vos outils IA au même endroit</title>
+  <meta name="description" content="IA Hub réunit les meilleurs outils IA (texte, code, vision, image) dans une seule interface simple, rapide et gratuite.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
       --bg-soft: #fafafa;
       --surface: #ffffff;
       --surface-2: #f5f5f5;
-      --border: #e5e5e5;
-      --border-soft: #eeeeee;
-      --text: #1a1a1a;
+      --border: #e7e7e7;
+      --border-soft: #efefef;
+      --text: #111111;
       --text-dim: #555555;
       --text-faint: #999999;
-      --accent: #1a1a1a;
+      --accent: #111111;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.04), 0 1px 3px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.05), 0 12px 28px rgba(0,0,0,.06);
+      --ease: cubic-bezier(.22,.61,.36,1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -30,21 +36,38 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      line-height: 1.5;
     }
 
-    ::selection { background: #e5e5e5; }
+    ::selection { background: #e9e9e9; }
+
+    /* ── Animations d'apparition ── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal[data-d="1"] { transition-delay: .06s; }
+    .reveal[data-d="2"] { transition-delay: .12s; }
+    .reveal[data-d="3"] { transition-delay: .18s; }
+    .reveal[data-d="4"] { transition-delay: .24s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
 
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 50;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,.8);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid transparent;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 28px; height: 60px;
+      transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
     }
+    nav.scrolled { border-bottom-color: var(--border); box-shadow: 0 1px 0 rgba(0,0,0,.02); }
     .logo {
       display: flex; align-items: center; gap: 10px;
-      font-weight: 600; font-size: 16px;
+      font-weight: 600; font-size: 16px; letter-spacing: -.2px;
       background: none; border: none; cursor: pointer;
       color: var(--text); font-family: inherit;
     }
@@ -52,7 +75,9 @@
       width: 30px; height: 30px; background: var(--accent);
       border-radius: 7px; display: flex; align-items: center;
       justify-content: center; color: #fff; font-size: 12px; font-weight: 700;
+      transition: transform .3s var(--ease);
     }
+    .logo:hover .logo-icon { transform: rotate(-6deg) scale(1.05); }
     .nav-links { display: flex; align-items: center; gap: 4px; }
     .nav-link {
       font-size: 14px; color: var(--text-dim); font-weight: 500;
@@ -67,67 +92,198 @@
       background: var(--accent); color: #fff; border: none;
       border-radius: 8px; cursor: pointer;
       font-family: inherit; font-weight: 500;
-      transition: opacity .15s;
+      transition: transform .15s var(--ease), box-shadow .2s var(--ease);
     }
-    .btn-partner:hover { opacity: .85; }
+    .btn-partner:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 
     /* ── PAGES ── */
     .page { display: none; }
-    .page.active { display: flex; }
+    .page.active { display: block; }
+    #page-tools.active, #page-partners.active { display: flex; }
 
     /* ── ACCUEIL ── */
-    #page-home {
-      flex-direction: column; align-items: center;
+    #page-home { position: relative; }
+
+    /* fond subtil : grid + glow très discrets */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .hero-bg::before {
+      content: ""; position: absolute; inset: -2px;
+      background-image:
+        linear-gradient(to right, rgba(0,0,0,.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 30%, transparent 75%);
+    }
+    .hero-bg::after {
+      content: ""; position: absolute; top: -160px; left: 50%; transform: translateX(-50%);
+      width: 720px; height: 420px;
+      background: radial-gradient(circle at center, rgba(0,0,0,.05), transparent 70%);
+      filter: blur(20px);
+    }
+
+    .hero {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
       justify-content: center; text-align: center;
-      min-height: calc(100vh - 60px); padding: 60px 24px;
+      min-height: calc(100vh - 60px); padding: 80px 24px 64px;
     }
     .home-badge {
-      display: inline-block;
-      background: var(--surface-2); color: var(--text-dim);
-      font-size: 12.5px; font-weight: 500; padding: 5px 13px;
-      border-radius: 999px; margin-bottom: 26px; border: 1px solid var(--border);
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); color: var(--text-dim);
+      font-size: 12.5px; font-weight: 500; padding: 6px 14px;
+      border-radius: 999px; margin-bottom: 28px; border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
+    .home-badge .pulse {
+      width: 7px; height: 7px; border-radius: 50%; background: #16a34a; position: relative;
+    }
+    .home-badge .pulse::after {
+      content: ""; position: absolute; inset: -3px; border-radius: 50%;
+      border: 1px solid rgba(22,163,74,.4); animation: pulse 2.2s var(--ease) infinite;
+    }
+    @keyframes pulse { 0% { transform: scale(.6); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+
     .home-title {
-      font-size: clamp(38px, 6vw, 64px); font-weight: 700;
-      line-height: 1.1; margin-bottom: 20px; letter-spacing: -1.5px;
+      font-size: clamp(40px, 6.2vw, 68px); font-weight: 700;
+      line-height: 1.06; margin-bottom: 22px; letter-spacing: -1.8px; max-width: 880px;
     }
-    .home-title span { color: var(--text-dim); }
+    .home-title span { color: var(--text-faint); }
     .home-sub {
-      font-size: 18px; color: var(--text-dim); max-width: 500px;
-      line-height: 1.6; margin-bottom: 38px;
+      font-size: clamp(16px, 2.2vw, 19px); color: var(--text-dim); max-width: 540px;
+      line-height: 1.6; margin-bottom: 36px;
     }
     .home-actions {
       display: flex; gap: 12px; flex-wrap: wrap;
-      justify-content: center; margin-bottom: 60px;
+      justify-content: center; margin-bottom: 56px;
     }
     .btn-primary {
-      padding: 14px 30px; background: var(--accent); color: #fff;
-      border: none; border-radius: 10px; font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; background: var(--accent); color: #fff;
+      border: none; border-radius: 11px; font-size: 15px;
       font-weight: 500; cursor: pointer; font-family: inherit;
-      transition: opacity .15s;
+      transition: transform .18s var(--ease), box-shadow .25s var(--ease);
     }
-    .btn-primary:hover { opacity: .85; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-primary svg { transition: transform .25s var(--ease); }
+    .btn-primary:hover svg { transform: translateX(3px); }
     .btn-outline {
-      padding: 14px 28px; background: var(--bg); color: var(--text);
-      border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 26px; background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 11px;
       font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit;
-      transition: border-color .15s;
+      transition: border-color .15s, transform .18s var(--ease), box-shadow .25s var(--ease);
     }
-    .btn-outline:hover { border-color: var(--text-faint); }
+    .btn-outline:hover { border-color: #d0d0d0; transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 
-    .home-stats { display: flex; align-items: center; gap: 36px; }
-    .stat { text-align: center; }
-    .stat-num { font-size: 22px; font-weight: 600; }
-    .stat-label { font-size: 12.5px; color: var(--text-faint); margin-top: 3px; }
-    .stat-div { width: 1px; height: 34px; background: var(--border); }
+    /* ── PREUVE SOCIALE ── */
+    .proof {
+      width: 100%; max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border); border-radius: 16px;
+      background: var(--surface); box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .proof-item { padding: 22px 18px; text-align: center; border-right: 1px solid var(--border-soft); }
+    .proof-item:last-child { border-right: none; }
+    .proof-num { font-size: 22px; font-weight: 700; letter-spacing: -.5px; }
+    .proof-label { font-size: 12.5px; color: var(--text-faint); margin-top: 4px; }
 
-    /* ── OUTILS ── */
+    /* ── SECTIONS GÉNÉRIQUES ── */
+    .section { position: relative; z-index: 1; padding: 84px 24px; }
+    .section-alt { background: var(--bg-soft); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+    .container { max-width: 1040px; margin: 0 auto; }
+    .section-head { text-align: center; max-width: 600px; margin: 0 auto 48px; }
+    .eyebrow {
+      font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 14px;
+    }
+    .section-title { font-size: clamp(26px, 3.6vw, 36px); font-weight: 700; letter-spacing: -1px; margin-bottom: 14px; }
+    .section-sub { font-size: 16px; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── CARDS OUTILS ── */
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .tool-card {
+      text-align: left; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 26px; cursor: pointer; font-family: inherit;
+      position: relative; overflow: hidden;
+      transition: transform .25s var(--ease), box-shadow .3s var(--ease), border-color .25s var(--ease);
+    }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: #dcdcdc; }
+    .tool-card-icon {
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 18px; transition: transform .25s var(--ease);
+    }
+    .tool-card:hover .tool-card-icon { transform: scale(1.06) rotate(-3deg); }
+    .tool-card-name { font-size: 16px; font-weight: 600; margin-bottom: 7px; }
+    .tool-card-desc { font-size: 13.5px; color: var(--text-dim); line-height: 1.55; margin-bottom: 18px; }
+    .tool-card-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13.5px; font-weight: 600; color: var(--text);
+    }
+    .tool-card-cta svg { transition: transform .25s var(--ease); }
+    .tool-card:hover .tool-card-cta svg { transform: translateX(4px); }
+
+    /* ── POURQUOI HUB ── */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .why-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 26px;
+      transition: transform .25s var(--ease), box-shadow .3s var(--ease);
+    }
+    .why-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+    .why-icon {
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; background: var(--accent); color: #fff; margin-bottom: 16px;
+    }
+    .why-name { font-size: 15.5px; font-weight: 600; margin-bottom: 8px; }
+    .why-desc { font-size: 13.5px; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── PARTENAIRES (section accueil) ── */
+    .partner-cta {
+      background: var(--accent); color: #fff; border-radius: 24px;
+      padding: 56px 48px; text-align: center; position: relative; overflow: hidden;
+    }
+    .partner-cta::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000, transparent 75%);
+    }
+    .partner-cta > * { position: relative; z-index: 1; }
+    .partner-cta h2 { font-size: clamp(26px, 3.6vw, 34px); font-weight: 700; letter-spacing: -.8px; margin-bottom: 14px; }
+    .partner-cta p { font-size: 15.5px; color: rgba(255,255,255,.7); max-width: 460px; margin: 0 auto 22px; line-height: 1.6; }
+    .partner-perks { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 32px; }
+    .partner-perk { font-size: 13.5px; color: rgba(255,255,255,.85); display: flex; align-items: center; gap: 8px; }
+    .partner-perk svg { color: #fff; flex-shrink: 0; }
+    .btn-white {
+      padding: 13px 28px; background: #fff; color: var(--accent);
+      border: none; border-radius: 11px; font-size: 15px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+      transition: transform .18s var(--ease), box-shadow .25s var(--ease);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border-soft); padding: 32px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap; max-width: 1040px; margin: 0 auto;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; }
+    .footer-brand .logo-icon { width: 26px; height: 26px; font-size: 11px; }
+    .footer-text { font-size: 13px; color: var(--text-faint); }
+
+    /* ── PAGE OUTILS ── */
     #page-tools { flex-direction: row; height: calc(100vh - 60px); }
-
     .sidebar {
       width: 240px; min-width: 240px; background: var(--bg-soft);
-      border-right: 1px solid var(--border);
-      padding: 18px 10px; overflow-y: auto;
+      border-right: 1px solid var(--border); padding: 18px 10px; overflow-y: auto;
     }
     .sidebar-label {
       font-size: 11px; font-weight: 600; color: var(--text-faint);
@@ -149,13 +305,11 @@
     .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
     .empty-state {
       flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 12px; color: var(--text-faint);
+      align-items: center; justify-content: center; gap: 12px; color: var(--text-faint);
     }
     .empty-state .big { font-size: 38px; }
     .empty-state p { font-size: 14px; }
 
-    /* ── PLAYGROUND ── */
     .playground { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
     .play-head {
       padding: 16px 28px; border-bottom: 1px solid var(--border);
@@ -164,8 +318,7 @@
     .play-icon {
       font-size: 20px; width: 42px; height: 42px;
       display: flex; align-items: center; justify-content: center;
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 10px;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
     }
     .play-title { font-size: 15px; font-weight: 600; }
     .play-cat { font-size: 12.5px; color: var(--text-faint); margin-top: 2px; }
@@ -180,10 +333,10 @@
       border: 1px solid var(--border); border-radius: 10px;
       font-family: inherit; font-size: 14.5px; line-height: 1.7;
       resize: vertical; background: var(--bg); color: var(--text);
-      transition: border-color .15s;
+      transition: border-color .15s, box-shadow .15s;
     }
     textarea::placeholder { color: var(--text-faint); }
-    textarea:focus { outline: none; border-color: var(--text); }
+    textarea:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 3px rgba(0,0,0,.05); }
 
     .row { display: flex; align-items: center; justify-content: space-between; }
     .field-label { font-size: 13px; font-weight: 600; color: var(--text-dim); }
@@ -196,19 +349,15 @@
       padding: 12px 20px; background: var(--accent); color: #fff;
       border: none; border-radius: 10px; font-size: 14.5px; font-weight: 500;
       cursor: pointer; width: 100%; font-family: inherit;
-      transition: opacity .15s;
+      transition: transform .15s var(--ease), box-shadow .2s var(--ease), opacity .15s;
     }
-    .btn-run:hover:not(:disabled) { opacity: .85; }
+    .btn-run:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
     .btn-run:disabled { opacity: .55; cursor: default; }
 
-    .result-box {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden;
-    }
+    .result-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
     .result-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 15px; border-bottom: 1px solid var(--border);
-      background: var(--bg-soft);
+      padding: 10px 15px; border-bottom: 1px solid var(--border); background: var(--bg-soft);
     }
     .result-label { font-size: 12px; font-weight: 600; color: var(--text-dim); }
     .btn-copy {
@@ -217,42 +366,33 @@
       padding: 4px 8px; border-radius: 6px; transition: background .15s;
     }
     .btn-copy:hover { background: var(--surface-2); color: var(--text); }
-    .result-text { padding: 16px; font-size: 14.5px; line-height: 1.8; white-space: pre-wrap; word-break: break-word; color: var(--text); }
+    .result-text { padding: 16px; font-size: 14.5px; line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
     .result-err { color: #d33; }
 
     .spinner {
       width: 15px; height: 15px;
       border: 2px solid rgba(255,255,255,.35); border-top-color: #fff;
-      border-radius: 50%; animation: spin .65s linear infinite;
-      display: inline-block;
+      border-radius: 50%; animation: spin .65s linear infinite; display: inline-block;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── PARTENAIRES ── */
+    /* ── PAGE PARTENAIRES ── */
     #page-partners {
       flex-direction: column; align-items: center; justify-content: center;
       min-height: calc(100vh - 60px); padding: 70px 24px; text-align: center;
     }
-    .p-title {
-      font-size: clamp(28px, 4.5vw, 42px); font-weight: 700;
-      margin-bottom: 12px; letter-spacing: -.8px;
-    }
+    .p-title { font-size: clamp(28px, 4.5vw, 42px); font-weight: 700; margin-bottom: 12px; letter-spacing: -.8px; }
     .p-sub { font-size: 16px; color: var(--text-dim); max-width: 450px; line-height: 1.6; margin-bottom: 44px; }
     .perks { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 44px; }
     .perk {
       background: var(--bg); border: 1px solid var(--border);
-      border-radius: 12px; padding: 22px; width: 195px;
-      transition: border-color .15s;
+      border-radius: 12px; padding: 22px; width: 195px; transition: transform .2s var(--ease), box-shadow .25s var(--ease);
     }
-    .perk:hover { border-color: var(--text-faint); }
+    .perk:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
     .perk-icon { font-size: 24px; margin-bottom: 11px; }
     .perk-name { font-size: 14.5px; font-weight: 600; margin-bottom: 5px; }
     .perk-desc { font-size: 12.5px; color: var(--text-faint); line-height: 1.55; }
-    .p-form {
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      color: var(--text); padding: 32px; border-radius: 16px; width: 100%; max-width: 400px;
-    }
+    .p-form { background: var(--bg-soft); border: 1px solid var(--border); padding: 32px; border-radius: 16px; width: 100%; max-width: 400px; }
     .p-form h3 { font-size: 18px; font-weight: 700; margin-bottom: 7px; }
     .p-form p { font-size: 13px; color: var(--text-faint); margin-bottom: 20px; line-height: 1.5; }
     .p-form input {
@@ -264,30 +404,39 @@
     .p-form input:focus { outline: none; border-color: var(--text); }
     .p-form input::placeholder { color: var(--text-faint); }
     .p-form button {
-      width: 100%; padding: 12px;
-      background: var(--accent); color: #fff;
+      width: 100%; padding: 12px; background: var(--accent); color: #fff;
       border: none; border-radius: 9px; font-size: 14.5px; font-weight: 500;
       cursor: pointer; font-family: inherit; margin-top: 4px;
-      transition: opacity .15s;
+      transition: transform .15s var(--ease), box-shadow .2s var(--ease);
     }
-    .p-form button:hover { opacity: .85; }
+    .p-form button:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 600px) {
       nav { padding: 0 16px; }
-      .nav-link { padding: 8px 10px; }
+      .nav-link { padding: 8px 9px; font-size: 13.5px; }
+      .section { padding: 60px 20px; }
+      .proof { grid-template-columns: repeat(2, 1fr); }
+      .proof-item:nth-child(2) { border-right: none; }
+      .proof-item:nth-child(1), .proof-item:nth-child(2) { border-bottom: 1px solid var(--border-soft); }
+      .partner-cta { padding: 40px 24px; }
+      .partner-perks { gap: 14px; }
       .sidebar { width: 58px; min-width: 58px; padding: 16px 6px; }
       .tool-btn span:not(.t-icon) { display: none; }
       .tool-btn { justify-content: center; }
       .sidebar-label { display: none; }
       .play-body { padding: 18px; }
-      .home-stats { gap: 22px; }
     }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="nav">
   <button class="logo" onclick="goTo('home')">
     <span class="logo-icon">IA</span>
     Hub
@@ -301,20 +450,112 @@
 
 <!-- PAGE ACCUEIL -->
 <div class="page active" id="page-home">
-  <div class="home-badge">Propulsé par nos services IA partenaires</div>
-  <h1 class="home-title">Tous les outils IA du Hub,<br><span>au même endroit.</span></h1>
-  <p class="home-sub">Écrivez, codez et créez plus vite avec notre sélection d'outils IA performants.</p>
-  <div class="home-actions">
-    <button class="btn-primary" onclick="goTo('tools')">Découvrir les outils partenaires</button>
-    <button class="btn-outline" onclick="goTo('partners')">Devenir partenaire</button>
-  </div>
-  <div class="home-stats">
-    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Outils IA</div></div>
-    <div class="stat-div"></div>
-    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Gratuit</div></div>
-    <div class="stat-div"></div>
-    <div class="stat"><div class="stat-num">Groq</div><div class="stat-label">Propulsé par</div></div>
-  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="home-badge reveal in">
+      <span class="pulse"></span> Plateforme IA en évolution constante
+    </div>
+    <h1 class="home-title reveal in" data-d="1">
+      Tous vos outils IA,<br><span>réunis au même endroit.</span>
+    </h1>
+    <p class="home-sub reveal in" data-d="2">
+      Écrivez, codez, analysez et créez plus vite grâce à une sélection d'outils IA performants — dans une interface simple, rapide et gratuite.
+    </p>
+    <div class="home-actions reveal in" data-d="3">
+      <button class="btn-primary" onclick="goTo('tools')">
+        Découvrir les outils
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <button class="btn-outline" onclick="goTo('partners')">Devenir partenaire</button>
+    </div>
+
+    <!-- PREUVE SOCIALE -->
+    <div class="proof reveal in" data-d="4">
+      <div class="proof-item"><div class="proof-num">4+</div><div class="proof-label">Outils IA</div></div>
+      <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Gratuit</div></div>
+      <div class="proof-item"><div class="proof-num">Ultra</div><div class="proof-label">Rapide</div></div>
+      <div class="proof-item"><div class="proof-num">24/7</div><div class="proof-label">Disponible</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION OUTILS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Les outils</div>
+        <h2 class="section-title">Une boîte à outils IA complète</h2>
+        <p class="section-sub">Quatre outils pensés pour les créateurs et les entrepreneurs. De nouveaux outils sont ajoutés régulièrement.</p>
+      </div>
+      <div class="tools-grid" id="tools-grid"></div>
+    </div>
+  </section>
+
+  <!-- SECTION POURQUOI HUB -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Pourquoi IA Hub</div>
+        <h2 class="section-title">Conçu pour aller plus vite</h2>
+        <p class="section-sub">Une plateforme pensée pour les créateurs et les entrepreneurs, sans complexité inutile.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal" data-d="1">
+          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+          <div class="why-name">Tout au même endroit</div>
+          <div class="why-desc">Plus besoin de jongler entre dix services. Tous vos outils IA réunis dans une seule interface.</div>
+        </div>
+        <div class="why-card reveal" data-d="2">
+          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="why-name">Simple et rapide</div>
+          <div class="why-desc">Une interface épurée et des réponses quasi instantanées. Vous écrivez, l'IA répond.</div>
+        </div>
+        <div class="why-card reveal" data-d="3">
+          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="why-name">Pensé pour les créateurs</div>
+          <div class="why-desc">Que vous soyez entrepreneur, développeur ou créatif, le Hub s'adapte à votre flux de travail.</div>
+        </div>
+        <div class="why-card reveal" data-d="1">
+          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="why-name">Gain de temps réel</div>
+          <div class="why-desc">Automatisez vos tâches répétitives et concentrez-vous sur l'essentiel de vos projets.</div>
+        </div>
+        <div class="why-card reveal" data-d="2">
+          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="why-name">Gratuit et accessible</div>
+          <div class="why-desc">Profitez de la puissance de l'IA sans frais ni installation. Tout fonctionne dans votre navigateur.</div>
+        </div>
+        <div class="why-card reveal" data-d="3">
+          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+          <div class="why-name">En évolution continue</div>
+          <div class="why-desc">De nouveaux outils et améliorations sont déployés régulièrement sur la plateforme.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION PARTENAIRES -->
+  <section class="section">
+    <div class="container">
+      <div class="partner-cta reveal">
+        <h2>Présentez votre outil IA à notre communauté</h2>
+        <p>Rejoignez le Hub en tant que partenaire et touchez des milliers d'utilisateurs en quête de nouveaux outils IA.</p>
+        <div class="partner-perks">
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Visibilité ciblée</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Intégration simple</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Résultats mesurables</div>
+        </div>
+        <button class="btn-white" onclick="goTo('partners')">Devenir partenaire</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand"><span class="logo-icon">IA</span> Hub</div>
+    <div class="footer-text">© 2026 IA Hub — Propulsé par Groq. Tous les outils IA au même endroit.</div>
+  </footer>
 </div>
 
 <!-- PAGE OUTILS -->
@@ -377,21 +618,25 @@
   const TOOLS = {
     "Génération-Texte": {
       name: "Génération Texte", icon: "📝", cat: "IA qui génère du texte",
+      desc: "Rédigez articles, e-mails, idées et contenus clairs et professionnels en quelques secondes.",
       placeholder: "Rédige et génère des textes pour tes projets : smart, tech, éducation, créatif…",
       system: "Tu es Génération Texte, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
     },
     "Génération-Codage": {
       name: "Génération Codage", icon: "👨‍💻", cat: "IA qui génère du code",
+      desc: "Générez, expliquez et corrigez du code propre dans n'importe quel langage.",
       placeholder: "Demande à l'IA de générer ou d'expliquer du code : smart, tech, éducation, créatif…",
       system: "Tu es Génération Codage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
     },
     "Génération-Vision": {
       name: "Génération Vision", icon: "👁️", cat: "IA d'analyse visuelle",
+      desc: "Décrivez et analysez des images, vidéos ou textes avec une IA d'analyse visuelle.",
       placeholder: "Demande à l'IA de décrire une image, une vidéo ou un texte : smart, tech, éducation, créatif…",
       system: "Tu es Génération Vision, expert en analyse visuelle. Réponds en français."
     },
     "Génération-Image": {
       name: "Génération Image", icon: "🖼️", cat: "IA qui génère des images",
+      desc: "Transformez vos idées en prompts d'images détaillés et optimisés pour un rendu pro.",
       placeholder: "Demande à l'IA de générer une image : paysage, moderne, entre amis… smart, tech, éducation, créatif…",
       system: "Tu es Génération Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
     }
@@ -399,12 +644,30 @@
 
   let activeTool = null;
 
+  // Construire les cards d'outils sur l'accueil
+  function buildToolCards() {
+    const grid = document.getElementById("tools-grid");
+    if (!grid) return;
+    grid.innerHTML = Object.keys(TOOLS).map((id, i) => {
+      const t = TOOLS[id];
+      return '<button class="tool-card reveal" data-d="' + ((i % 3) + 1) + '" onclick="openTool(\'' + id + '\')">' +
+        '<div class="tool-card-icon">' + t.icon + '</div>' +
+        '<div class="tool-card-name">' + t.name + '</div>' +
+        '<div class="tool-card-desc">' + t.desc + '</div>' +
+        '<span class="tool-card-cta">Essayer ' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+        '</span>' +
+      '</button>';
+    }).join("");
+  }
+
   function goTo(page) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById("page-" + page).classList.add("active");
     document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
     if (page === "home")  document.getElementById("nav-home").classList.add("active");
     if (page === "tools") document.getElementById("nav-tools").classList.add("active");
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
 
   function openTool(id) {
@@ -506,6 +769,27 @@
       }
     } catch (e) { /* clipboard indisponible */ }
   }
+
+  // ── Effet navbar au scroll ──
+  const navEl = document.getElementById("nav");
+  function onScroll() {
+    if (window.scrollY > 8) navEl.classList.add("scrolled");
+    else navEl.classList.remove("scrolled");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // ── Animations d'apparition au scroll ──
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  function observeReveals() {
+    document.querySelectorAll(".reveal:not(.in)").forEach(el => io.observe(el));
+  }
+
+  // Init
+  buildToolCards();
+  observeReveals();
 </script>
 </body>
 </html>
