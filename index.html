@@ -242,19 +242,19 @@
 
 <!-- PAGE ACCUEIL -->
 <div class="page active" id="page-home">
-  <div class="home-badge">Propulsé par des service AI Partonaire</div>
+  <div class="home-badge">Propulsé par nos services IA partenaires</div>
   <h1 class="home-title">Tous les outils IA du Hub,<br><span>au même endroit.</span></h1>
   <p class="home-sub">Écrivez, codez et créez plus vite avec notre sélection d'outils IA performants.</p>
   <div class="home-actions">
-    <button class="btn-primary" onclick="goTo('tools')">Découvrer les outils Partenaire</button>
-    <button class="btn-outline" onclick="goTo('partners')">devenait un partenaire</button>
+    <button class="btn-primary" onclick="goTo('tools')">Découvrir les outils partenaires</button>
+    <button class="btn-outline" onclick="goTo('partners')">Devenir partenaire</button>
   </div>
   <div class="home-stats">
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Outils IA</div></div>
     <div class="stat-div"></div>
     <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Gratuit</div></div>
     <div class="stat-div"></div>
-    <div class="stat"><div class="stat-num">Gemini</div><div class="stat-label">Propulsé par</div></div>
+    <div class="stat"><div class="stat-num">Groq</div><div class="stat-label">Propulsé par</div></div>
   </div>
 </div>
 
@@ -278,7 +278,7 @@
   <main class="main" id="main">
     <div class="empty-state">
       <div class="big">📝</div>
-      <p>Sélectionner un outils pour commencer a créer</p>
+      <p>Sélectionne un outil pour commencer à créer</p>
     </div>
   </main>
 </div>
@@ -296,7 +296,7 @@
     <div class="perk">
       <div class="perk-icon">🚀</div>
       <div class="perk-name">Déploiement</div>
-      <div class="perk-desc">Déploiement maîtrisé. Performance continue..</div>
+      <div class="perk-desc">Déploiement maîtrisé. Performance continue.</div>
     </div>
     <div class="perk">
       <div class="perk-icon">📊</div>
@@ -306,10 +306,10 @@
   </div>
   <div class="p-form">
     <h3>Faites une demande dès maintenant.</h3>
-    <p>Votre Votre demande est prise en compte, notre équipe vous répondra rapidement.</p>
-    <input type="text" placeholder="Le domaine de votre outils IA">
-    <input type="email" placeholder="xxxx@xxxx.com  Votre email">
-    <button>Envoyer mon Partonaria</button>
+    <p>Votre demande sera prise en compte, notre équipe vous répondra rapidement.</p>
+    <input type="text" placeholder="Le domaine de votre outil IA">
+    <input type="email" placeholder="Votre email (xxxx@xxxx.com)">
+    <button>Envoyer ma demande de partenariat</button>
   </div>
 </div>
 
@@ -317,23 +317,23 @@
   const API_URL = "/api/generate";
   const TOOLS = {
     "Génération-Texte": {
-      name: "Génération Texte", icon: "📝", cat: "IA qui génére des Texte",
-      placeholder: "Rédige et génére des texte pour des projet smart, tech éducation, creative",
+      name: "Génération Texte", icon: "📝", cat: "IA qui génère du texte",
+      placeholder: "Rédige et génère des textes pour tes projets : smart, tech, éducation, créatif…",
       system: "Tu es Génération Texte, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
     },
     "Génération-Codage": {
-      name: "Génération Codage", icon: "👨‍💻", cat: "IA qui génére du codage",
-      placeholder: "Demande à l'IA de décrire une image, une vidéo ou un texte dans les domaines smart, tech, éducation et créatif.",
+      name: "Génération Codage", icon: "👨‍💻", cat: "IA qui génère du code",
+      placeholder: "Demande à l'IA de générer ou d'expliquer du code : smart, tech, éducation, créatif…",
       system: "Tu es Génération Codage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
     },
     "Génération-Vision": {
-      name: "Génération Vision", icon: "👁️", cat: "IA qui a de la vision",
-      placeholder: "demmendez a l'ai de décrire cette image, vidéo, texte,:smart, tech, éducation, creative",
+      name: "Génération Vision", icon: "👁️", cat: "IA d'analyse visuelle",
+      placeholder: "Demande à l'IA de décrire une image, une vidéo ou un texte : smart, tech, éducation, créatif…",
       system: "Tu es Génération Vision, expert en analyse visuelle. Réponds en français."
     },
     "Génération-Image": {
-      name: "Génération Image", icon: "🖼️", cat: "IA qui génére des image",
-      placeholder: "demmendez a l'ai de vous généré des image peysage, moderne, entre amis: smart, tech éducation, creative",
+      name: "Génération Image", icon: "🖼️", cat: "IA qui génère des images",
+      placeholder: "Demande à l'IA de générer une image : paysage, moderne, entre amis… smart, tech, éducation, créatif…",
       system: "Tu es Génération Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
     }
   };
@@ -420,7 +420,7 @@
           '<div class="result-box">' +
             '<div class="result-bar">' +
               '<span class="result-label">Résultat</span>' +
-              '<button class="btn-copy" onclick="copyResult()">Copier</button>' +
+              '<button class="btn-copy" onclick="copyResult(this)">Copier</button>' +
             '</div>' +
             '<div class="result-text" id="result-text"></div>' +
           '</div>';
@@ -435,9 +435,17 @@
     btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Générer';
   }
 
-  async function copyResult() {
+  async function copyResult(btn) {
     const el = document.getElementById("result-text");
-    if (el) await navigator.clipboard.writeText(el.textContent).catch(() => {});
+    if (!el) return;
+    try {
+      await navigator.clipboard.writeText(el.textContent);
+      if (btn) {
+        const old = btn.textContent;
+        btn.textContent = "Copié ✓";
+        setTimeout(() => { btn.textContent = old; }, 1500);
+      }
+    } catch (e) { /* clipboard indisponible */ }
   }
 </script>
 </body>
