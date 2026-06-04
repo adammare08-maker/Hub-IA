@@ -1,47 +1,46 @@
 # IA Hub
 
+Plateforme regroupant plusieurs outils IA (texte, codage, vision, image) au même endroit.
+
 ## Architecture
 
 | Partie | Hébergement | Fichiers |
 |---|---|---|
-| Frontend | GitHub Pages | `index.html` |
-| Backend | Cloudflare Workers | `server.js`, `wrangler.toml` |
+| Frontend | Vercel | `index.html` |
+| Backend | Vercel (fonction serverless) | `api/generate.js` |
+
+Le backend utilise **Groq** (gratuit et rapide), compatible avec l'API d'OpenAI.
 
 ---
 
-## Déploiement en 3 étapes
+## Déploiement
 
-### 1. Déployer le Worker Cloudflare
+Le site est hébergé sur **Vercel** et connecté à ce dépôt GitHub.
+À chaque `git push` sur la branche `main`, Vercel redéploie automatiquement.
 
-```bash
-npm install
-npx wrangler login
-npx wrangler secret put LUMINA_SCRIBE_KEY
-npx wrangler deploy
-```
+### Configuration de la clé API
 
-Wrangler affiche ton URL : `https://iahub.TON-COMPTE.workers.dev`
+1. Crée une clé sur [console.groq.com](https://console.groq.com) (gratuit).
+2. Dans Vercel : **Settings → Environment Variables**.
+3. Ajoute la variable :
+   - **Nom** : `GROQ_API_KEY`
+   - **Valeur** : ta clé (`gsk_...`)
+4. Clique sur **Save**, puis lance un **Redeploy**.
 
-### 2. Mettre à jour l'URL dans index.html
-
-Ligne 2 du `<script>` dans `index.html` :
-```js
-const API_URL = "https://iahub.TON-COMPTE.workers.dev/api/generate";
-```
-
-### 3. Activer GitHub Pages
-
-Settings → Pages → Source: branche `main`, dossier `/` → Save
-
-Ton site : `https://TON-PSEUDO.github.io/NOM-REPO`
+> La clé reste secrète : elle est stockée uniquement dans Vercel, jamais dans le code.
 
 ---
 
-## Dev local
+## Fonctionnement
+
+- Le frontend envoie une requête `POST` vers `/api/generate` avec `{ prompt, systemPrompt }`.
+- La fonction serverless appelle l'API Groq et renvoie `{ text }`.
+
+## Développement local
 
 ```bash
-npx wrangler dev
+npm install -g vercel
+vercel dev
 ```
 
-Le Worker tourne sur `http://localhost:8787`.
-Dans `index.html`, mets temporairement `API_URL = "http://localhost:8787/api/generate"`.
+Le site tourne alors sur `http://localhost:3000`.
