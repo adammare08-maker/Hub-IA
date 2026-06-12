@@ -1,6 +1,9 @@
-﻿{
+{
   "name": "hub-ia",
   "version": "1.0.0",
   "private": true,
-  "description": "Hub IA - plateforme d outils IA propulsee par Groq, hebergee sur Vercel"
+  "description": "Hub IA - plateforme d outils IA propulsee par Groq, hebergee sur Vercel",
+  "engines": {
+    "node": "22.x"
+  }
 }
