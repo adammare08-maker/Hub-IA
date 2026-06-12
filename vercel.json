@@ -1,7 +1,13 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "buildCommand": null,
-  "outputDirectory": null,
-  "installCommand": null
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "googled4bcc4ae1e7f259d.html", "use": "@vercel/static" },
+    { "src": "api/generate.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/generate", "dest": "/api/generate.js" },
+    { "src": "/(.*\\.html)", "dest": "/$1" },
+    { "src": "/", "dest": "/index.html" }
+  ]
 }
