@@ -1,5 +1,5 @@
 // Fonction Serverless Vercel — /api/generate
-// Utilise Google Gemini (gratuit via Google AI Studio).
+// Utilise Groq (gratuit, ultra rapide, disponible en Europe).
 // Reçoit { prompt, systemPrompt } et renvoie { text }
 
 export default async function handler(req, res) {
@@ -9,11 +9,11 @@ export default async function handler(req, res) {
   }
 
   // Récupérer la clé API depuis les variables d'environnement Vercel
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({
-      error: "Clé API manquante : ajoute la variable GEMINI_API_KEY dans les réglages Vercel.",
+      error: "Clé API manquante : ajoute la variable GROQ_API_KEY dans les réglages Vercel.",
     });
   }
 
@@ -24,33 +24,26 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Le champ "prompt" est obligatoire.' });
     }
 
-    // Construire le corps de la requête au format Gemini
-    const body = {
-      contents: [
-        { role: 'user', parts: [{ text: prompt }] },
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 1024,
-      },
-    };
-
-    // Le "system prompt" (instruction système) est optionnel
+    // Construire les messages (system optionnel + user)
+    const messages = [];
     if (systemPrompt) {
-      body.system_instruction = { parts: [{ text: systemPrompt }] };
+      messages.push({ role: 'system', content: systemPrompt });
     }
+    messages.push({ role: 'user', content: prompt });
 
-    const model = 'gemini-2.0-flash';
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-
-    // Appel à l'API Gemini
-    const response = await fetch(url, {
+    // Appel à l'API Groq (compatible OpenAI)
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: messages,
+        max_tokens: 1024,
+        temperature: 0.7,
+      }),
     });
 
     const data = await response.json();
@@ -58,19 +51,14 @@ export default async function handler(req, res) {
     // Si l'API renvoie une erreur, la transmettre proprement
     if (!response.ok) {
       return res.status(response.status).json({
-        error: data.error?.message || "Erreur de l'API Gemini.",
+        error: data.error?.message || "Erreur de l'API Groq.",
       });
     }
 
-    // Extraire le texte généré
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!text) {
-      return res.status(500).json({ error: "Réponse vide de l'API Gemini." });
-    }
-
-    // Renvoyer dans le format attendu par le frontend
-    return res.status(200).json({ text });
+    // Renvoyer le texte généré dans le format attendu par le frontend
+    return res.status(200).json({
+      text: data.choices[0].message.content,
+    });
 
   } catch (error) {
     return res.status(500).json({ error: error.message });
