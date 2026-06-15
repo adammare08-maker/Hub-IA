@@ -22,6 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Connexion Google (Google Identity Services) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
       --bg: #ffffff;
@@ -474,6 +476,21 @@
     }
     .p-form button:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 
+    /* ── CONNEXION GOOGLE ── */
+    .auth-area { display: flex; align-items: center; margin-left: 4px; min-height: 32px; }
+    .user-badge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 4px 8px 4px 5px; border: 1px solid var(--border);
+      border-radius: 999px; background: var(--surface);
+    }
+    .user-badge img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+    .user-badge .uname { font-size: 13px; font-weight: 600; color: var(--text); }
+    .user-badge .logout {
+      font-size: 12px; color: var(--text-faint); background: none; border: none;
+      cursor: pointer; font-family: inherit; padding: 2px 4px; border-radius: 6px;
+    }
+    .user-badge .logout:hover { color: var(--text); background: var(--surface-2); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       .tools-grid { grid-template-columns: 1fr; }
@@ -509,6 +526,7 @@
     <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
     <button class="nav-link" id="nav-tools" onclick="goTo('tools')">Outils</button>
     <button class="btn-partner" onclick="goTo('partners')">Devenir partenaire</button>
+    <div class="auth-area" id="auth-area"></div>
   </div>
 </nav>
 
@@ -896,9 +914,69 @@
     document.querySelectorAll(".reveal:not(.in)").forEach(el => io.observe(el));
   }
 
+  // ── CONNEXION GOOGLE (Google Identity Services) ──
+  // ⚠️ Colle ici ton ID client OAuth 2.0 (se termine par .apps.googleusercontent.com)
+  // Il est PUBLIC, ce n'est pas un secret. Tant qu'il est vide, le bouton ne s'affiche pas.
+  const GOOGLE_CLIENT_ID = "";
+
+  function decodeJwt(token) {
+    try {
+      const payload = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+      const json = decodeURIComponent(
+        atob(payload).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")
+      );
+      return JSON.parse(json);
+    } catch (e) { return null; }
+  }
+
+  function showUser(u) {
+    const area = document.getElementById("auth-area");
+    area.innerHTML =
+      '<div class="user-badge">' +
+        (u.picture ? '<img src="' + u.picture + '" alt="" referrerpolicy="no-referrer">' : '') +
+        '<span class="uname">' + (u.given_name || u.name || "Membre") + '</span>' +
+        '<button class="logout" onclick="logout()">Déconnexion</button>' +
+      '</div>';
+  }
+
+  function handleCredentialResponse(resp) {
+    const u = decodeJwt(resp.credential);
+    if (!u) return;
+    const user = { name: u.name, given_name: u.given_name, email: u.email, picture: u.picture };
+    localStorage.setItem("hubUser", JSON.stringify(user));
+    showUser(user);
+  }
+
+  function renderGoogleButton() {
+    const area = document.getElementById("auth-area");
+    area.innerHTML = "";
+    if (!window.google || !google.accounts || !GOOGLE_CLIENT_ID) return;
+    google.accounts.id.renderButton(area, {
+      theme: "outline", size: "medium", type: "standard", shape: "pill", text: "signin_with",
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem("hubUser");
+    if (window.google && google.accounts) google.accounts.id.disableAutoSelect();
+    renderGoogleButton();
+  }
+
+  function initAuth() {
+    // Si déjà connecté (mémorisé), on réaffiche directement le profil
+    const saved = localStorage.getItem("hubUser");
+    if (saved) { try { showUser(JSON.parse(saved)); return; } catch (e) {} }
+    // Sinon on initialise le bouton Google (si l'ID client est renseigné)
+    if (window.google && google.accounts && GOOGLE_CLIENT_ID) {
+      google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse });
+      renderGoogleButton();
+    }
+  }
+
   // Init
   buildToolCards();
   observeReveals();
+  window.addEventListener("load", initAuth);
 </script>
 </body>
 </html>
