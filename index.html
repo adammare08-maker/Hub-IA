@@ -558,7 +558,7 @@
   <div class="nav-links">
     <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
     <button class="nav-link" id="nav-tools" onclick="goTo('tools')">Outils</button>
-    <button class="btn-partner" onclick="goTo('partners')">Devenir partenaire</button>
+    <button class="btn-partner" onclick="goTo('tools')">Générer un prompt</button>
     <div class="auth-area" id="auth-area"></div>
   </div>
 </nav>
@@ -607,44 +607,40 @@
     </div>
   </section>
 
-  <!-- SECTION DEUX FACES : UTILISATEURS / PARTENAIRES -->
+  <!-- SECTION POUR QUI -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-head reveal">
-        <div class="eyebrow">Une plateforme, deux gagnants</div>
-        <h2 class="section-title">Au centre des utilisateurs et des partenaires</h2>
-        <p class="section-sub">IA Hub crée un pont : les utilisateurs accèdent à toutes les IA, les partenaires y trouvent une nouvelle source de revenus.</p>
+        <div class="eyebrow">Pour qui ?</div>
+        <h2 class="section-title">Fait pour les débutants en IA</h2>
+        <p class="section-sub">Vous ne savez pas quoi écrire à ChatGPT ? Vos résultats sont décevants ? IA Hub écrit le prompt parfait à votre place.</p>
       </div>
       <div class="duo">
-        <!-- UTILISATEURS -->
+        <!-- AVANT -->
         <div class="duo-card reveal" data-d="1">
-          <span class="duo-tag">👤 Pour les utilisateurs</span>
-          <h3>Toutes les IA, un seul abonnement</h3>
-          <p class="duo-lead">Plus besoin de payer dix abonnements séparés. Un seul accès, et vous profitez de toutes les IA partenaires du Hub.</p>
+          <span class="duo-tag">😕 Sans IA Hub</span>
+          <h3>Vous galérez avec l'IA</h3>
+          <p class="duo-lead">Vous tapez une demande vague, et l'IA vous répond à côté. Vous perdez du temps à réessayer sans savoir comment faire mieux.</p>
           <ul class="duo-list">
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Accès à plusieurs IA partenaires au même endroit</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Une seule interface, simple et rapide</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Un seul abonnement au lieu de plusieurs</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> De nouveaux outils ajoutés chaque semaine</li>
+            <li><span class="duo-check">✕</span> Vous ne savez pas quoi écrire</li>
+            <li><span class="duo-check">✕</span> Les réponses sont décevantes</li>
+            <li><span class="duo-check">✕</span> Vous réessayez 10 fois pour rien</li>
+            <li><span class="duo-check">✕</span> Vous abandonnez, frustré</li>
           </ul>
-          <button class="duo-cta solid" onclick="goTo('tools')">
-            Accéder aux outils
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
         </div>
-        <!-- PARTENAIRES -->
+        <!-- APRÈS -->
         <div class="duo-card dark reveal" data-d="2">
-          <span class="duo-tag">🤝 Pour les partenaires</span>
-          <h3>Exposez votre IA, gagnez plus</h3>
-          <p class="duo-lead">Référencez votre outil IA sur le Hub, touchez de nouveaux utilisateurs et générez des revenus sans effort marketing.</p>
+          <span class="duo-tag">✨ Avec IA Hub</span>
+          <h3>Vous obtenez le prompt parfait</h3>
+          <p class="duo-lead">Décrivez simplement ce que vous voulez. IA Hub transforme votre idée en un prompt clair et optimisé, prêt à coller dans votre IA.</p>
           <ul class="duo-list">
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Une nouvelle source de revenus récurrents</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Une audience ciblée déjà intéressée par l'IA</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Une intégration simple, sans gros développement</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> De la visibilité sans budget publicitaire</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Un prompt clair, écrit pour vous</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Des résultats bien meilleurs</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Copier-coller en 1 clic</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Aucune compétence requise</li>
           </ul>
-          <button class="duo-cta invert" onclick="goTo('partners')">
-            Référencer mon IA
+          <button class="duo-cta invert" onclick="goTo('tools')">
+            Essayer maintenant
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
@@ -657,8 +653,8 @@
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Pourquoi IA Hub</div>
-        <h2 class="section-title">Conçu pour aller plus vite</h2>
-        <p class="section-sub">Une plateforme pensée pour les créateurs et les entrepreneurs, sans complexité inutile.</p>
+        <h2 class="section-title">L'IA enfin simple à utiliser</h2>
+        <p class="section-sub">Pas besoin d'être expert. IA Hub fait le travail compliqué à votre place pour que vous obteniez de super résultats.</p>
       </div>
       <div class="why-grid">
         <div class="why-card reveal" data-d="1">
@@ -673,8 +669,8 @@
         </div>
         <div class="why-card reveal" data-d="3">
           <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-          <div class="why-name">Pensé pour les créateurs</div>
-          <div class="why-desc">Que vous soyez entrepreneur, développeur ou créatif, le Hub s'adapte à votre flux de travail.</div>
+          <div class="why-name">Parfait pour débuter</div>
+          <div class="why-desc">Aucune compétence technique requise. Si vous savez écrire une phrase, vous savez utiliser IA Hub.</div>
         </div>
         <div class="why-card reveal" data-d="1">
           <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -701,7 +697,7 @@
       <div class="section-head reveal">
         <div class="eyebrow">Tarifs</div>
         <h2 class="section-title">Un abonnement simple</h2>
-        <p class="section-sub">Commencez gratuitement, passez au Premium quand vous voulez débloquer toutes les IA partenaires.</p>
+        <p class="section-sub">Commencez gratuitement, passez au Premium quand vous voulez générer sans limite.</p>
       </div>
       <div class="pricing">
         <div class="price-card reveal" data-d="1">
@@ -719,11 +715,11 @@
           <div class="price-badge">Populaire</div>
           <div class="price-name">Premium</div>
           <div class="price-amount">9,99€ <span>/ mois</span></div>
-          <p class="price-desc">Toutes les IA partenaires, sans limite.</p>
+          <p class="price-desc">Générez sans limite, sans frustration.</p>
           <ul class="price-list">
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Accès à toutes les IA partenaires</li>
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Générations illimitées</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Nouveaux outils en priorité</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Tous les outils débloqués</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Prompts plus longs et détaillés</li>
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Support prioritaire</li>
           </ul>
           <a class="price-btn solid" href="https://buy.stripe.com/test_cNiaEY9987Ep6wq6GJaMU00" target="_blank" rel="noopener">S'abonner</a>
@@ -732,18 +728,18 @@
     </div>
   </section>
 
-  <!-- SECTION PARTENAIRES -->
+  <!-- SECTION CTA FINAL -->
   <section class="section">
     <div class="container">
       <div class="partner-cta reveal">
-        <h2>Transformez votre IA en source de revenus</h2>
-        <p>Référencez votre outil IA sur le Hub, touchez des milliers d'utilisateurs et générez des revenus récurrents — sans budget marketing.</p>
+        <h2>Prêt à obtenir le prompt parfait ?</h2>
+        <p>Décrivez votre idée, IA Hub s'occupe du reste. Gratuit, instantané, et sans aucune compétence requise.</p>
         <div class="partner-perks">
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Plus de revenus</div>
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Audience ciblée</div>
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Intégration simple</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 100% gratuit pour commencer</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Résultat en 2 secondes</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copier-coller partout</div>
         </div>
-        <button class="btn-white" onclick="goTo('partners')">Référencer mon IA</button>
+        <button class="btn-white" onclick="goTo('tools')">Générer mon premier prompt</button>
       </div>
     </div>
   </section>
@@ -751,7 +747,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-brand"><span class="logo-icon">IA</span> Hub</div>
-    <div class="footer-text">© 2026 IA Hub — Propulsé par Groq. Tous les outils IA au même endroit.</div>
+    <div class="footer-text">© 2026 IA Hub — Le générateur de prompts pour débutants en IA.</div>
   </footer>
 </div>
 
@@ -780,35 +776,6 @@
   </main>
 </div>
 
-<!-- PAGE PARTENAIRES -->
-<div class="page" id="page-partners">
-  <h2 class="p-title">Référencez votre IA, gagnez plus</h2>
-  <p class="p-sub">Exposez votre outil IA à notre communauté, touchez des milliers d'utilisateurs et générez des revenus récurrents.</p>
-  <div class="perks">
-    <div class="perk">
-      <div class="perk-icon">💰</div>
-      <div class="perk-name">Revenus</div>
-      <div class="perk-desc">Une nouvelle source de revenus récurrents.</div>
-    </div>
-    <div class="perk">
-      <div class="perk-icon">🎯</div>
-      <div class="perk-name">Audience</div>
-      <div class="perk-desc">Une audience ciblée, déjà intéressée par l'IA.</div>
-    </div>
-    <div class="perk">
-      <div class="perk-icon">🚀</div>
-      <div class="perk-name">Intégration</div>
-      <div class="perk-desc">Une intégration simple, sans gros développement.</div>
-    </div>
-  </div>
-  <div class="p-form">
-    <h3>Faites une demande dès maintenant.</h3>
-    <p>Votre demande sera prise en compte, notre équipe vous répondra rapidement.</p>
-    <input type="text" placeholder="Le domaine de votre outil IA">
-    <input type="email" placeholder="Votre email (xxxx@xxxx.com)">
-    <button>Envoyer ma demande de partenariat</button>
-  </div>
-</div>
 
 <script>
   // On pointe toujours vers le backend Vercel (qui fait tourner l'IA + la clé),
