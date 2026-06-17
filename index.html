@@ -508,6 +508,71 @@
     .price-btn.ghost { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
     .price-btn.ghost:hover { border-color: var(--text-faint); }
 
+    /* ── COURS ── */
+    #page-cours.active { display: block; }
+    .course-wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; min-height: calc(100vh - 60px); }
+    .course-page-head { text-align: center; margin-bottom: 40px; }
+    .course-page-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
+    .course-page-head p { font-size: 16px; color: var(--text-dim); }
+
+    .course-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .course-item {
+      text-align: left; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px; cursor: pointer; font-family: inherit;
+      transition: transform .25s var(--ease), box-shadow .3s var(--ease), border-color .25s;
+    }
+    .course-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: #dcdcdc; }
+    .course-item-icon { font-size: 30px; margin-bottom: 14px; }
+    .course-item-level {
+      display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-faint); background: var(--surface-2);
+      border: 1px solid var(--border); padding: 3px 9px; border-radius: 999px; margin-bottom: 12px;
+    }
+    .course-item h3 { font-size: 17px; font-weight: 600; margin-bottom: 7px; }
+    .course-item p { font-size: 13.5px; color: var(--text-dim); line-height: 1.5; margin-bottom: 14px; }
+    .course-item-meta { font-size: 12.5px; color: var(--text-faint); display: flex; gap: 14px; }
+
+    .lesson { animation: fade .35s ease; }
+    .lesson-top { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+    .lesson-back { background: none; border: 1px solid var(--border); border-radius: 9px; padding: 8px 12px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; color: var(--text-dim); transition: border-color .15s, color .15s; }
+    .lesson-back:hover { color: var(--text); border-color: var(--text-faint); }
+    .lesson-title { font-size: 19px; font-weight: 700; letter-spacing: -.4px; }
+    .progress-bar { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 18px 0 6px; }
+    .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width .35s var(--ease); }
+    .progress-text { font-size: 12.5px; color: var(--text-faint); margin-bottom: 24px; }
+
+    .lesson-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 32px; }
+    .lesson-step-num { font-size: 12.5px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+    .lesson-step h3 { font-size: 22px; font-weight: 700; letter-spacing: -.5px; margin-bottom: 14px; }
+    .lesson-step p { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+    .lesson-step strong { font-weight: 600; }
+    .lesson-step ul { margin: 0 0 14px 0; padding-left: 20px; }
+    .lesson-step li { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 6px; }
+    .lesson-example { background: var(--bg-soft); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+    .lesson-example .lbl { display: block; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-faint); margin-bottom: 6px; }
+    .lesson-tip { display: flex; gap: 10px; background: #f0f9f1; border: 1px solid #cfe9d4; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; line-height: 1.55; color: #1f6b34; margin-bottom: 14px; }
+
+    .lesson-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+    .lesson-btn { padding: 12px 22px; border-radius: 11px; font-size: 14.5px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; transition: transform .15s var(--ease), box-shadow .2s var(--ease), opacity .15s, border-color .15s; }
+    .lesson-btn.prev { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .lesson-btn.prev:hover:not(:disabled) { border-color: var(--text-faint); }
+    .lesson-btn.next { background: var(--accent); color: #fff; }
+    .lesson-btn.next:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .lesson-btn:disabled { opacity: .4; cursor: default; }
+
+    .quiz-q { font-size: 17px; font-weight: 600; margin-bottom: 16px; line-height: 1.5; }
+    .quiz-opt { display: block; width: 100%; text-align: left; background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; font-size: 14.5px; font-family: inherit; cursor: pointer; margin-bottom: 10px; color: var(--text); transition: border-color .15s, background .15s; }
+    .quiz-opt:hover:not(:disabled) { border-color: var(--text-faint); }
+    .quiz-opt.correct { border-color: #34a853; background: #f0f9f1; color: #1f6b34; font-weight: 600; }
+    .quiz-opt.wrong { border-color: #e0564f; background: #fdf0ef; color: #a3322c; }
+    .quiz-opt:disabled { cursor: default; }
+    .quiz-feedback { font-size: 14px; margin-top: 8px; font-weight: 500; line-height: 1.55; }
+
+    .course-done { text-align: center; padding: 24px 0; }
+    .course-done .big { font-size: 52px; margin-bottom: 14px; }
+    .course-done h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+    .course-done p { font-size: 15px; color: var(--text-dim); margin-bottom: 24px; line-height: 1.6; }
+
     /* ── CONNEXION GOOGLE ── */
     .auth-area { display: flex; align-items: center; margin-left: 4px; min-height: 32px; }
     .user-badge {
@@ -529,6 +594,7 @@
       .why-grid { grid-template-columns: 1fr; }
       .duo { grid-template-columns: 1fr; }
       .pricing { grid-template-columns: 1fr; max-width: 400px; }
+      .course-list { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
       nav { padding: 0 16px; }
@@ -558,6 +624,7 @@
   <div class="nav-links">
     <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
     <button class="nav-link" id="nav-tools" onclick="goTo('tools')">Outils</button>
+    <button class="nav-link" id="nav-cours" onclick="goTo('cours')">Cours</button>
     <button class="btn-partner" onclick="goTo('tools')">Générer un prompt</button>
     <div class="auth-area" id="auth-area"></div>
   </div>
@@ -570,26 +637,27 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="home-badge reveal in">
-      <span class="pulse"></span> Générateur de textes & de prompts IA
+      <span class="pulse"></span> Le site de référence pour apprendre l'IA
     </div>
     <h1 class="home-title reveal in" data-d="1">
-      Des textes et des prompts parfaits,<br><span>prêts à copier-coller.</span>
+      Apprenez à utiliser l'IA,<br><span>facilement.</span>
     </h1>
     <p class="home-sub reveal in" data-d="2">
-      IA Hub génère des <strong>textes de qualité pro</strong> et des <strong>prompts optimisés</strong> à copier-coller directement dans ChatGPT, Gemini, Midjourney et toutes vos IA préférées.
+      Générez des <strong>prompts parfaits</strong> à copier-coller dans vos IA, et apprenez à les maîtriser grâce à nos <strong>cours interactifs</strong>. Simple, gratuit, fait pour les débutants.
     </p>
     <div class="home-actions reveal in" data-d="3">
       <button class="btn-primary" onclick="goTo('tools')">
         Génère mon prompt
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
+      <button class="btn-outline" onclick="goTo('cours')">Découvrir les cours</button>
     </div>
 
     <!-- PREUVE SOCIALE -->
     <div class="proof reveal in" data-d="4">
       <div class="proof-item"><div class="proof-num">2 sec</div><div class="proof-label">Pour générer</div></div>
       <div class="proof-item"><div class="proof-num">Copier</div><div class="proof-label">en 1 clic</div></div>
-      <div class="proof-item"><div class="proof-num">Toutes IA</div><div class="proof-label">ChatGPT, Gemini…</div></div>
+      <div class="proof-item"><div class="proof-num">Cours</div><div class="proof-label">interactifs</div></div>
       <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Gratuit</div></div>
     </div>
   </section>
@@ -643,6 +711,24 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION COURS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Les cours</div>
+        <h2 class="section-title">Apprenez l'IA pas à pas</h2>
+        <p class="section-sub">Des cours interactifs, courts et concrets, pour passer de débutant à l'aise avec l'IA. Gratuits et sans blabla.</p>
+      </div>
+      <div class="tools-grid" id="cours-grid"></div>
+      <div style="text-align:center; margin-top:28px;" class="reveal">
+        <button class="btn-primary" onclick="goTo('cours')">
+          Voir tous les cours
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -775,6 +861,11 @@
   </main>
 </div>
 
+<!-- PAGE COURS -->
+<div class="page" id="page-cours">
+  <div class="course-wrap" id="course-wrap"></div>
+</div>
+
 
 <script>
   // On pointe toujours vers le backend Vercel (qui fait tourner l'IA + la clé),
@@ -832,6 +923,7 @@
     document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
     if (page === "home")  document.getElementById("nav-home").classList.add("active");
     if (page === "tools") document.getElementById("nav-tools").classList.add("active");
+    if (page === "cours") { document.getElementById("nav-cours").classList.add("active"); renderCoursesPage(); }
     window.scrollTo({ top: 0, behavior: "auto" });
   }
 
@@ -1011,8 +1103,200 @@
     }
   }
 
+  // ── COURS INTERACTIFS ──
+  const COURSES = {
+    "bases": {
+      icon: "🚀", level: "Débutant", title: "L'IA pour les débutants",
+      short: "Comprenez ce qu'est l'IA et à quoi elle sert, en quelques minutes.",
+      duration: "5 min",
+      content: [
+        { title: "C'est quoi l'IA, en vrai ?",
+          html: "<p>L'<strong>intelligence artificielle</strong> (IA), c'est un programme qui sait comprendre votre demande écrite et y répondre avec du texte, du code ou des images — un peu comme un assistant très rapide.</p>" +
+                "<p>Des outils comme <strong>ChatGPT</strong>, <strong>Gemini</strong> ou <strong>Midjourney</strong> sont des IA. Vous leur écrivez une demande, elles vous répondent.</p>" +
+                "<div class='lesson-tip'>💡 Pas besoin de savoir coder : il suffit d'écrire en français, comme à un humain.</div>" },
+        { title: "Comment lui parler : le « prompt »",
+          html: "<p>Un <strong>prompt</strong>, c'est simplement le message que vous écrivez à l'IA. La qualité de la réponse dépend de la qualité de votre prompt.</p>" +
+                "<div class='lesson-example'><span class='lbl'>Exemple de prompt</span>« Écris-moi un e-mail poli pour demander un rendez-vous à mon professeur. »</div>" +
+                "<p>Plus votre demande est <strong>claire et précise</strong>, meilleure est la réponse. C'est tout l'enjeu.</p>" },
+        { title: "Ce que l'IA peut faire pour vous",
+          html: "<p>Voici quelques exemples concrets :</p>" +
+                "<ul><li>✍️ Écrire des textes (e-mails, posts, idées…)</li><li>💻 Générer ou expliquer du code</li><li>🖼️ Créer des images à partir d'une description</li><li>📊 Résumer ou analyser un texte</li></ul>" +
+                "<div class='lesson-tip'>💡 IA Hub vous aide justement à écrire le bon prompt pour obtenir tout ça.</div>" }
+      ],
+      quiz: [
+        { q: "C'est quoi un « prompt » ?", options: ["Un type d'ordinateur", "Le message qu'on écrit à l'IA", "Un logiciel payant"], answer: 1, explain: "Le prompt, c'est votre demande écrite à l'IA." },
+        { q: "Faut-il savoir coder pour utiliser l'IA ?", options: ["Oui, obligatoirement", "Non, on écrit en langage normal"], answer: 1, explain: "On parle à l'IA en français, comme à une personne." }
+      ]
+    },
+    "prompt": {
+      icon: "✍️", level: "Essentiel", title: "Écrire un bon prompt",
+      short: "La méthode simple pour obtenir des réponses bien meilleures de l'IA.",
+      duration: "6 min",
+      content: [
+        { title: "La règle d'or : être précis",
+          html: "<p>L'IA n'est pas devine. Si vous êtes vague, la réponse sera vague. Si vous êtes précis, la réponse sera utile.</p>" +
+                "<div class='lesson-example'><span class='lbl'>❌ Trop vague</span>« Parle-moi du sport. »</div>" +
+                "<div class='lesson-example'><span class='lbl'>✅ Précis</span>« Donne-moi 5 conseils pour débuter la course à pied quand on n'a jamais couru. »</div>" },
+        { title: "La recette R-C-T",
+          html: "<p>Un bon prompt contient souvent 3 choses :</p>" +
+                "<ul><li><strong>Rôle</strong> : qui doit jouer l'IA ? (« Tu es un coach sportif… »)</li><li><strong>Contexte</strong> : ta situation (« Je suis débutant, j'ai 20 min par jour… »)</li><li><strong>Tâche</strong> : ce que tu veux (« Donne-moi un programme sur 1 semaine »)</li></ul>" +
+                "<div class='lesson-tip'>💡 Retiens : <strong>R</strong>ôle + <strong>C</strong>ontexte + <strong>T</strong>âche.</div>" },
+        { title: "Avant / Après",
+          html: "<div class='lesson-example'><span class='lbl'>Avant</span>« Aide-moi pour mon CV. »</div>" +
+                "<div class='lesson-example'><span class='lbl'>Après (R-C-T)</span>« Tu es un recruteur expérimenté. Je suis étudiant sans expérience qui postule en stage marketing. Réécris mon CV pour le rendre plus percutant. »</div>" +
+                "<p>La 2ᵉ version donnera une réponse <strong>bien plus utile</strong>. C'est exactement ce qu'IA Hub fait pour vous automatiquement.</p>" },
+        { title: "3 astuces bonus",
+          html: "<ul><li>🎯 Demandez un <strong>format</strong> : « en 5 points », « en tableau », « en 100 mots »</li><li>🔁 Pas satisfait ? Dites « reformule plus simplement » ou « donne-moi 3 autres idées »</li><li>🗣️ Précisez le <strong>ton</strong> : « professionnel », « amical », « drôle »</li></ul>" }
+      ],
+      quiz: [
+        { q: "Que veut dire le « R » de la méthode R-C-T ?", options: ["Rapide", "Rôle", "Réponse"], answer: 1, explain: "R = le Rôle que vous donnez à l'IA." },
+        { q: "Quel prompt est le meilleur ?", options: ["« Parle-moi de cuisine »", "« Donne 3 recettes faciles avec des œufs pour le soir »"], answer: 1, explain: "Le plus précis donne toujours la meilleure réponse." }
+      ]
+    },
+    "images": {
+      icon: "🖼️", level: "Débutant", title: "Générer des images avec l'IA",
+      short: "Apprenez à décrire vos idées pour obtenir de belles images.",
+      duration: "5 min",
+      content: [
+        { title: "Comment l'IA crée une image",
+          html: "<p>Des IA comme <strong>Midjourney</strong>, <strong>DALL·E</strong> ou <strong>Stable Diffusion</strong> transforment une <strong>description écrite</strong> en image. Votre description = votre prompt.</p>" +
+                "<div class='lesson-tip'>💡 Plus la description est riche, plus l'image est belle et fidèle.</div>" },
+        { title: "La formule : Sujet + Style + Ambiance",
+          html: "<p>Pour une bonne image, décrivez :</p>" +
+                "<ul><li><strong>Le sujet</strong> : « un chat roux assis sur un rebord de fenêtre »</li><li><strong>Le style</strong> : « photo réaliste », « dessin animé », « peinture »</li><li><strong>L'ambiance</strong> : « au coucher du soleil, lumière douce »</li></ul>" },
+        { title: "Exemple complet",
+          html: "<div class='lesson-example'><span class='lbl'>Prompt image</span>« Un chat roux assis sur un rebord de fenêtre, photo réaliste, au coucher du soleil, lumière dorée et douce, ambiance cosy. »</div>" +
+                "<p>Vous copiez ce texte, vous le collez dans votre IA d'image, et vous obtenez un superbe rendu. <strong>IA Hub génère ce genre de prompt pour vous.</strong></p>" }
+      ],
+      quiz: [
+        { q: "Pour une belle image, il vaut mieux…", options: ["Décrire avec sujet + style + ambiance", "Écrire juste un mot"], answer: 0, explain: "Plus c'est détaillé, plus l'image est réussie." },
+        { q: "Midjourney sert à générer…", options: ["Du code", "Des images", "De la musique"], answer: 1, explain: "Midjourney est une IA de génération d'images." }
+      ]
+    }
+  };
+
+  const COURSE_ARROW = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  let courseState = { id: null, index: 0, answered: {} };
+
+  function buildCourseCards() {
+    const grid = document.getElementById("cours-grid");
+    if (!grid) return;
+    grid.innerHTML = Object.keys(COURSES).map((id, i) => {
+      const c = COURSES[id];
+      return '<button class="tool-card reveal" data-d="' + ((i % 3) + 1) + '" onclick="openCourse(\'' + id + '\')">' +
+        '<div class="tool-card-icon">' + c.icon + '</div>' +
+        '<div class="tool-card-name">' + c.title + '</div>' +
+        '<div class="tool-card-desc">' + c.short + '</div>' +
+        '<span class="tool-card-cta">Commencer le cours ' + COURSE_ARROW + '</span>' +
+      '</button>';
+    }).join("");
+  }
+
+  function renderCoursesPage() {
+    const wrap = document.getElementById("course-wrap");
+    if (!wrap) return;
+    wrap.innerHTML =
+      '<div class="course-page-head">' +
+        '<h2>Apprenez l\'IA pas à pas</h2>' +
+        '<p>Choisissez un cours interactif et progressez à votre rythme.</p>' +
+      '</div>' +
+      '<div class="course-list">' +
+      Object.keys(COURSES).map(id => {
+        const c = COURSES[id];
+        return '<button class="course-item" onclick="openCourse(\'' + id + '\')">' +
+          '<div class="course-item-icon">' + c.icon + '</div>' +
+          '<span class="course-item-level">' + c.level + '</span>' +
+          '<h3>' + c.title + '</h3>' +
+          '<p>' + c.short + '</p>' +
+          '<div class="course-item-meta"><span>⏱ ' + c.duration + '</span><span>📘 ' + c.content.length + ' étapes</span></div>' +
+        '</button>';
+      }).join("") +
+      '</div>';
+  }
+
+  function openCourse(id) {
+    courseState = { id: id, index: 0, answered: {} };
+    goTo("cours");
+    renderLesson();
+  }
+
+  function lessonHeader(c, cur, total) {
+    const pct = Math.round((Math.min(cur, total) / total) * 100);
+    return '<div class="lesson-top"><button class="lesson-back" onclick="renderCoursesPage()">← Cours</button><div class="lesson-title">' + c.title + '</div></div>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="progress-text">' + Math.min(cur, total) + ' / ' + total + '</div>';
+  }
+
+  function renderQuiz(c, qi) {
+    const q = c.quiz[qi];
+    const chosen = courseState.answered[qi];
+    const opts = q.options.map((o, i) => {
+      let cls = "quiz-opt", dis = "";
+      if (chosen !== undefined) {
+        dis = " disabled";
+        if (i === q.answer) cls += " correct";
+        else if (i === chosen) cls += " wrong";
+      }
+      return '<button class="' + cls + '"' + dis + ' onclick="answerQuiz(' + qi + ',' + i + ')">' + o + '</button>';
+    }).join("");
+    let fb = "";
+    if (chosen !== undefined) {
+      const ok = chosen === q.answer;
+      fb = '<div class="quiz-feedback" style="color:' + (ok ? '#1f6b34' : '#a3322c') + '">' + (ok ? '✓ Bonne réponse ! ' : '✗ Pas tout à fait. ') + q.explain + '</div>';
+    }
+    return '<div class="lesson-step"><div class="lesson-step-num">Quiz</div><div class="quiz-q">' + q.q + '</div>' + opts + fb + '</div>';
+  }
+
+  function renderLesson() {
+    const c = COURSES[courseState.id];
+    const wrap = document.getElementById("course-wrap");
+    const total = c.content.length + c.quiz.length;
+
+    if (courseState.index >= total) {
+      wrap.innerHTML =
+        '<div class="lesson">' + lessonHeader(c, total, total) +
+        '<div class="lesson-card"><div class="course-done">' +
+          '<div class="big">🎉</div><h3>Cours terminé !</h3>' +
+          '<p>Bravo, vous avez terminé « ' + c.title + ' ». Prêt à mettre ça en pratique ?</p>' +
+          '<button class="btn-primary" onclick="goTo(\'tools\')">Générer un prompt maintenant ' + COURSE_ARROW + '</button>' +
+        '</div></div>' +
+        '<div class="lesson-nav"><button class="lesson-btn prev" onclick="renderCoursesPage()">← Tous les cours</button><span></span></div>' +
+        '</div>';
+      window.scrollTo({ top: 0 });
+      return;
+    }
+
+    let inner, canNext = true;
+    if (courseState.index < c.content.length) {
+      const s = c.content[courseState.index];
+      inner = '<div class="lesson-step"><div class="lesson-step-num">Étape ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' + s.html + '</div>';
+    } else {
+      const qi = courseState.index - c.content.length;
+      inner = renderQuiz(c, qi);
+      canNext = courseState.answered[qi] !== undefined; // il faut répondre avant de continuer
+    }
+
+    wrap.innerHTML =
+      '<div class="lesson">' + lessonHeader(c, courseState.index + 1, total) +
+      '<div class="lesson-card">' + inner + '</div>' +
+      '<div class="lesson-nav">' +
+        '<button class="lesson-btn prev" onclick="lessonPrev()"' + (courseState.index === 0 ? ' disabled' : '') + '>← Précédent</button>' +
+        '<button class="lesson-btn next" onclick="lessonNext()"' + (canNext ? '' : ' disabled') + '>' + (courseState.index === total - 1 ? 'Terminer' : 'Suivant →') + '</button>' +
+      '</div></div>';
+    window.scrollTo({ top: 0 });
+  }
+
+  function answerQuiz(qi, i) {
+    if (courseState.answered[qi] !== undefined) return;
+    courseState.answered[qi] = i;
+    renderLesson();
+  }
+  function lessonNext() { courseState.index++; renderLesson(); }
+  function lessonPrev() { if (courseState.index > 0) { courseState.index--; renderLesson(); } }
+
   // Init
   buildToolCards();
+  buildCourseCards();
   observeReveals();
   window.addEventListener("load", initAuth);
 </script>
