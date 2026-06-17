@@ -476,6 +476,38 @@
     }
     .p-form button:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 
+    /* ── TARIFS ── */
+    .pricing { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; max-width: 760px; margin: 0 auto; }
+    .price-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 30px; position: relative;
+      transition: transform .25s var(--ease), box-shadow .3s var(--ease);
+    }
+    .price-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+    .price-card.featured { border-color: var(--accent); box-shadow: var(--shadow-md); }
+    .price-badge {
+      position: absolute; top: 22px; right: 22px;
+      background: var(--accent); color: #fff; font-size: 11px; font-weight: 600;
+      padding: 4px 11px; border-radius: 999px; letter-spacing: .02em;
+    }
+    .price-name { font-size: 13px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .price-amount { font-size: 40px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 6px; }
+    .price-amount span { font-size: 15px; font-weight: 500; color: var(--text-faint); letter-spacing: 0; }
+    .price-desc { font-size: 13.5px; color: var(--text-dim); margin-bottom: 22px; line-height: 1.5; }
+    .price-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .price-list li { font-size: 13.5px; color: var(--text); display: flex; align-items: flex-start; gap: 9px; line-height: 1.4; }
+    .price-list li svg { flex-shrink: 0; margin-top: 2px; color: var(--text); }
+    .price-btn {
+      display: block; width: 100%; text-align: center; padding: 13px;
+      border-radius: 11px; font-size: 14.5px; font-weight: 600; cursor: pointer;
+      font-family: inherit; border: none; text-decoration: none;
+      transition: transform .15s var(--ease), box-shadow .2s var(--ease), border-color .15s;
+    }
+    .price-btn.solid { background: var(--accent); color: #fff; }
+    .price-btn.solid:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .price-btn.ghost { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .price-btn.ghost:hover { border-color: var(--text-faint); }
+
     /* ── CONNEXION GOOGLE ── */
     .auth-area { display: flex; align-items: center; margin-left: 4px; min-height: 32px; }
     .user-badge {
@@ -496,6 +528,7 @@
       .tools-grid { grid-template-columns: 1fr; }
       .why-grid { grid-template-columns: 1fr; }
       .duo { grid-template-columns: 1fr; }
+      .pricing { grid-template-columns: 1fr; max-width: 400px; }
     }
     @media (max-width: 600px) {
       nav { padding: 0 16px; }
@@ -657,6 +690,43 @@
           <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
           <div class="why-name">En évolution continue</div>
           <div class="why-desc">De nouveaux outils et améliorations sont déployés régulièrement sur la plateforme.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION TARIFS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Tarifs</div>
+        <h2 class="section-title">Un abonnement simple</h2>
+        <p class="section-sub">Commencez gratuitement, passez au Premium quand vous voulez débloquer toutes les IA partenaires.</p>
+      </div>
+      <div class="pricing">
+        <div class="price-card reveal" data-d="1">
+          <div class="price-name">Gratuit</div>
+          <div class="price-amount">0€ <span>/ mois</span></div>
+          <p class="price-desc">Pour découvrir le Hub.</p>
+          <ul class="price-list">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Accès aux outils de base</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Générations limitées</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Sans carte bancaire</li>
+          </ul>
+          <button class="price-btn ghost" onclick="goTo('tools')">Commencer gratuitement</button>
+        </div>
+        <div class="price-card featured reveal" data-d="2">
+          <div class="price-badge">Populaire</div>
+          <div class="price-name">Premium</div>
+          <div class="price-amount">9,99€ <span>/ mois</span></div>
+          <p class="price-desc">Toutes les IA partenaires, sans limite.</p>
+          <ul class="price-list">
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Accès à toutes les IA partenaires</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Générations illimitées</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Nouveaux outils en priorité</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Support prioritaire</li>
+          </ul>
+          <a class="price-btn solid" href="https://buy.stripe.com/test_cNiaEY9987Ep6wq6GJaMU00" target="_blank" rel="noopener">S'abonner</a>
         </div>
       </div>
     </div>
