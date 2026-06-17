@@ -3,6 +3,17 @@
 // Reçoit { prompt, systemPrompt } et renvoie { text }
 
 export default async function handler(req, res) {
+  // Autorisations CORS : permet au site d'appeler ce backend depuis n'importe quelle adresse
+  // (Vercel, GitHub Pages, etc.)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Réponse à la requête de pré-vérification du navigateur (preflight CORS)
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   // Accepter uniquement les requêtes POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Méthode non autorisée. Utilise POST.' });

@@ -741,7 +741,9 @@
 </div>
 
 <script>
-  const API_URL = "/api/generate";
+  // On pointe toujours vers le backend Vercel (qui fait tourner l'IA + la clé),
+  // pour que le site fonctionne depuis n'importe quelle adresse (Vercel ou GitHub Pages).
+  const API_URL = "https://hub-ia-ashen.vercel.app/api/generate";
   const TOOLS = {
     "Génération-Texte": {
       name: "Génération Texte", icon: "📝", cat: "IA qui génère du texte",
