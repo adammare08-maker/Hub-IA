@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IA Hub — Tous vos outils IA au même endroit</title>
-  <meta name="description" content="IA Hub réunit les meilleurs outils IA (texte, code, vision, image) dans une seule interface simple, rapide et gratuite.">
+  <title>IA Hub — Générateur de textes & prompts à copier-coller dans vos IA</title>
+  <meta name="description" content="IA Hub génère des textes de qualité pro et des prompts optimisés, prêts à copier-coller dans ChatGPT, Gemini, Midjourney et toutes vos IA. Simple, rapide et gratuit.">
   <meta name="theme-color" content="#111111">
 
   <!-- Favicon (icône d'onglet) -->
@@ -12,12 +12,12 @@
 
   <!-- Partage sur les réseaux / messageries -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="IA Hub — Tous vos outils IA au même endroit">
-  <meta property="og:description" content="Écrivez, codez, analysez et créez plus vite grâce à une sélection d'outils IA performants. Simple, rapide et gratuit.">
+  <meta property="og:title" content="IA Hub — Générateur de textes & prompts à copier-coller dans vos IA">
+  <meta property="og:description" content="Générez des textes de qualité pro et des prompts optimisés, prêts à copier-coller dans ChatGPT, Gemini, Midjourney et toutes vos IA. Simple, rapide et gratuit.">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="IA Hub — Tous vos outils IA au même endroit">
-  <meta name="twitter:description" content="Tous les meilleurs outils IA réunis dans une seule interface. Simple, rapide et gratuit.">
+  <meta name="twitter:title" content="IA Hub — Générateur de textes & prompts IA">
+  <meta name="twitter:description" content="Des textes et des prompts parfaits, prêts à copier-coller dans ChatGPT, Gemini, Midjourney et toutes vos IA.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -570,28 +570,28 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="home-badge reveal in">
-      <span class="pulse"></span> La marketplace des outils IA
+      <span class="pulse"></span> Générateur de textes & de prompts IA
     </div>
     <h1 class="home-title reveal in" data-d="1">
-      Un seul abonnement,<br><span>toutes les IA partenaires.</span>
+      Des textes et des prompts parfaits,<br><span>prêts à copier-coller.</span>
     </h1>
     <p class="home-sub reveal in" data-d="2">
-      IA Hub connecte les <strong>utilisateurs</strong> qui veulent accéder à plein d'outils IA au même endroit, et les <strong>partenaires</strong> qui veulent exposer leur IA et générer plus de revenus.
+      IA Hub génère des <strong>textes de qualité pro</strong> et des <strong>prompts optimisés</strong> à copier-coller directement dans ChatGPT, Gemini, Midjourney et toutes vos IA préférées.
     </p>
     <div class="home-actions reveal in" data-d="3">
       <button class="btn-primary" onclick="goTo('tools')">
-        Accéder aux outils
+        Générer mon texte
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
-      <button class="btn-outline" onclick="goTo('partners')">Référencer mon IA</button>
+      <button class="btn-outline" onclick="goTo('tools')">Créer un prompt</button>
     </div>
 
     <!-- PREUVE SOCIALE -->
     <div class="proof reveal in" data-d="4">
-      <div class="proof-item"><div class="proof-num">1</div><div class="proof-label">Abonnement unique</div></div>
-      <div class="proof-item"><div class="proof-num">∞</div><div class="proof-label">IA partenaires</div></div>
-      <div class="proof-item"><div class="proof-num">+ Revenus</div><div class="proof-label">Pour les partenaires</div></div>
-      <div class="proof-item"><div class="proof-num">24/7</div><div class="proof-label">Disponible</div></div>
+      <div class="proof-item"><div class="proof-num">2 sec</div><div class="proof-label">Pour générer</div></div>
+      <div class="proof-item"><div class="proof-num">Copier</div><div class="proof-label">en 1 clic</div></div>
+      <div class="proof-item"><div class="proof-num">Toutes IA</div><div class="proof-label">ChatGPT, Gemini…</div></div>
+      <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Gratuit</div></div>
     </div>
   </section>
 
@@ -600,8 +600,8 @@
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Les outils</div>
-        <h2 class="section-title">Des IA partenaires prêtes à l'emploi</h2>
-        <p class="section-sub">Accédez directement à plusieurs outils IA depuis le Hub. De nouvelles IA partenaires sont ajoutées régulièrement.</p>
+        <h2 class="section-title">Générez, copiez, collez dans vos IA</h2>
+        <p class="section-sub">Choisissez un outil, décrivez votre besoin, et obtenez un texte ou un prompt optimisé à copier-coller dans ChatGPT, Gemini, Midjourney et les autres.</p>
       </div>
       <div class="tools-grid" id="tools-grid"></div>
     </div>
@@ -816,8 +816,8 @@
   const API_URL = "https://hub-ia-ashen.vercel.app/api/generate";
   const TOOLS = {
     "Génération-Texte": {
-      name: "Génération Texte", icon: "📝", cat: "IA qui génère du texte",
-      desc: "Rédigez articles, e-mails, idées et contenus clairs et professionnels en quelques secondes.",
+      name: "Génération Texte", icon: "📝", cat: "Textes prêts à copier-coller",
+      desc: "Rédigez articles, e-mails, posts et contenus pro en quelques secondes, prêts à copier-coller partout.",
       placeholder: "Rédige et génère des textes pour tes projets : smart, tech, éducation, créatif…",
       system: "Tu es Génération Texte, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
     },
@@ -834,8 +834,8 @@
       system: "Tu es Génération Vision, expert en analyse visuelle. Réponds en français."
     },
     "Génération-Image": {
-      name: "Génération Image", icon: "🖼️", cat: "IA qui génère des images",
-      desc: "Transformez vos idées en prompts d'images détaillés et optimisés pour un rendu pro.",
+      name: "Génération Image", icon: "🖼️", cat: "Prompts pour Midjourney & co",
+      desc: "Transformez vos idées en prompts d'images détaillés à coller dans Midjourney, DALL·E ou Stable Diffusion.",
       placeholder: "Demande à l'IA de générer une image : paysage, moderne, entre amis… smart, tech, éducation, créatif…",
       system: "Tu es Génération Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
     }
