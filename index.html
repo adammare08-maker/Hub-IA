@@ -597,8 +597,10 @@
       .course-list { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      nav { padding: 0 16px; }
-      .nav-link { padding: 8px 9px; font-size: 13.5px; }
+      nav { padding: 0 12px; }
+      .logo { font-size: 13px; }
+      .logo-icon { width: 26px; height: 26px; }
+      .nav-link { padding: 8px 8px; font-size: 13px; }
       .section { padding: 60px 20px; }
       .proof { grid-template-columns: repeat(2, 1fr); }
       .proof-item:nth-child(2) { border-right: none; }
@@ -619,7 +621,7 @@
 <nav id="nav">
   <button class="logo" onclick="goTo('home')">
     <span class="logo-icon">IA</span>
-    Apprendre l'IA
+    Apprendre l'intelligence artificielle
   </button>
   <div class="nav-links">
     <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
