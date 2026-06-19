@@ -551,6 +551,11 @@
     .lesson-example { background: var(--bg-soft); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
     .lesson-example .lbl { display: block; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-faint); margin-bottom: 6px; }
     .lesson-tip { display: flex; gap: 10px; background: #f0f9f1; border: 1px solid #cfe9d4; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; line-height: 1.55; color: #1f6b34; margin-bottom: 14px; }
+    .lesson-example .ptxt { display: block; margin-bottom: 8px; }
+    .pcopy { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 5px 11px; cursor: pointer; font-family: inherit; transition: background .15s; }
+    .pcopy:hover { background: var(--surface-2); }
+    .course-tier { margin-bottom: 36px; }
+    .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
     .lesson-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
     .lesson-btn { padding: 12px 22px; border-radius: 11px; font-size: 14.5px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; transition: transform .15s var(--ease), box-shadow .2s var(--ease), opacity .15s, border-color .15s; }
@@ -1108,7 +1113,7 @@
   // ── COURS INTERACTIFS ──
   const COURSES = {
     "bases": {
-      icon: "🚀", level: "Débutant", title: "L'IA pour les débutants",
+      icon: "🚀", level: "Débutant", tier: 1, title: "L'IA pour les débutants",
       short: "Comprenez ce qu'est l'IA et à quoi elle sert, en quelques minutes.",
       duration: "5 min",
       content: [
@@ -1131,7 +1136,7 @@
       ]
     },
     "prompt": {
-      icon: "✍️", level: "Essentiel", title: "Écrire un bon prompt",
+      icon: "✍️", level: "Intermédiaire", tier: 2, title: "Écrire un bon prompt",
       short: "La méthode simple pour obtenir des réponses bien meilleures de l'IA.",
       duration: "6 min",
       content: [
@@ -1156,7 +1161,7 @@
       ]
     },
     "images": {
-      icon: "🖼️", level: "Débutant", title: "Générer des images avec l'IA",
+      icon: "🖼️", level: "Intermédiaire", tier: 2, title: "Générer des images avec l'IA",
       short: "Apprenez à décrire vos idées pour obtenir de belles images.",
       duration: "5 min",
       content: [
@@ -1174,16 +1179,110 @@
         { q: "Pour une belle image, il vaut mieux…", options: ["Décrire avec sujet + style + ambiance", "Écrire juste un mot"], answer: 0, explain: "Plus c'est détaillé, plus l'image est réussie." },
         { q: "Midjourney sert à générer…", options: ["Du code", "Des images", "De la musique"], answer: 1, explain: "Midjourney est une IA de génération d'images." }
       ]
+    },
+    "chatgpt": {
+      icon: "💬", level: "Débutant", tier: 1, title: "ChatGPT pas à pas",
+      short: "Tes tout premiers pas avec ChatGPT, sans stress.",
+      duration: "5 min",
+      content: [
+        { title: "Ouvre ChatGPT",
+          html: "<p>Va sur le site de <strong>ChatGPT</strong> et connecte-toi (c'est gratuit). Tu vois une simple barre où écrire : c'est là que tout se passe.</p>" +
+                "<div class='lesson-tip'>💡 Pense à ChatGPT comme à un ami très cultivé à qui tu peux tout demander.</div>" },
+        { title: "Pose ta première question",
+          html: "<p>Écris simplement ce que tu veux, en français normal. Sois clair sur le résultat attendu.</p>" +
+                "<div class='lesson-example'><span class='lbl'>Exemple</span>« Explique-moi ce qu'est l'intelligence artificielle comme si j'avais 12 ans. »</div>" },
+        { title: "Continue la conversation",
+          html: "<p>Pas satisfait de la réponse ? Continue à écrire : « plus court », « donne un exemple », « reformule plus simplement ». L'IA s'adapte à chaque message.</p>" +
+                "<div class='lesson-tip'>💡 Tu peux corriger l'IA autant de fois que tu veux, elle ne se vexe pas.</div>" }
+      ],
+      quiz: [
+        { q: "Pour parler à ChatGPT, on écrit…", options: ["Du code informatique", "En français normal, comme à un ami"], answer: 1, explain: "On écrit naturellement, en langage de tous les jours." },
+        { q: "Si la réponse ne te plaît pas, tu peux…", options: ["Recommencer à zéro seulement", "Continuer la conversation pour l'améliorer"], answer: 1, explain: "Il suffit de demander une amélioration dans le chat." }
+      ]
+    },
+    "rediger": {
+      icon: "📧", level: "Intermédiaire", tier: 2, title: "Rédiger e-mails & messages",
+      short: "Écris des messages clairs et pro en quelques secondes.",
+      duration: "5 min",
+      content: [
+        { title: "L'IA écrit à ta place",
+          html: "<p>Tu galères à formuler un e-mail ? Donne le sujet à l'IA, elle te rédige un message propre que tu n'as plus qu'à relire.</p>" },
+        { title: "Donne le contexte et le ton",
+          html: "<p>Précise toujours : <strong>à qui</strong> tu écris et <strong>quel ton</strong> tu veux.</p>" +
+                "<ul><li><strong>À qui</strong> : « à mon patron », « à un client », « à un ami »</li><li><strong>Le ton</strong> : « poli », « professionnel », « chaleureux »</li></ul>" },
+        { title: "Exemple complet",
+          html: "<div class='lesson-example'><span class='lbl'>Prompt</span><span class='ptxt'>Rédige un e-mail professionnel et poli pour demander un report de rendez-vous à un client, en restant bref.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<p>Tu colles ça dans ChatGPT, et tu obtiens un e-mail prêt à envoyer. ✅</p>" }
+      ],
+      quiz: [
+        { q: "Pour un bon e-mail, il faut surtout préciser…", options: ["La météo", "À qui on écrit et le ton voulu"], answer: 1, explain: "Le destinataire et le ton changent tout." }
+      ]
+    },
+    "prompts10": {
+      icon: "📋", level: "Pratique", tier: 3, title: "10 prompts à copier-coller",
+      short: "Des prompts prêts à l'emploi, à copier dans ton IA.",
+      duration: "4 min",
+      content: [
+        { title: "Prompts pour écrire ✍️",
+          html: "<div class='lesson-example'><span class='lbl'>Idées de contenu</span><span class='ptxt'>Donne-moi 10 idées de posts Instagram sur [ton sujet], avec une accroche pour chacun.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-example'><span class='lbl'>Résumé</span><span class='ptxt'>Résume ce texte en 5 points simples : [colle ton texte].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-example'><span class='lbl'>Correction</span><span class='ptxt'>Corrige les fautes et améliore ce texte sans changer le sens : [colle ton texte].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" },
+        { title: "Prompts pour apprendre 📚",
+          html: "<div class='lesson-example'><span class='lbl'>Expliquer simplement</span><span class='ptxt'>Explique-moi [un sujet] comme si j'avais 12 ans, avec un exemple concret.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-example'><span class='lbl'>Quiz de révision</span><span class='ptxt'>Crée-moi un quiz de 5 questions pour réviser [ton sujet], avec les réponses à la fin.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-example'><span class='lbl'>Plan d'apprentissage</span><span class='ptxt'>Fais-moi un plan pour apprendre [une compétence] en 1 semaine, étape par étape.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" },
+        { title: "Prompts pour ton quotidien ⚡",
+          html: "<div class='lesson-example'><span class='lbl'>Organisation</span><span class='ptxt'>Organise ma journée en planning, à partir de cette liste de tâches : [tes tâches].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-example'><span class='lbl'>Décision</span><span class='ptxt'>Aide-moi à choisir entre [option A] et [option B] : liste les avantages et inconvénients.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-example'><span class='lbl'>Idées cadeaux</span><span class='ptxt'>Propose-moi 10 idées de cadeaux pour [personne], budget [montant].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
+                "<div class='lesson-tip'>💡 Remplace ce qui est entre [crochets] par tes infos, puis colle dans ChatGPT ou Gemini.</div>" }
+      ],
+      quiz: [
+        { q: "Dans un prompt tout prêt, les [crochets] servent à…", options: ["Décorer le texte", "Être remplacés par tes propres infos"], answer: 1, explain: "Tu remplaces [crochets] par ta situation à toi." }
+      ]
+    },
+    "atelier": {
+      icon: "🎯", level: "Pratique", tier: 3, title: "Atelier : améliore tes prompts",
+      short: "Entraîne-toi à transformer un prompt moyen en super prompt.",
+      duration: "6 min",
+      content: [
+        { title: "Repère le problème",
+          html: "<p>Un prompt vague donne une réponse vague. Regarde cet exemple :</p>" +
+                "<div class='lesson-example'><span class='lbl'>❌ Prompt faible</span>« Donne-moi des conseils. »</div>" +
+                "<p>Trop vague : conseils sur quoi ? pour qui ? Il manque tout.</p>" },
+        { title: "Applique la méthode R-C-T",
+          html: "<p>Ajoute un <strong>Rôle</strong>, un <strong>Contexte</strong> et une <strong>Tâche</strong> précise :</p>" +
+                "<div class='lesson-example'><span class='lbl'>✅ Prompt amélioré</span><span class='ptxt'>Tu es un coach en productivité. Je suis étudiant débordé qui n'arrive pas à m'organiser. Donne-moi 5 conseils concrets et faciles à appliquer cette semaine.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" },
+        { title: "À toi de jouer 💪",
+          html: "<p>Entraîne-toi : prends une de tes demandes et ajoute-lui les 3 ingrédients (Rôle + Contexte + Tâche). Puis teste-la dans ton IA.</p>" +
+                "<div class='lesson-tip'>💡 Pas envie de le faire à la main ? Le générateur d'IA Hub crée ce genre de prompt pour toi automatiquement.</div>" }
+      ],
+      quiz: [
+        { q: "Qu'est-ce qui transforme un prompt faible en bon prompt ?", options: ["Le rendre plus court", "Ajouter rôle, contexte et tâche précise"], answer: 1, explain: "Plus c'est précis et cadré, meilleure est la réponse." }
+      ]
     }
   };
 
   const COURSE_ARROW = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
   let courseState = { id: null, index: 0, answered: {} };
 
+  const TIER_LABELS = { 1: "Niveau 1 · Débutant", 2: "Niveau 2 · Intermédiaire", 3: "Pratique · Entraînement" };
+
+  function courseCardHTML(id) {
+    const c = COURSES[id];
+    return '<button class="course-item" onclick="openCourse(\'' + id + '\')">' +
+      '<div class="course-item-icon">' + c.icon + '</div>' +
+      '<span class="course-item-level">' + c.level + '</span>' +
+      '<h3>' + c.title + '</h3>' +
+      '<p>' + c.short + '</p>' +
+      '<div class="course-item-meta"><span>⏱ ' + c.duration + '</span><span>📘 ' + c.content.length + ' étapes</span></div>' +
+    '</button>';
+  }
+
   function buildCourseCards() {
     const grid = document.getElementById("cours-grid");
     if (!grid) return;
-    grid.innerHTML = Object.keys(COURSES).map((id, i) => {
+    grid.innerHTML = Object.keys(COURSES).slice(0, 3).map((id, i) => {
       const c = COURSES[id];
       return '<button class="tool-card reveal" data-d="' + ((i % 3) + 1) + '" onclick="openCourse(\'' + id + '\')">' +
         '<div class="tool-card-icon">' + c.icon + '</div>' +
@@ -1197,23 +1296,20 @@
   function renderCoursesPage() {
     const wrap = document.getElementById("course-wrap");
     if (!wrap) return;
+    let tiers = "";
+    [1, 2, 3].forEach(t => {
+      const ids = Object.keys(COURSES).filter(id => COURSES[id].tier === t);
+      if (!ids.length) return;
+      tiers += '<div class="course-tier">' +
+        '<div class="course-tier-label">' + TIER_LABELS[t] + '</div>' +
+        '<div class="course-list">' + ids.map(courseCardHTML).join("") + '</div>' +
+      '</div>';
+    });
     wrap.innerHTML =
       '<div class="course-page-head">' +
         '<h2>Apprenez l\'IA pas à pas</h2>' +
-        '<p>Choisissez un cours interactif et progressez à votre rythme.</p>' +
-      '</div>' +
-      '<div class="course-list">' +
-      Object.keys(COURSES).map(id => {
-        const c = COURSES[id];
-        return '<button class="course-item" onclick="openCourse(\'' + id + '\')">' +
-          '<div class="course-item-icon">' + c.icon + '</div>' +
-          '<span class="course-item-level">' + c.level + '</span>' +
-          '<h3>' + c.title + '</h3>' +
-          '<p>' + c.short + '</p>' +
-          '<div class="course-item-meta"><span>⏱ ' + c.duration + '</span><span>📘 ' + c.content.length + ' étapes</span></div>' +
-        '</button>';
-      }).join("") +
-      '</div>';
+        '<p>Des cours interactifs classés par niveau. Commencez par le Niveau 1 et progressez à votre rythme.</p>' +
+      '</div>' + tiers;
   }
 
   function openCourse(id) {
@@ -1295,6 +1391,17 @@
   }
   function lessonNext() { courseState.index++; renderLesson(); }
   function lessonPrev() { if (courseState.index > 0) { courseState.index--; renderLesson(); } }
+
+  async function copyPrompt(btn) {
+    const box = btn.parentElement.querySelector(".ptxt");
+    if (!box) return;
+    try {
+      await navigator.clipboard.writeText(box.textContent);
+      const old = btn.textContent;
+      btn.textContent = "Copié ✓";
+      setTimeout(() => { btn.textContent = old; }, 1500);
+    } catch (e) { /* presse-papier indisponible */ }
+  }
 
   // Init
   buildToolCards();
