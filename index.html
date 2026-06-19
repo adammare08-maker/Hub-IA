@@ -554,6 +554,8 @@
     .lesson-example .ptxt { display: block; margin-bottom: 8px; }
     .pcopy { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 5px 11px; cursor: pointer; font-family: inherit; transition: background .15s; }
     .pcopy:hover { background: var(--surface-2); }
+    .exo-fb { margin-top: 14px; background: var(--bg-soft); border: 1px solid var(--border); border-left: 3px solid #34a853; border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; color: var(--text); }
+    .exo-fb.err { border-left-color: #d33; color: #d33; }
     .course-tier { margin-bottom: 36px; }
     .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
@@ -630,8 +632,8 @@
   </button>
   <div class="nav-links">
     <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
-    <button class="nav-link" id="nav-tools" onclick="goTo('tools')">Outils</button>
     <button class="nav-link" id="nav-cours" onclick="goTo('cours')">Cours</button>
+    <button class="nav-link" id="nav-tools" onclick="goTo('tools')">Outils</button>
     <button class="btn-partner" onclick="goTo('tools')">Générer un prompt</button>
     <div class="auth-area" id="auth-area"></div>
   </div>
@@ -1260,6 +1262,19 @@
       quiz: [
         { q: "Qu'est-ce qui transforme un prompt faible en bon prompt ?", options: ["Le rendre plus court", "Ajouter rôle, contexte et tâche précise"], answer: 1, explain: "Plus c'est précis et cadré, meilleure est la réponse." }
       ]
+    },
+    "exo": {
+      icon: "🧪", level: "Pratique", tier: 3, title: "Exercices corrigés par l'IA",
+      short: "On te donne une mission, tu écris le prompt, l'IA le corrige !",
+      duration: "8 min",
+      content: [
+        { type: "exercise", title: "Mission : génère une image", task: "Écris un prompt pour générer l'image d'un paysage de montagne au coucher du soleil, en style photo réaliste." },
+        { type: "exercise", title: "Mission : rédige un texte", task: "Écris un prompt pour demander à l'IA un court e-mail de remerciement à envoyer à un client après un achat." },
+        { type: "exercise", title: "Mission : un peu de code", task: "Écris un prompt pour demander à l'IA une petite fonction qui additionne deux nombres, avec une explication simple." }
+      ],
+      quiz: [
+        { q: "Dans un bon prompt, qu'est-ce qui compte le plus ?", options: ["La longueur", "La précision : sujet, style et objectif clairs"], answer: 1, explain: "Un prompt précis donne toujours une meilleure réponse." }
+      ]
     }
   };
 
@@ -1351,12 +1366,17 @@
     const total = c.content.length + c.quiz.length;
 
     if (courseState.index >= total) {
+      const ids = Object.keys(COURSES);
+      const nextId = ids[ids.indexOf(courseState.id) + 1];
+      const nextBtn = nextId
+        ? '<button class="btn-primary" onclick="openCourse(\'' + nextId + '\')">Cours suivant : ' + COURSES[nextId].title + ' ' + COURSE_ARROW + '</button>'
+        : '<button class="btn-primary" onclick="goTo(\'tools\')">Générer un prompt maintenant ' + COURSE_ARROW + '</button>';
       wrap.innerHTML =
         '<div class="lesson">' + lessonHeader(c, total, total) +
         '<div class="lesson-card"><div class="course-done">' +
           '<div class="big">🎉</div><h3>Cours terminé !</h3>' +
-          '<p>Bravo, vous avez terminé « ' + c.title + ' ». Prêt à mettre ça en pratique ?</p>' +
-          '<button class="btn-primary" onclick="goTo(\'tools\')">Générer un prompt maintenant ' + COURSE_ARROW + '</button>' +
+          '<p>Bravo, vous avez terminé « ' + c.title + ' ».' + (nextId ? ' On enchaîne avec le cours suivant ?' : ' Prêt à mettre ça en pratique ?') + '</p>' +
+          nextBtn +
         '</div></div>' +
         '<div class="lesson-nav"><button class="lesson-btn prev" onclick="renderCoursesPage()">← Tous les cours</button><span></span></div>' +
         '</div>';
@@ -1367,7 +1387,15 @@
     let inner, canNext = true;
     if (courseState.index < c.content.length) {
       const s = c.content[courseState.index];
-      inner = '<div class="lesson-step"><div class="lesson-step-num">Étape ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' + s.html + '</div>';
+      if (s.type === "exercise") {
+        inner = '<div class="lesson-step"><div class="lesson-step-num">Exercice ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' +
+          '<p>' + s.task + '</p>' +
+          '<textarea id="exo-input" rows="4" placeholder="Écris ton prompt ici…"></textarea>' +
+          '<button class="btn-run" style="margin-top:12px" id="exo-btn" onclick="checkExercise(this)">✓ Vérifier mon prompt</button>' +
+          '<div id="exo-feedback"></div></div>';
+      } else {
+        inner = '<div class="lesson-step"><div class="lesson-step-num">Étape ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' + s.html + '</div>';
+      }
     } else {
       const qi = courseState.index - c.content.length;
       inner = renderQuiz(c, qi);
@@ -1401,6 +1429,44 @@
       btn.textContent = "Copié ✓";
       setTimeout(() => { btn.textContent = old; }, 1500);
     } catch (e) { /* presse-papier indisponible */ }
+  }
+
+  async function checkExercise(btn) {
+    const ta = document.getElementById("exo-input");
+    const fb = document.getElementById("exo-feedback");
+    const val = (ta.value || "").trim();
+    if (!val) { ta.focus(); return; }
+
+    const c = COURSES[courseState.id];
+    const s = c.content[courseState.index];
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> L\'IA analyse ton prompt…';
+    fb.innerHTML = "";
+
+    const systemPrompt = "Tu es un professeur d'IA bienveillant qui corrige les prompts d'élèves débutants. " +
+      "Commence ta réponse par « ✅ Bien joué ! » si le prompt répond correctement à la mission, ou par « ⚠️ À améliorer : » sinon. " +
+      "Ensuite, donne 1 à 2 conseils courts, concrets et encourageants pour améliorer le prompt. Maximum 4 lignes. Réponds en français.";
+    const userMsg = "Mission de l'exercice : " + s.task + "\n\nVoici le prompt écrit par l'élève :\n\"" + val + "\"";
+
+    try {
+      const resp = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: userMsg, systemPrompt: systemPrompt })
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        fb.innerHTML = '<div class="exo-fb err">⚠ ' + (data.error || "Erreur") + '</div>';
+      } else {
+        fb.innerHTML = '<div class="exo-fb"></div>';
+        fb.querySelector(".exo-fb").textContent = data.text;
+      }
+    } catch (e) {
+      fb.innerHTML = '<div class="exo-fb err">⚠ Erreur réseau. Vérifie ta connexion.</div>';
+    }
+    btn.disabled = false;
+    btn.innerHTML = '✓ Vérifier mon prompt';
   }
 
   // Init
