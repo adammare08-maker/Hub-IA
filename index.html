@@ -559,6 +559,29 @@
     .course-tier { margin-bottom: 36px; }
     .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
+    .coursestats { display: flex; gap: 12px; justify-content: center; margin-bottom: 36px; flex-wrap: wrap; }
+    .cstat { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 9px 18px; font-size: 14px; font-weight: 600; }
+    .cstat .ic { font-size: 17px; }
+    .path { position: relative; margin-left: 4px; }
+    .path::before { content: ""; position: absolute; left: 21px; top: 10px; bottom: 10px; width: 2px; background: var(--border); }
+    .path-node { position: relative; padding: 0 0 16px 62px; cursor: pointer; }
+    .path-dot {
+      position: absolute; left: 0; top: 2px; width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 20px; z-index: 1;
+      transition: transform .15s var(--ease);
+    }
+    .path-node:hover .path-dot { transform: scale(1.07); }
+    .path-dot.done { background: #34a853; border-color: #34a853; color: #fff; font-size: 22px; }
+    .path-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; transition: border-color .15s, box-shadow .25s var(--ease); }
+    .path-node:hover .path-card { border-color: #dcdcdc; box-shadow: var(--shadow-sm); }
+    .path-card h3 { font-size: 15.5px; font-weight: 600; margin-bottom: 3px; }
+    .path-card p { font-size: 13px; color: var(--text-dim); line-height: 1.45; }
+    .path-meta { display: flex; gap: 10px; margin-top: 9px; font-size: 12px; color: var(--text-faint); align-items: center; flex-wrap: wrap; }
+    .path-xp { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-weight: 600; color: var(--text-dim); }
+    .path-badge-done { color: #1f6b34; font-weight: 600; }
+    .xp-pop { display: inline-block; background: #eafaf0; color: #1f6b34; border: 1px solid #bfe6cb; border-radius: 999px; padding: 6px 16px; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+
     .lesson-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
     .lesson-btn { padding: 12px 22px; border-radius: 11px; font-size: 14.5px; font-weight: 600; cursor: pointer; font-family: inherit; border: none; transition: transform .15s var(--ease), box-shadow .2s var(--ease), opacity .15s, border-color .15s; }
     .lesson-btn.prev { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
@@ -1308,23 +1331,64 @@
     }).join("");
   }
 
+  // ── Progression (façon Duolingo, sauvegardée dans le navigateur) ──
+  function getProgress() {
+    try { return JSON.parse(localStorage.getItem("hubProgress")) || { xp: 0, done: {}, streak: 0, lastActive: null }; }
+    catch (e) { return { xp: 0, done: {}, streak: 0, lastActive: null }; }
+  }
+  function saveProgress(p) { try { localStorage.setItem("hubProgress", JSON.stringify(p)); } catch (e) {} }
+  function touchStreak(p) {
+    const today = new Date().toISOString().slice(0, 10);
+    if (p.lastActive === today) return;
+    const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    p.streak = (p.lastActive === yest) ? (p.streak || 0) + 1 : 1;
+    p.lastActive = today;
+  }
+  function markCourseDone(id) {
+    const p = getProgress();
+    touchStreak(p);
+    let gained = 0, first = false;
+    if (!p.done[id]) { p.done[id] = true; p.xp = (p.xp || 0) + 20; gained = 20; first = true; }
+    saveProgress(p);
+    return { gained, xp: p.xp, streak: p.streak, first };
+  }
+
   function renderCoursesPage() {
     const wrap = document.getElementById("course-wrap");
     if (!wrap) return;
+    const p = getProgress();
+    const totalCourses = Object.keys(COURSES).length;
+    const doneCount = Object.keys(p.done).length;
+    const stats = '<div class="coursestats">' +
+      '<div class="cstat"><span class="ic">🔥</span> ' + (p.streak || 0) + ' j</div>' +
+      '<div class="cstat"><span class="ic">⭐</span> ' + (p.xp || 0) + ' XP</div>' +
+      '<div class="cstat"><span class="ic">✅</span> ' + doneCount + '/' + totalCourses + ' cours</div>' +
+    '</div>';
+
     let tiers = "";
     [1, 2, 3].forEach(t => {
       const ids = Object.keys(COURSES).filter(id => COURSES[id].tier === t);
       if (!ids.length) return;
-      tiers += '<div class="course-tier">' +
-        '<div class="course-tier-label">' + TIER_LABELS[t] + '</div>' +
-        '<div class="course-list">' + ids.map(courseCardHTML).join("") + '</div>' +
-      '</div>';
+      const nodes = ids.map(id => {
+        const c = COURSES[id];
+        const done = !!p.done[id];
+        return '<div class="path-node" onclick="openCourse(\'' + id + '\')">' +
+          '<div class="path-dot' + (done ? ' done' : '') + '">' + (done ? '✓' : c.icon) + '</div>' +
+          '<div class="path-card">' +
+            '<h3>' + c.title + '</h3>' +
+            '<p>' + c.short + '</p>' +
+            '<div class="path-meta"><span>⏱ ' + c.duration + '</span><span class="path-xp">+20 XP</span>' + (done ? '<span class="path-badge-done">Terminé ✓</span>' : '') + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join("");
+      tiers += '<div class="course-tier"><div class="course-tier-label">' + TIER_LABELS[t] + '</div><div class="path">' + nodes + '</div></div>';
     });
+
     wrap.innerHTML =
       '<div class="course-page-head">' +
-        '<h2>Apprenez l\'IA pas à pas</h2>' +
-        '<p>Des cours interactifs classés par niveau. Commencez par le Niveau 1 et progressez à votre rythme.</p>' +
-      '</div>' + tiers;
+        '<h2>Ton parcours pour apprendre l\'IA</h2>' +
+        '<p>Gagne des XP, garde ta série 🔥 et débloque tous les cours, un par un.</p>' +
+      '</div>' + stats + tiers;
   }
 
   function openCourse(id) {
@@ -1366,16 +1430,21 @@
     const total = c.content.length + c.quiz.length;
 
     if (courseState.index >= total) {
+      const res = markCourseDone(courseState.id);
       const ids = Object.keys(COURSES);
       const nextId = ids[ids.indexOf(courseState.id) + 1];
       const nextBtn = nextId
         ? '<button class="btn-primary" onclick="openCourse(\'' + nextId + '\')">Cours suivant : ' + COURSES[nextId].title + ' ' + COURSE_ARROW + '</button>'
         : '<button class="btn-primary" onclick="goTo(\'tools\')">Générer un prompt maintenant ' + COURSE_ARROW + '</button>';
+      const xpLine = res.first
+        ? '<div class="xp-pop">+' + res.gained + ' XP ⭐</div>'
+        : '<div class="xp-pop">Déjà terminé · ⭐ ' + res.xp + ' XP</div>';
       wrap.innerHTML =
         '<div class="lesson">' + lessonHeader(c, total, total) +
         '<div class="lesson-card"><div class="course-done">' +
-          '<div class="big">🎉</div><h3>Cours terminé !</h3>' +
-          '<p>Bravo, vous avez terminé « ' + c.title + ' ».' + (nextId ? ' On enchaîne avec le cours suivant ?' : ' Prêt à mettre ça en pratique ?') + '</p>' +
+          '<div class="big">🎉</div>' + xpLine +
+          '<h3>Cours terminé !</h3>' +
+          '<p>Bravo, tu as terminé « ' + c.title + ' ». 🔥 Série : ' + res.streak + ' jour' + (res.streak > 1 ? 's' : '') + ' · ⭐ ' + res.xp + ' XP au total.' + (nextId ? ' On enchaîne ?' : '') + '</p>' +
           nextBtn +
         '</div></div>' +
         '<div class="lesson-nav"><button class="lesson-btn prev" onclick="renderCoursesPage()">← Tous les cours</button><span></span></div>' +
