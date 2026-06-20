@@ -923,9 +923,9 @@
       system: "Tu es Génération Vision, expert en analyse visuelle. Réponds en français."
     },
     "Génération-Image": {
-      name: "Génération Image", icon: "🖼️", cat: "Prompts pour Midjourney & co",
-      desc: "Transformez vos idées en prompts d'images détaillés à coller dans Midjourney, DALL·E ou Stable Diffusion.",
-      placeholder: "Demande à l'IA de générer une image : paysage, moderne, entre amis… smart, tech, éducation, créatif…",
+      name: "Génération Image", icon: "🖼️", cat: "IA qui crée de vraies images",
+      desc: "Décrivez une image et l'IA la crée directement sur le site, prête à télécharger.",
+      placeholder: "Décris l'image que tu veux : un chat roux sur un toit au coucher du soleil, style photo réaliste…",
       system: "Tu es Génération Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
     }
   };
@@ -1008,6 +1008,9 @@
     const prompt = input.value.trim();
     if (!prompt) { input.focus(); return; }
 
+    // L'outil Image génère une VRAIE image (via Pollinations.ai), pas du texte
+    if (activeTool === "Génération-Image") { generateImage(prompt); return; }
+
     const btn = document.getElementById("run-btn");
     const area = document.getElementById("result-area");
 
@@ -1057,6 +1060,45 @@
         setTimeout(() => { btn.textContent = old; }, 1500);
       }
     } catch (e) { /* clipboard indisponible */ }
+  }
+
+  function resetRunBtn() {
+    const btn = document.getElementById("run-btn");
+    if (!btn) return;
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Générer';
+  }
+
+  // Génération d'une vraie image via Pollinations.ai (gratuit, sans clé)
+  function generateImage(prompt) {
+    const btn = document.getElementById("run-btn");
+    const area = document.getElementById("result-area");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Création de l\'image…';
+    area.innerHTML = '<div class="result-box"><div class="result-text">🎨 Génération de ton image en cours… (10 à 20 secondes)</div></div>';
+
+    const styled = prompt + ", highly detailed, high quality";
+    const seed = Math.floor(Math.random() * 1000000);
+    const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(styled) +
+      "?width=1024&height=1024&nologo=true&seed=" + seed;
+
+    const img = new Image();
+    img.onload = function () {
+      area.innerHTML =
+        '<div class="result-box">' +
+          '<div class="result-bar">' +
+            '<span class="result-label">Image générée</span>' +
+            '<a class="btn-copy" href="' + url + '" target="_blank" rel="noopener">Ouvrir en grand</a>' +
+          '</div>' +
+          '<div style="padding:12px"><img src="' + url + '" alt="Image générée par l\'IA" style="width:100%;border-radius:8px;display:block"></div>' +
+        '</div>';
+      resetRunBtn();
+    };
+    img.onerror = function () {
+      area.innerHTML = '<div class="result-box"><div class="result-text result-err">⚠ Impossible de générer l\'image pour le moment. Réessaie dans un instant.</div></div>';
+      resetRunBtn();
+    };
+    img.src = url;
   }
 
   // ── Effet navbar au scroll ──
