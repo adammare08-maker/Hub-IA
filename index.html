@@ -433,6 +433,9 @@
     .btn-copy:hover { background: var(--surface-2); color: var(--text); }
     .result-text { padding: 16px; font-size: 14.5px; line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
     .result-err { color: #d33; }
+    .code-block { margin: 0; padding: 16px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; white-space: pre; overflow-x: auto; background: #0f1117; color: #e6e6e6; }
+    .bar-actions { display: flex; gap: 6px; }
+    .code-preview iframe { width: 100%; height: 320px; border: 0; border-top: 1px solid var(--border); background: #fff; }
 
     .spinner {
       width: 15px; height: 15px;
@@ -914,7 +917,7 @@
       name: "Génération Codage", icon: "👨‍💻", cat: "IA qui génère du code",
       desc: "Générez, expliquez et corrigez du code propre dans n'importe quel langage.",
       placeholder: "Demande à l'IA de générer ou d'expliquer du code : smart, tech, éducation, créatif…",
-      system: "Tu es Génération Codage, expert développeur. Fournis du code propre, commenté et expliqué. Réponds en français."
+      system: "Tu es Génération Codage, expert développeur. Fournis du code propre et commenté. Quand on te demande une page, un composant ou un visuel web, renvoie un fichier HTML complet et autonome (avec le <style> et le <script> inclus dans le même code) prêt à être affiché tel quel. Donne le code en premier, puis une courte explication. Réponds en français."
     },
     "Génération-Vision": {
       name: "Génération Vision", icon: "👁️", cat: "IA d'analyse visuelle",
@@ -1029,6 +1032,8 @@
 
       if (!resp.ok) {
         area.innerHTML = '<div class="result-box"><div class="result-text result-err">⚠ ' + (data.error || "Erreur inconnue") + '</div></div>';
+      } else if (activeTool === "Génération-Codage") {
+        renderCodeResult(data.text);
       } else {
         area.innerHTML =
           '<div class="result-box">' +
@@ -1099,6 +1104,40 @@
       resetRunBtn();
     };
     img.src = url;
+  }
+
+  // Affichage du code généré + bouton Aperçu (exécute le code web en direct)
+  function renderCodeResult(code) {
+    const area = document.getElementById("result-area");
+    const isWeb = /<(html|body|div|button|svg|h1|h2|p|style|section|main|ul|canvas|script|!doctype|form|input)/i.test(code);
+    area.innerHTML =
+      '<div class="result-box">' +
+        '<div class="result-bar">' +
+          '<span class="result-label">Code</span>' +
+          '<span class="bar-actions">' +
+            (isWeb ? '<button class="btn-copy" onclick="previewCode(this)">▶ Aperçu</button>' : '') +
+            '<button class="btn-copy" onclick="copyResult(this)">Copier</button>' +
+          '</span>' +
+        '</div>' +
+        '<pre class="code-block" id="result-text"></pre>' +
+        '<div class="code-preview" id="code-preview" data-open="0"></div>' +
+      '</div>';
+    document.getElementById("result-text").textContent = code;
+  }
+
+  function previewCode(btn) {
+    const code = document.getElementById("result-text").textContent;
+    const holder = document.getElementById("code-preview");
+    if (holder.dataset.open === "1") {
+      holder.innerHTML = ""; holder.dataset.open = "0"; btn.textContent = "▶ Aperçu"; return;
+    }
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("sandbox", "allow-scripts allow-modals");
+    iframe.srcdoc = code;
+    holder.innerHTML = "";
+    holder.appendChild(iframe);
+    holder.dataset.open = "1";
+    btn.textContent = "Masquer l'aperçu";
   }
 
   // ── Effet navbar au scroll ──
