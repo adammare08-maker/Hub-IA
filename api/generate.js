@@ -1,6 +1,7 @@
 // Fonction Serverless Vercel — /api/generate
 // Utilise Groq (gratuit, ultra rapide, disponible en Europe).
-// Reçoit { prompt, systemPrompt } et renvoie { text }
+// Reçoit { prompt, systemPrompt, image? } et renvoie { text }
+// Si "image" (data URL base64) est fourni, utilise un modèle vision pour l'analyser.
 
 export default async function handler(req, res) {
   // Autorisations CORS : permet au site d'appeler ce backend depuis n'importe quelle adresse
@@ -29,9 +30,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, systemPrompt } = req.body;
+    const { prompt, systemPrompt, image } = req.body;
 
-    if (!prompt || !prompt.trim()) {
+    if ((!prompt || !prompt.trim()) && !image) {
       return res.status(400).json({ error: 'Le champ "prompt" est obligatoire.' });
     }
 
@@ -40,7 +41,21 @@ export default async function handler(req, res) {
     if (systemPrompt) {
       messages.push({ role: 'system', content: systemPrompt });
     }
-    messages.push({ role: 'user', content: prompt });
+
+    // Si une image est fournie, on utilise un modèle "vision" qui sait analyser les images
+    let model = 'llama-3.3-70b-versatile';
+    if (image) {
+      model = 'meta-llama/llama-4-scout-17b-16e-instruct';
+      messages.push({
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt || 'Décris cette image en détail, en français.' },
+          { type: 'image_url', image_url: { url: image } },
+        ],
+      });
+    } else {
+      messages.push({ role: 'user', content: prompt });
+    }
 
     // Appel à l'API Groq (compatible OpenAI)
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -50,7 +65,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: model,
         messages: messages,
         max_tokens: 1024,
         temperature: 0.7,
