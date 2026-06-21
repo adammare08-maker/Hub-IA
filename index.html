@@ -515,6 +515,8 @@
     .price-btn.solid:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
     .price-btn.ghost { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
     .price-btn.ghost:hover { border-color: var(--text-faint); }
+    .manage-sub { text-align: center; margin-top: 22px; font-size: 13.5px; color: var(--text-dim); }
+    .manage-sub a { color: var(--text); font-weight: 600; text-decoration: underline; cursor: pointer; }
 
     /* ── COURS ── */
     #page-cours.active { display: block; }
@@ -850,6 +852,7 @@
           <a class="price-btn solid" href="https://buy.stripe.com/eVq7sM5S1bOm1Hc5NbdjO01" target="_blank" rel="noopener">S'abonner</a>
         </div>
       </div>
+      <p class="manage-sub reveal">Déjà abonné ? <a href="#" onclick="openPortal(event)">Gérer ou résilier mon abonnement</a></p>
     </div>
   </section>
 
@@ -914,6 +917,14 @@
   // On pointe toujours vers le backend Vercel (qui fait tourner l'IA + la clé),
   // pour que le site fonctionne depuis n'importe quelle adresse (Vercel ou GitHub Pages).
   const API_URL = "https://hub-ia-ashen.vercel.app/api/generate";
+
+  // Lien du portail client Stripe (pour gérer / résilier son abonnement). À coller ici.
+  const STRIPE_PORTAL_URL = "";
+  function openPortal(e) {
+    if (e) e.preventDefault();
+    if (STRIPE_PORTAL_URL) { window.open(STRIPE_PORTAL_URL, "_blank", "noopener"); }
+    else { alert("La gestion d'abonnement sera disponible très bientôt."); }
+  }
   const TOOLS = {
     "Génération-Texte": {
       name: "Génération Texte", icon: "📝", cat: "Textes prêts à copier-coller",
