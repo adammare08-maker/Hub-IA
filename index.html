@@ -919,7 +919,7 @@
   const API_URL = "https://hub-ia-ashen.vercel.app/api/generate";
 
   // Lien du portail client Stripe (pour gérer / résilier son abonnement). À coller ici.
-  const STRIPE_PORTAL_URL = "";
+  const STRIPE_PORTAL_URL = "https://billing.stripe.com/p/login/8x2bJ2cgp7y6clQ1wVdjO00";
   function openPortal(e) {
     if (e) e.preventDefault();
     if (STRIPE_PORTAL_URL) { window.open(STRIPE_PORTAL_URL, "_blank", "noopener"); }
