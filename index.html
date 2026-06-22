@@ -620,6 +620,24 @@
     .course-done h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
     .course-done p { font-size: 15px; color: var(--text-dim); margin-bottom: 24px; line-height: 1.6; }
 
+    /* ── ÉCOLES + LÉGAL ── */
+    .ecole-box { background: var(--accent); color: #fff; border-radius: 24px; padding: 44px 38px; text-align: center; }
+    .ecole-box h2 { font-size: clamp(24px, 3.4vw, 34px); font-weight: 700; margin-bottom: 12px; color: #fff; }
+    .ecole-box p { font-size: 15.5px; color: rgba(255,255,255,.85); max-width: 540px; margin: 0 auto 22px; line-height: 1.6; }
+    .ecole-perks { display: flex; justify-content: center; gap: 26px; flex-wrap: wrap; margin-bottom: 28px; }
+    .ecole-perk { font-size: 14px; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .legal-wrap { max-width: 760px; margin: 0 auto; padding: 50px 24px 80px; }
+    .legal-wrap h1 { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
+    .legal-wrap .legal-intro { color: var(--text-dim); margin-bottom: 30px; font-size: 15px; }
+    .legal-wrap h2 { font-size: 19px; font-weight: 600; margin: 30px 0 10px; }
+    .legal-wrap p, .legal-wrap li { font-size: 14.5px; line-height: 1.7; color: var(--text-dim); }
+    .legal-wrap ul { padding-left: 20px; margin-bottom: 10px; }
+    .legal-wrap .todo { background: #fff7e6; border: 1px solid #ffe2a8; border-radius: 8px; padding: 2px 8px; color: #8a5a00; font-weight: 600; font-size: 13px; }
+    .legal-back { display: inline-block; margin-bottom: 24px; font-size: 14px; color: var(--accent); cursor: pointer; font-weight: 600; }
+    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+    .footer-links a { font-size: 12.5px; color: var(--text-faint); cursor: pointer; text-decoration: underline; }
+    .footer-links a:hover { color: var(--text-dim); }
+
     /* ── CONNEXION GOOGLE ── */
     .auth-area { display: flex; align-items: center; margin-left: 4px; min-height: 32px; }
     .user-badge {
@@ -880,6 +898,22 @@
     </div>
   </section>
 
+  <!-- SECTION POUR LES ÉCOLES -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="ecole-box reveal">
+        <h2>🏫 Pour les écoles et les mairies</h2>
+        <p>Vous êtes une école primaire, un enseignant ou une mairie ? Apprenez l'IA à vos élèves de façon ludique et sécurisée. Découvrez nos partenariats et nos tarifs adaptés aux classes.</p>
+        <div class="ecole-perks">
+          <div class="ecole-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Adapté aux programmes</div>
+          <div class="ecole-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Sécurisé pour les enfants</div>
+          <div class="ecole-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Suivi des élèves</div>
+        </div>
+        <a class="btn-white" href="mailto:adam.mare08@gmail.com?subject=Partenariat%20%C3%A9cole%20-%20Apprendre%20l'IA">Devenir école partenaire</a>
+      </div>
+    </div>
+  </section>
+
   <!-- SECTION CTA FINAL -->
   <section class="section">
     <div class="container">
@@ -899,8 +933,57 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-brand"><span class="logo-icon">IA</span> Apprendre à utiliser l'intelligence artificielle</div>
-    <div class="footer-text">© 2026 Apprendre l'IA — un site pour apprendre l'intelligence artificielle en s'amusant 🤖 · <a href="#" onclick="openPortal(event)" style="color:var(--text-dim);text-decoration:underline">Espace parents (abonnement)</a></div>
+    <div class="footer-text">© 2026 Apprendre l'IA — apprendre l'intelligence artificielle en s'amusant 🤖</div>
+    <div class="footer-links">
+      <a onclick="goTo('legal')">Mentions légales</a>
+      <a onclick="goTo('legal')">Confidentialité (RGPD)</a>
+      <a onclick="goTo('legal')">Conditions d'utilisation</a>
+      <a onclick="openPortal(event)">Espace parents</a>
+    </div>
   </footer>
+</div>
+
+<!-- PAGE LÉGALE -->
+<div class="page" id="page-legal">
+  <div class="legal-wrap">
+    <span class="legal-back" onclick="goTo('home')">← Retour à l'accueil</span>
+    <h1>Informations légales</h1>
+    <p class="legal-intro">Apprendre l'IA est un site éducatif destiné à apprendre l'intelligence artificielle aux enfants, en toute sécurité. <span class="todo">[À FAIRE VALIDER PAR UN JURISTE avant déploiement en écoles]</span></p>
+
+    <h2>1. Mentions légales</h2>
+    <ul>
+      <li><strong>Éditeur du site :</strong> Adam Maré <span class="todo">[À COMPLÉTER : statut/société, SIRET si créé]</span></li>
+      <li><strong>Adresse :</strong> <span class="todo">[À COMPLÉTER]</span></li>
+      <li><strong>Contact :</strong> adam.mare08@gmail.com</li>
+      <li><strong>Hébergement :</strong> Vercel Inc. (vercel.com) et GitHub Pages (GitHub Inc.)</li>
+    </ul>
+
+    <h2>2. Confidentialité et données (RGPD)</h2>
+    <p>La protection des enfants est notre priorité.</p>
+    <ul>
+      <li>Nous ne demandons <strong>jamais</strong> aux enfants leurs données personnelles (nom complet, adresse, école, mot de passe).</li>
+      <li>La progression (cours, points) est enregistrée <strong>uniquement dans le navigateur</strong> de l'utilisateur, pas sur un serveur.</li>
+      <li>Aucune donnée d'enfant n'est revendue. Aucune publicité.</li>
+      <li>Pour les comptes (connexion Google) et les paiements (Stripe), seules les données strictement nécessaires sont utilisées par ces services partenaires.</li>
+      <li>Pour toute demande (accès, suppression de données) : adam.mare08@gmail.com</li>
+    </ul>
+    <p><span class="todo">[À COMPLÉTER avec un juriste : consentement parental, base légale, DPO, durée de conservation — obligatoire pour un usage en école.]</span></p>
+
+    <h2>3. Conditions d'utilisation</h2>
+    <ul>
+      <li>Le site est destiné à un usage éducatif. Les enfants l'utilisent idéalement avec un adulte.</li>
+      <li>L'intelligence artificielle peut se tromper : vérifiez toujours les informations importantes.</li>
+      <li>L'abonnement (espace parents) est géré via Stripe ; il peut être résilié à tout moment.</li>
+      <li>Le service est fourni « en l'état », en version bêta, et évolue régulièrement.</li>
+    </ul>
+
+    <h2>4. Sécurité des enfants</h2>
+    <ul>
+      <li>L'IA est configurée pour répondre toujours avec un langage simple et adapté aux enfants.</li>
+      <li>Un adulte de confiance devrait accompagner les plus jeunes.</li>
+      <li>Pour signaler un contenu inapproprié : adam.mare08@gmail.com</li>
+    </ul>
+  </div>
 </div>
 
 <!-- PAGE OUTILS -->
