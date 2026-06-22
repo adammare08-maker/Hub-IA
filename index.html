@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apprendre l'IA</title>
   <meta name="description" content="Apprendre à utiliser l'intelligence artificielle : générez des textes, du code, des images et des jeux avec l'IA, et apprenez à la maîtriser grâce à des cours interactifs. Simple, gratuit, pour débutants.">
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#7c5cff">
 
   <!-- Favicon (icône d'onglet) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111111'/%3E%3Ctext x='16' y='21' font-family='Arial,sans-serif' font-size='13' font-weight='bold' fill='white' text-anchor='middle'%3EIA%3C/text%3E%3C/svg%3E">
@@ -21,25 +21,32 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Connexion Google (Google Identity Services) -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-soft: #fafafa;
+      --bg: #fffdf9;
+      --bg-soft: #f3f0ff;
       --surface: #ffffff;
-      --surface-2: #f5f5f5;
-      --border: #e7e7e7;
-      --border-soft: #efefef;
-      --text: #111111;
-      --text-dim: #555555;
-      --text-faint: #999999;
-      --accent: #111111;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,.04), 0 1px 3px rgba(0,0,0,.06);
-      --shadow-md: 0 4px 12px rgba(0,0,0,.05), 0 12px 28px rgba(0,0,0,.06);
-      --ease: cubic-bezier(.22,.61,.36,1);
+      --surface-2: #f3f0ff;
+      --border: #e9e3ff;
+      --border-soft: #f0ecff;
+      --text: #2a2350;
+      --text-dim: #6b6390;
+      --text-faint: #a8a2c4;
+      --accent: #7c5cff;
+      --accent-2: #ff8fab;
+      --accent-3: #ffc94d;
+      --accent-4: #36cfa0;
+      --shadow-sm: 0 2px 6px rgba(124,92,255,.10);
+      --shadow-md: 0 8px 22px rgba(124,92,255,.16);
+      --ease: cubic-bezier(.34,1.56,.64,1);
+      --font-display: 'Fredoka', 'Inter', sans-serif;
     }
+    h1, h2, h3, .home-title, .section-title, .logo, .p-title, .play-title, .price-amount, .course-page-head h2 { font-family: var(--font-display); letter-spacing: 0 !important; }
+    .mascot { margin-bottom: 6px; animation: bob 3s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -678,29 +685,46 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
+    <div class="mascot reveal in" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="112" rx="30" ry="6" fill="#e9e3ff"/>
+        <rect x="56" y="14" width="8" height="14" rx="4" fill="#b9a8ff"/>
+        <circle cx="60" cy="12" r="6" fill="#ffc94d"/>
+        <rect x="22" y="26" width="76" height="62" rx="22" fill="#7c5cff"/>
+        <rect x="33" y="40" width="54" height="30" rx="15" fill="#fffdf9"/>
+        <circle cx="50" cy="55" r="6.5" fill="#2a2350"/>
+        <circle cx="70" cy="55" r="6.5" fill="#2a2350"/>
+        <circle cx="52" cy="53" r="2" fill="#fff"/>
+        <circle cx="72" cy="53" r="2" fill="#fff"/>
+        <path d="M52 63 Q60 69 68 63" stroke="#2a2350" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="58" r="5" fill="#ff8fab"/>
+        <circle cx="87" cy="58" r="5" fill="#ff8fab"/>
+        <rect x="40" y="90" width="40" height="20" rx="10" fill="#36cfa0"/>
+      </svg>
+    </div>
     <div class="home-badge reveal in">
-      <span class="pulse"></span> Le site de référence pour apprendre l'IA
+      <span class="pulse"></span> Le site rigolo pour apprendre l'IA 🤖
     </div>
     <h1 class="home-title reveal in" data-d="1">
-      Apprenez à utiliser l'IA,<br><span>facilement.</span>
+      Deviens un <span>champion de l'IA&nbsp;!</span>
     </h1>
     <p class="home-sub reveal in" data-d="2">
-      Générez des <strong>textes, du code, des images et des jeux</strong> avec l'IA, et apprenez à la maîtriser grâce à nos <strong>cours interactifs</strong>. Simple, gratuit, fait pour les débutants.
+      Crée des <strong>histoires</strong>, des <strong>images</strong> et des <strong>jeux</strong> avec l'intelligence artificielle, et apprends à bien t'en servir avec des <strong>cours rigolos</strong>. C'est simple, gratuit, et fait pour toi&nbsp;!
     </p>
     <div class="home-actions reveal in" data-d="3">
-      <button class="btn-primary" onclick="goTo('tools')">
-        Créer avec l'IA
+      <button class="btn-primary" onclick="goTo('cours')">
+        Commencer à apprendre
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
-      <button class="btn-outline" onclick="goTo('cours')">Découvrir les cours</button>
+      <button class="btn-outline" onclick="goTo('tools')">Jouer avec l'IA</button>
     </div>
 
     <!-- PREUVE SOCIALE -->
     <div class="proof reveal in" data-d="4">
-      <div class="proof-item"><div class="proof-num">2 sec</div><div class="proof-label">Pour générer</div></div>
-      <div class="proof-item"><div class="proof-num">Copier</div><div class="proof-label">en 1 clic</div></div>
-      <div class="proof-item"><div class="proof-num">Cours</div><div class="proof-label">interactifs</div></div>
-      <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Gratuit</div></div>
+      <div class="proof-item"><div class="proof-num">9</div><div class="proof-label">Cours rigolos</div></div>
+      <div class="proof-item"><div class="proof-num">🤖</div><div class="proof-label">Une mascotte</div></div>
+      <div class="proof-item"><div class="proof-num">⭐</div><div class="proof-label">Des récompenses</div></div>
+      <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Sûr & gratuit</div></div>
     </div>
   </section>
 
@@ -708,9 +732,9 @@
   <section class="section">
     <div class="container">
       <div class="section-head reveal">
-        <div class="eyebrow">Les outils</div>
-        <h2 class="section-title">Crée avec l'IA, directement sur le site</h2>
-        <p class="section-sub">Choisissez un outil, décrivez votre besoin, et obtenez le résultat tout de suite : texte, code, image, jeu ou analyse d'image.</p>
+        <div class="eyebrow">🎉 Mes outils magiques</div>
+        <h2 class="section-title">Amuse-toi avec l'IA !</h2>
+        <p class="section-sub">Choisis un outil, dis ce que tu veux, et l'IA le fait tout de suite : une histoire, un dessin, un jeu, et plus encore !</p>
       </div>
       <div class="tools-grid" id="tools-grid"></div>
     </div>
@@ -720,36 +744,36 @@
   <section class="section section-alt">
     <div class="container">
       <div class="section-head reveal">
-        <div class="eyebrow">Pour qui ?</div>
-        <h2 class="section-title">Fait pour les débutants en IA</h2>
-        <p class="section-sub">Vous débutez avec l'IA et vos résultats sont décevants ? IA Hub fait le travail compliqué à votre place et vous apprend à faire vous-même.</p>
+        <div class="eyebrow">👦👧 Pour les enfants</div>
+        <h2 class="section-title">Fait pour toi, dès la primaire</h2>
+        <p class="section-sub">L'IA expliquée avec des mots tout simples, des dessins et des jeux. Pour apprendre en s'amusant, en toute sécurité !</p>
       </div>
       <div class="duo">
         <!-- AVANT -->
         <div class="duo-card reveal" data-d="1">
-          <span class="duo-tag">😕 Sans IA Hub</span>
-          <h3>Vous galérez avec l'IA</h3>
-          <p class="duo-lead">Vous tapez une demande vague, et l'IA vous répond à côté. Vous perdez du temps à réessayer sans savoir comment faire mieux.</p>
+          <span class="duo-tag">😕 L'IA toute seule</span>
+          <h3>C'est compliqué</h3>
+          <p class="duo-lead">Les autres sites d'IA sont faits pour les grands : trop de mots difficiles, en anglais, pas rigolos.</p>
           <ul class="duo-list">
-            <li><span class="duo-check">✕</span> Vous ne savez pas quoi écrire</li>
-            <li><span class="duo-check">✕</span> Les réponses sont décevantes</li>
-            <li><span class="duo-check">✕</span> Vous réessayez 10 fois pour rien</li>
-            <li><span class="duo-check">✕</span> Vous abandonnez, frustré</li>
+            <li><span class="duo-check">✕</span> Des mots trop compliqués</li>
+            <li><span class="duo-check">✕</span> Pas fait pour les enfants</li>
+            <li><span class="duo-check">✕</span> Pas toujours en sécurité</li>
+            <li><span class="duo-check">✕</span> On s'ennuie vite</li>
           </ul>
         </div>
         <!-- APRÈS -->
         <div class="duo-card dark reveal" data-d="2">
-          <span class="duo-tag">✨ Avec IA Hub</span>
-          <h3>Vous obtenez le résultat direct</h3>
-          <p class="duo-lead">Décrivez simplement ce que vous voulez. IA Hub crée le texte, le code, l'image ou le jeu pour vous, directement sur le site.</p>
+          <span class="duo-tag">✨ Avec mon site</span>
+          <h3>C'est rigolo et facile !</h3>
+          <p class="duo-lead">Une mascotte, des couleurs, des jeux et des cours tout simples pour apprendre l'IA à ton rythme.</p>
           <ul class="duo-list">
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Un résultat prêt en quelques secondes</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Texte, code, image, jeu, analyse</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Tout se passe sur le site</li>
-            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Aucune compétence requise</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Des mots tout simples</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Des jeux et des dessins</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> 100% sûr pour les enfants</li>
+            <li><span class="duo-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Des récompenses à gagner</li>
           </ul>
-          <button class="duo-cta invert" onclick="goTo('tools')">
-            Essayer maintenant
+          <button class="duo-cta invert" onclick="goTo('cours')">
+            Commencer à apprendre
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
@@ -761,8 +785,8 @@
   <section class="section">
     <div class="container">
       <div class="section-head reveal">
-        <div class="eyebrow">Les cours</div>
-        <h2 class="section-title">Apprenez l'IA pas à pas</h2>
+        <div class="eyebrow">🎓 Mes cours</div>
+        <h2 class="section-title">Apprends l'IA en t'amusant !</h2>
         <p class="section-sub">Des cours interactifs, courts et concrets, pour passer de débutant à l'aise avec l'IA. Gratuits et sans blabla.</p>
       </div>
       <div class="tools-grid" id="cours-grid"></div>
@@ -779,40 +803,40 @@
   <section class="section">
     <div class="container">
       <div class="section-head reveal">
-        <div class="eyebrow">Pourquoi IA Hub</div>
-        <h2 class="section-title">L'IA enfin simple à utiliser</h2>
-        <p class="section-sub">Pas besoin d'être expert. IA Hub fait le travail compliqué à votre place pour que vous obteniez de super résultats.</p>
+        <div class="eyebrow">⭐ Pourquoi c'est génial</div>
+        <h2 class="section-title">L'IA, mais en version rigolote !</h2>
+        <p class="section-sub">Un site pensé pour les enfants : simple, amusant et 100% sécurisé.</p>
       </div>
       <div class="why-grid">
         <div class="why-card reveal" data-d="1">
-          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-          <div class="why-name">Tout au même endroit</div>
-          <div class="why-desc">Plus besoin de jongler entre dix services. Tous vos outils IA réunis dans une seule interface.</div>
+          <div class="why-icon">🤖</div>
+          <div class="why-name">Une mascotte rigolote</div>
+          <div class="why-desc">Un petit robot t'accompagne et te félicite à chaque réussite !</div>
         </div>
         <div class="why-card reveal" data-d="2">
-          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-          <div class="why-name">Simple et rapide</div>
-          <div class="why-desc">Une interface épurée et des réponses quasi instantanées. Vous écrivez, l'IA répond.</div>
+          <div class="why-icon">🎨</div>
+          <div class="why-name">On crée pour de vrai</div>
+          <div class="why-desc">Des histoires, des dessins et des jeux, faits par l'IA, rien que pour toi.</div>
         </div>
         <div class="why-card reveal" data-d="3">
-          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-          <div class="why-name">Parfait pour débuter</div>
-          <div class="why-desc">Aucune compétence technique requise. Si vous savez écrire une phrase, vous savez utiliser IA Hub.</div>
+          <div class="why-icon">🛡️</div>
+          <div class="why-name">100% sécurisé</div>
+          <div class="why-desc">L'IA répond toujours avec des mots gentils et adaptés aux enfants.</div>
         </div>
         <div class="why-card reveal" data-d="1">
-          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div class="why-name">Gain de temps réel</div>
-          <div class="why-desc">Automatisez vos tâches répétitives et concentrez-vous sur l'essentiel de vos projets.</div>
+          <div class="why-icon">⭐</div>
+          <div class="why-name">Des récompenses</div>
+          <div class="why-desc">Gagne des points, garde ta série de jours et débloque tous les cours !</div>
         </div>
         <div class="why-card reveal" data-d="2">
-          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-          <div class="why-name">Gratuit et accessible</div>
-          <div class="why-desc">Profitez de la puissance de l'IA sans frais ni installation. Tout fonctionne dans votre navigateur.</div>
+          <div class="why-icon">😊</div>
+          <div class="why-name">Tout simple</div>
+          <div class="why-desc">Des mots faciles, de grands boutons : même sans savoir bien lire, c'est facile.</div>
         </div>
         <div class="why-card reveal" data-d="3">
-          <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
-          <div class="why-name">En évolution continue</div>
-          <div class="why-desc">De nouveaux outils et améliorations sont déployés régulièrement sur la plateforme.</div>
+          <div class="why-icon">🆓</div>
+          <div class="why-name">Gratuit pour commencer</div>
+          <div class="why-desc">Tu peux apprendre et t'amuser sans rien payer.</div>
         </div>
       </div>
     </div>
@@ -860,14 +884,14 @@
   <section class="section">
     <div class="container">
       <div class="partner-cta reveal">
-        <h2>Prêt à créer avec l'IA ?</h2>
-        <p>Décrivez votre idée, IA Hub s'occupe du reste. Gratuit, instantané, et sans aucune compétence requise.</p>
+        <h2>Prêt à devenir un champion de l'IA ? 🏆</h2>
+        <p>Commence ton premier cours ou crée ta première histoire. C'est gratuit, rigolo, et fait pour toi !</p>
         <div class="partner-perks">
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 100% gratuit pour commencer</div>
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Résultat en quelques secondes</div>
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Texte, code, image, jeu</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 9 cours rigolos</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Des récompenses</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 100% sûr & gratuit</div>
         </div>
-        <button class="btn-white" onclick="goTo('tools')">Créer maintenant</button>
+        <button class="btn-white" onclick="goTo('cours')">Commencer à apprendre</button>
       </div>
     </div>
   </section>
@@ -875,34 +899,34 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-brand"><span class="logo-icon">IA</span> Apprendre à utiliser l'intelligence artificielle</div>
-    <div class="footer-text">© 2026 Apprendre à utiliser l'intelligence artificielle — <a href="#" onclick="openPortal(event)" style="color:var(--text-dim);text-decoration:underline">Gérer / résilier mon abonnement</a></div>
+    <div class="footer-text">© 2026 Apprendre l'IA — un site pour apprendre l'intelligence artificielle en s'amusant 🤖 · <a href="#" onclick="openPortal(event)" style="color:var(--text-dim);text-decoration:underline">Espace parents (abonnement)</a></div>
   </footer>
 </div>
 
 <!-- PAGE OUTILS -->
 <div class="page" id="page-tools">
   <aside class="sidebar">
-    <div class="sidebar-label">Outils</div>
+    <div class="sidebar-label">Mes outils 🎉</div>
     <button class="tool-btn" data-id="Génération-Texte" onclick="openTool('Génération-Texte')">
-      <span class="t-icon">📝</span><span>Texte</span>
-    </button>
-    <button class="tool-btn" data-id="Génération-Codage" onclick="openTool('Génération-Codage')">
-      <span class="t-icon">👨‍💻</span><span>Codage</span>
-    </button>
-    <button class="tool-btn" data-id="Génération-Vision" onclick="openTool('Génération-Vision')">
-      <span class="t-icon">👁️</span><span>Vision</span>
+      <span class="t-icon">📖</span><span>Histoire</span>
     </button>
     <button class="tool-btn" data-id="Génération-Image" onclick="openTool('Génération-Image')">
-      <span class="t-icon">🖼️</span><span>Image</span>
+      <span class="t-icon">🎨</span><span>Dessin</span>
     </button>
     <button class="tool-btn" data-id="Génération-Jeux" onclick="openTool('Génération-Jeux')">
       <span class="t-icon">🎮</span><span>Jeu</span>
+    </button>
+    <button class="tool-btn" data-id="Génération-Vision" onclick="openTool('Génération-Vision')">
+      <span class="t-icon">👁️</span><span>Regarder</span>
+    </button>
+    <button class="tool-btn" data-id="Génération-Codage" onclick="openTool('Génération-Codage')">
+      <span class="t-icon">💻</span><span>Page web</span>
     </button>
   </aside>
   <main class="main" id="main">
     <div class="empty-state">
       <div class="big">✨</div>
-      <p>Sélectionne un outil pour commencer à créer</p>
+      <p>Choisis un outil pour commencer à t'amuser ! 🎉</p>
     </div>
   </main>
 </div>
@@ -925,36 +949,38 @@
     if (STRIPE_PORTAL_URL) { window.open(STRIPE_PORTAL_URL, "_blank", "noopener"); }
     else { alert("La gestion d'abonnement sera disponible très bientôt."); }
   }
+  // Consigne de sécurité ajoutée à tous les outils : adapté aux enfants
+  const KID_SAFE = " Tu t'adresses à un ENFANT de primaire (6 à 11 ans). Utilise des mots très simples et courts, sois gentil, encourageant et amusant. Reste TOUJOURS adapté aux enfants : jamais de contenu violent, effrayant, vulgaire ou inapproprié. Si la demande n'est pas adaptée à un enfant, propose gentiment autre chose.";
   const TOOLS = {
     "Génération-Texte": {
-      name: "Génération Texte", icon: "📝", cat: "IA qui rédige pour toi",
-      desc: "Rédigez articles, e-mails, posts et contenus pro en quelques secondes, directement sur le site.",
-      placeholder: "Rédige et génère des textes pour tes projets : smart, tech, éducation, créatif…",
-      system: "Tu es Génération Texte, expert en rédaction. Fournis des textes clairs et professionnels. Réponds en français."
+      name: "Écrire une histoire", icon: "📖", cat: "L'IA écrit pour toi",
+      desc: "Demande une histoire, un poème ou des idées, et l'IA les écrit pour toi !",
+      placeholder: "Ex : Raconte-moi une histoire rigolote avec un dinosaure et un robot…",
+      system: "Tu es un conteur magique pour enfants. Écris des textes et des histoires amusants, positifs et faciles à lire." + KID_SAFE
     },
     "Génération-Codage": {
-      name: "Génération Codage", icon: "👨‍💻", cat: "IA qui génère du code",
-      desc: "Générez, expliquez et corrigez du code propre dans n'importe quel langage.",
-      placeholder: "Demande à l'IA de générer ou d'expliquer du code : smart, tech, éducation, créatif…",
-      system: "Tu es Génération Codage, expert développeur. Fournis du code propre et commenté. Quand on te demande une page, un composant ou un visuel web, renvoie un fichier HTML complet et autonome (avec le <style> et le <script> inclus dans le même code) prêt à être affiché tel quel. Donne le code en premier, puis une courte explication. Réponds en français."
+      name: "Petit codeur", icon: "💻", cat: "L'IA crée des pages web",
+      desc: "Demande une petite page web colorée et regarde l'IA la fabriquer !",
+      placeholder: "Ex : Fais une page avec un gros bouton qui dit bonjour quand on clique…",
+      system: "Tu crées des petites pages web simples et colorées pour des enfants. Renvoie TOUJOURS un fichier HTML complet et autonome (avec le <style> et le <script> inclus) prêt à être affiché. Donne le code en premier, puis une explication très courte et simple." + KID_SAFE
     },
     "Génération-Vision": {
-      name: "Génération Vision", icon: "👁️", cat: "IA qui analyse tes images",
-      desc: "Envoyez une image et l'IA la décrit et l'analyse pour vous, directement sur le site.",
-      placeholder: "Que vois-tu sur cette image ?",
-      system: "Tu es Génération Vision, expert en analyse visuelle. Réponds en français."
+      name: "L'IA regarde", icon: "👁️", cat: "L'IA observe ton image",
+      desc: "Envoie une photo ou un dessin, et l'IA te dit ce qu'elle voit !",
+      placeholder: "Qu'est-ce que tu vois sur mon image ?",
+      system: "Tu décris des images pour des enfants, avec des mots simples et amusants." + KID_SAFE
     },
     "Génération-Image": {
-      name: "Génération Image", icon: "🖼️", cat: "IA qui crée de vraies images",
-      desc: "Décrivez une image et l'IA la crée directement sur le site, prête à télécharger.",
-      placeholder: "Décris l'image que tu veux : un chat roux sur un toit au coucher du soleil, style photo réaliste…",
-      system: "Tu es Génération Image, expert en génération d'images. L'utilisateur décrit une image. Génère un prompt détaillé et optimisé : style artistique, palette de couleurs, composition, ambiance, éclairage. Réponds en français."
+      name: "Faire un dessin", icon: "🎨", cat: "L'IA dessine pour toi",
+      desc: "Décris un dessin rigolo et l'IA le dessine directement sur le site !",
+      placeholder: "Ex : un chat astronaute dans l'espace avec des étoiles colorées…",
+      system: "Tu aides un enfant à décrire une image. Génère un prompt d'image détaillé, mignon et adapté aux enfants." + KID_SAFE
     },
     "Génération-Jeux": {
-      name: "Génération Jeu", icon: "🎮", cat: "IA qui crée des jeux jouables",
-      desc: "Décrivez un jeu et l'IA le crée — vous y jouez directement sur le site.",
-      placeholder: "Décris un jeu : un jeu du serpent (snake), un pong, un casse-briques, un memory, un quiz…",
-      system: "Tu es Génération Jeu, expert en création de mini-jeux web. Tu renvoies TOUJOURS un seul fichier HTML complet et autonome (avec <style> et <script> inclus) d'un jeu jouable immédiatement dans un navigateur, sans dépendance externe. Le jeu doit être responsive, fonctionner au clavier et/ou à la souris, et tenir dans la fenêtre. Réponds UNIQUEMENT avec le code HTML, sans explication ni texte autour."
+      name: "Créer un jeu", icon: "🎮", cat: "L'IA fabrique un jeu",
+      desc: "Décris un jeu et l'IA le crée — tu y joues tout de suite !",
+      placeholder: "Ex : un jeu du serpent, un casse-briques, un jeu de mémoire…",
+      system: "Tu crées des mini-jeux web amusants et adaptés aux enfants. Tu renvoies TOUJOURS un seul fichier HTML complet et autonome (avec <style> et <script> inclus) d'un jeu jouable immédiatement, coloré, sans dépendance externe, qui fonctionne au clavier et/ou à la souris. Réponds UNIQUEMENT avec le code HTML." + KID_SAFE
     }
   };
 
@@ -1271,7 +1297,7 @@
       const resp = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: q, image: visionDataUrl, systemPrompt: "Tu es un expert en analyse d'images. Décris ce que tu vois de façon claire, précise et utile. Réponds en français." })
+        body: JSON.stringify({ prompt: q, image: visionDataUrl, systemPrompt: "Tu décris une image pour un enfant de primaire, avec des mots simples, gentils et amusants. Reste toujours adapté aux enfants. Réponds en français." })
       });
       const data = await resp.json();
       if (!resp.ok) {
@@ -1365,166 +1391,157 @@
 
   // ── COURS INTERACTIFS ──
   const COURSES = {
-    "bases": {
-      icon: "🚀", level: "Débutant", tier: 1, title: "L'IA pour les débutants",
-      short: "Comprenez ce qu'est l'IA et à quoi elle sert, en quelques minutes.",
+    "decouvre": {
+      icon: "🤖", level: "Je découvre", tier: 1, title: "C'est quoi l'IA ?",
+      short: "Découvre l'intelligence artificielle, comme une belle histoire !",
+      duration: "3 min",
+      content: [
+        { title: "L'IA, c'est quoi ?",
+          html: "<p>L'<strong>intelligence artificielle</strong> (on dit « IA »), c'est comme un <strong>ami magique</strong> qui vit dans l'ordinateur. Tu lui parles, et il te répond&nbsp;!</p>" +
+                "<div class='lesson-tip'>🤖 L'IA peut écrire, dessiner, raconter des histoires et même jouer avec toi.</div>" },
+        { title: "Comment elle sait tout ça ?",
+          html: "<p>L'IA a « lu » <strong>énormément de livres</strong> et regardé <strong>plein d'images</strong>. C'est pour ça qu'elle connaît beaucoup de choses, comme un élève super curieux&nbsp;!</p>" },
+        { title: "Mais ce n'est pas un humain",
+          html: "<p>L'IA est très forte, mais ce n'est <strong>pas une vraie personne</strong>. Elle n'a pas de cœur ni de sentiments&nbsp;: c'est un programme.</p>" +
+                "<div class='lesson-tip'>👨‍👩‍👧 Si tu as un doute, demande toujours à un adulte de confiance.</div>" }
+      ],
+      quiz: [
+        { q: "L'IA, c'est…", options: ["Un vrai humain", "Un programme malin dans l'ordinateur"], answer: 1, explain: "C'est un programme, pas une personne !" },
+        { q: "Comment l'IA connaît plein de choses ?", options: ["Elle a beaucoup lu et regardé", "Elle est née comme ça"], answer: 0, explain: "Elle a appris avec énormément de livres et d'images." }
+      ]
+    },
+    "parler": {
+      icon: "💬", level: "Je découvre", tier: 1, title: "Comment parler à l'IA",
+      short: "Apprends à bien parler à l'IA pour qu'elle te comprenne.",
+      duration: "3 min",
+      content: [
+        { title: "On lui écrit gentiment",
+          html: "<p>Pour parler à l'IA, tu écris un petit message, comme à un copain. On appelle ça un <strong>« prompt »</strong> (ça veut dire « demande »).</p>" +
+                "<div class='lesson-tip'>😊 Reste poli et gentil, même avec un robot !</div>" },
+        { title: "On dit bien ce qu'on veut",
+          html: "<p>Plus tu expliques bien, mieux l'IA répond&nbsp;!</p>" +
+                "<div class='lesson-example'><span class='lbl'>😕 Pas clair</span>« Raconte. »</div>" +
+                "<div class='lesson-example'><span class='lbl'>😃 Bien clair</span>« Raconte-moi une petite histoire avec un dinosaure rigolo. »</div>" },
+        { title: "On peut redemander",
+          html: "<p>Si la réponse ne te plaît pas, tu peux dire&nbsp;: « plus court », « plus rigolo », ou « recommence ». L'IA n'est jamais fâchée&nbsp;!</p>" }
+      ],
+      quiz: [
+        { q: "Un « prompt », c'est…", options: ["Un bonbon", "Le message qu'on écrit à l'IA"], answer: 1, explain: "C'est ta demande à l'IA." },
+        { q: "Pour bien réussir, il faut…", options: ["Écrire clairement ce qu'on veut", "Écrire le moins possible"], answer: 0, explain: "Plus c'est clair, mieux c'est !" }
+      ]
+    },
+    "pouvoirs": {
+      icon: "✨", level: "Je découvre", tier: 1, title: "Les pouvoirs de l'IA",
+      short: "Découvre tout ce que l'IA peut faire pour t'amuser et apprendre.",
+      duration: "3 min",
+      content: [
+        { title: "Elle écrit et raconte",
+          html: "<p>L'IA peut <strong>écrire des histoires</strong>, inventer des poèmes, ou t'aider à trouver des idées. 📚</p>" },
+        { title: "Elle dessine",
+          html: "<p>Tu décris une image dans ta tête, et l'IA la <strong>dessine</strong> pour toi&nbsp;! Un chat astronaute&nbsp;? Un château en bonbons&nbsp;? Tout est possible. 🎨</p>" },
+        { title: "Elle explique et joue",
+          html: "<p>L'IA peut t'<strong>expliquer</strong> des choses difficiles simplement, et même <strong>créer des petits jeux</strong>. 🎮</p>" +
+                "<div class='lesson-tip'>✨ Sur ce site, tu peux essayer tout ça dans la partie « Outils » !</div>" }
+      ],
+      quiz: [
+        { q: "L'IA peut-elle dessiner ?", options: ["Oui, à partir d'une description", "Non, jamais"], answer: 0, explain: "Tu décris, elle dessine !" },
+        { q: "Que peut faire l'IA ?", options: ["Seulement des calculs", "Écrire, dessiner, expliquer, jouer"], answer: 1, explain: "Elle sait faire plein de choses !" }
+      ]
+    },
+    "demander": {
+      icon: "📝", level: "Je m'entraîne", tier: 2, title: "Bien demander pour bien réussir",
+      short: "Entraîne-toi à écrire une demande claire. L'IA corrige !",
       duration: "5 min",
       content: [
-        { title: "C'est quoi l'IA, en vrai ?",
-          html: "<p>L'<strong>intelligence artificielle</strong> (IA), c'est un programme qui sait comprendre votre demande écrite et y répondre avec du texte, du code ou des images — un peu comme un assistant très rapide.</p>" +
-                "<p>Des outils comme <strong>ChatGPT</strong>, <strong>Gemini</strong> ou <strong>Midjourney</strong> sont des IA. Vous leur écrivez une demande, elles vous répondent.</p>" +
-                "<div class='lesson-tip'>💡 Pas besoin de savoir coder : il suffit d'écrire en français, comme à un humain.</div>" },
-        { title: "Comment lui parler : le « prompt »",
-          html: "<p>Un <strong>prompt</strong>, c'est simplement le message que vous écrivez à l'IA. La qualité de la réponse dépend de la qualité de votre prompt.</p>" +
-                "<div class='lesson-example'><span class='lbl'>Exemple de prompt</span>« Écris-moi un e-mail poli pour demander un rendez-vous à mon professeur. »</div>" +
-                "<p>Plus votre demande est <strong>claire et précise</strong>, meilleure est la réponse. C'est tout l'enjeu.</p>" },
-        { title: "Ce que l'IA peut faire pour vous",
-          html: "<p>Voici quelques exemples concrets :</p>" +
-                "<ul><li>✍️ Écrire des textes (e-mails, posts, idées…)</li><li>💻 Générer ou expliquer du code</li><li>🖼️ Créer des images à partir d'une description</li><li>📊 Résumer ou analyser un texte</li></ul>" +
-                "<div class='lesson-tip'>💡 IA Hub vous aide justement à écrire le bon prompt pour obtenir tout ça.</div>" }
+        { title: "La règle magique : être précis",
+          html: "<p>Pour avoir une super réponse, dis <strong>exactement</strong> ce que tu veux. Donne des détails&nbsp;!</p>" +
+                "<div class='lesson-example'><span class='lbl'>😃 Exemple précis</span>« Raconte une histoire de 5 lignes avec un petit dragon vert qui apprend à voler. »</div>" },
+        { type: "exercise", title: "À toi ! Demande une histoire", task: "Écris une demande à l'IA pour qu'elle te raconte une courte histoire rigolote avec un animal de ton choix. Sois bien précis !" }
       ],
       quiz: [
-        { q: "C'est quoi un « prompt » ?", options: ["Un type d'ordinateur", "Le message qu'on écrit à l'IA", "Un logiciel payant"], answer: 1, explain: "Le prompt, c'est votre demande écrite à l'IA." },
-        { q: "Faut-il savoir coder pour utiliser l'IA ?", options: ["Oui, obligatoirement", "Non, on écrit en langage normal"], answer: 1, explain: "On parle à l'IA en français, comme à une personne." }
+        { q: "Pour bien réussir sa demande, il faut…", options: ["Donner des détails clairs", "Rester très vague"], answer: 0, explain: "Plus tu donnes de détails, mieux c'est !" }
       ]
     },
-    "prompt": {
-      icon: "✍️", level: "Intermédiaire", tier: 2, title: "Écrire un bon prompt",
-      short: "La méthode simple pour obtenir des réponses bien meilleures de l'IA.",
-      duration: "6 min",
-      content: [
-        { title: "La règle d'or : être précis",
-          html: "<p>L'IA n'est pas devine. Si vous êtes vague, la réponse sera vague. Si vous êtes précis, la réponse sera utile.</p>" +
-                "<div class='lesson-example'><span class='lbl'>❌ Trop vague</span>« Parle-moi du sport. »</div>" +
-                "<div class='lesson-example'><span class='lbl'>✅ Précis</span>« Donne-moi 5 conseils pour débuter la course à pied quand on n'a jamais couru. »</div>" },
-        { title: "La recette R-C-T",
-          html: "<p>Un bon prompt contient souvent 3 choses :</p>" +
-                "<ul><li><strong>Rôle</strong> : qui doit jouer l'IA ? (« Tu es un coach sportif… »)</li><li><strong>Contexte</strong> : ta situation (« Je suis débutant, j'ai 20 min par jour… »)</li><li><strong>Tâche</strong> : ce que tu veux (« Donne-moi un programme sur 1 semaine »)</li></ul>" +
-                "<div class='lesson-tip'>💡 Retiens : <strong>R</strong>ôle + <strong>C</strong>ontexte + <strong>T</strong>âche.</div>" },
-        { title: "Avant / Après",
-          html: "<div class='lesson-example'><span class='lbl'>Avant</span>« Aide-moi pour mon CV. »</div>" +
-                "<div class='lesson-example'><span class='lbl'>Après (R-C-T)</span>« Tu es un recruteur expérimenté. Je suis étudiant sans expérience qui postule en stage marketing. Réécris mon CV pour le rendre plus percutant. »</div>" +
-                "<p>La 2ᵉ version donnera une réponse <strong>bien plus utile</strong>. C'est exactement ce qu'IA Hub fait pour vous automatiquement.</p>" },
-        { title: "3 astuces bonus",
-          html: "<ul><li>🎯 Demandez un <strong>format</strong> : « en 5 points », « en tableau », « en 100 mots »</li><li>🔁 Pas satisfait ? Dites « reformule plus simplement » ou « donne-moi 3 autres idées »</li><li>🗣️ Précisez le <strong>ton</strong> : « professionnel », « amical », « drôle »</li></ul>" }
-      ],
-      quiz: [
-        { q: "Que veut dire le « R » de la méthode R-C-T ?", options: ["Rapide", "Rôle", "Réponse"], answer: 1, explain: "R = le Rôle que vous donnez à l'IA." },
-        { q: "Quel prompt est le meilleur ?", options: ["« Parle-moi de cuisine »", "« Donne 3 recettes faciles avec des œufs pour le soir »"], answer: 1, explain: "Le plus précis donne toujours la meilleure réponse." }
-      ]
-    },
-    "images": {
-      icon: "🖼️", level: "Intermédiaire", tier: 2, title: "Générer des images avec l'IA",
-      short: "Apprenez à décrire vos idées pour obtenir de belles images.",
+    "dessin": {
+      icon: "🎨", level: "Je m'entraîne", tier: 2, title: "Créer un dessin avec l'IA",
+      short: "Apprends à décrire un dessin. L'IA vérifie ta demande !",
       duration: "5 min",
       content: [
-        { title: "Comment l'IA crée une image",
-          html: "<p>Des IA comme <strong>Midjourney</strong>, <strong>DALL·E</strong> ou <strong>Stable Diffusion</strong> transforment une <strong>description écrite</strong> en image. Votre description = votre prompt.</p>" +
-                "<div class='lesson-tip'>💡 Plus la description est riche, plus l'image est belle et fidèle.</div>" },
-        { title: "La formule : Sujet + Style + Ambiance",
-          html: "<p>Pour une bonne image, décrivez :</p>" +
-                "<ul><li><strong>Le sujet</strong> : « un chat roux assis sur un rebord de fenêtre »</li><li><strong>Le style</strong> : « photo réaliste », « dessin animé », « peinture »</li><li><strong>L'ambiance</strong> : « au coucher du soleil, lumière douce »</li></ul>" },
-        { title: "Exemple complet",
-          html: "<div class='lesson-example'><span class='lbl'>Prompt image</span>« Un chat roux assis sur un rebord de fenêtre, photo réaliste, au coucher du soleil, lumière dorée et douce, ambiance cosy. »</div>" +
-                "<p>Vous copiez ce texte, vous le collez dans votre IA d'image, et vous obtenez un superbe rendu. <strong>IA Hub génère ce genre de prompt pour vous.</strong></p>" }
+        { title: "Décris ce que tu imagines",
+          html: "<p>Pour un beau dessin, dis&nbsp;: <strong>quoi</strong>, <strong>où</strong>, et <strong>comment</strong>.</p>" +
+                "<div class='lesson-example'><span class='lbl'>🎨 Exemple</span>« Un chat astronaute qui flotte dans l'espace, avec des étoiles colorées, style dessin animé. »</div>" },
+        { type: "exercise", title: "À toi ! Décris un dessin", task: "Écris la description d'un dessin rigolo que tu aimerais voir (par exemple un animal qui fait quelque chose de drôle). Dis le sujet, le lieu et le style !" }
       ],
       quiz: [
-        { q: "Pour une belle image, il vaut mieux…", options: ["Décrire avec sujet + style + ambiance", "Écrire juste un mot"], answer: 0, explain: "Plus c'est détaillé, plus l'image est réussie." },
-        { q: "Midjourney sert à générer…", options: ["Du code", "Des images", "De la musique"], answer: 1, explain: "Midjourney est une IA de génération d'images." }
+        { q: "Pour un beau dessin, on décrit…", options: ["Le sujet, le lieu et le style", "Rien du tout"], answer: 0, explain: "Plus tu décris, plus le dessin est réussi !" }
       ]
     },
-    "chatgpt": {
-      icon: "💬", level: "Débutant", tier: 1, title: "ChatGPT pas à pas",
-      short: "Tes tout premiers pas avec ChatGPT, sans stress.",
+    "histoire": {
+      icon: "📚", level: "Je m'entraîne", tier: 2, title: "Inventer une histoire avec l'IA",
+      short: "Crée le début d'une histoire. L'IA t'aide et te corrige !",
       duration: "5 min",
       content: [
-        { title: "Ouvre ChatGPT",
-          html: "<p>Va sur le site de <strong>ChatGPT</strong> et connecte-toi (c'est gratuit). Tu vois une simple barre où écrire : c'est là que tout se passe.</p>" +
-                "<div class='lesson-tip'>💡 Pense à ChatGPT comme à un ami très cultivé à qui tu peux tout demander.</div>" },
-        { title: "Pose ta première question",
-          html: "<p>Écris simplement ce que tu veux, en français normal. Sois clair sur le résultat attendu.</p>" +
-                "<div class='lesson-example'><span class='lbl'>Exemple</span>« Explique-moi ce qu'est l'intelligence artificielle comme si j'avais 12 ans. »</div>" },
-        { title: "Continue la conversation",
-          html: "<p>Pas satisfait de la réponse ? Continue à écrire : « plus court », « donne un exemple », « reformule plus simplement ». L'IA s'adapte à chaque message.</p>" +
-                "<div class='lesson-tip'>💡 Tu peux corriger l'IA autant de fois que tu veux, elle ne se vexe pas.</div>" }
+        { title: "Les ingrédients d'une histoire",
+          html: "<p>Une bonne histoire a&nbsp;: un <strong>héros</strong>, un <strong>lieu</strong> et une <strong>aventure</strong>.</p>" +
+                "<div class='lesson-example'><span class='lbl'>📚 Exemple</span>« Invente une histoire avec une petite sorcière maladroite, dans une forêt magique, qui cherche son chat perdu. »</div>" },
+        { type: "exercise", title: "À toi ! Invente une histoire", task: "Écris une demande pour que l'IA invente une histoire. Donne un héros, un lieu et une petite aventure !" }
       ],
       quiz: [
-        { q: "Pour parler à ChatGPT, on écrit…", options: ["Du code informatique", "En français normal, comme à un ami"], answer: 1, explain: "On écrit naturellement, en langage de tous les jours." },
-        { q: "Si la réponse ne te plaît pas, tu peux…", options: ["Recommencer à zéro seulement", "Continuer la conversation pour l'améliorer"], answer: 1, explain: "Il suffit de demander une amélioration dans le chat." }
+        { q: "Une bonne histoire a besoin de…", options: ["Un héros, un lieu, une aventure", "Juste un mot"], answer: 0, explain: "Héros + lieu + aventure = super histoire !" }
       ]
     },
-    "rediger": {
-      icon: "📧", level: "Intermédiaire", tier: 2, title: "Rédiger e-mails & messages",
-      short: "Écris des messages clairs et pro en quelques secondes.",
-      duration: "5 min",
-      content: [
-        { title: "L'IA écrit à ta place",
-          html: "<p>Tu galères à formuler un e-mail ? Donne le sujet à l'IA, elle te rédige un message propre que tu n'as plus qu'à relire.</p>" },
-        { title: "Donne le contexte et le ton",
-          html: "<p>Précise toujours : <strong>à qui</strong> tu écris et <strong>quel ton</strong> tu veux.</p>" +
-                "<ul><li><strong>À qui</strong> : « à mon patron », « à un client », « à un ami »</li><li><strong>Le ton</strong> : « poli », « professionnel », « chaleureux »</li></ul>" },
-        { title: "Exemple complet",
-          html: "<div class='lesson-example'><span class='lbl'>Prompt</span><span class='ptxt'>Rédige un e-mail professionnel et poli pour demander un report de rendez-vous à un client, en restant bref.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<p>Tu colles ça dans ChatGPT, et tu obtiens un e-mail prêt à envoyer. ✅</p>" }
-      ],
-      quiz: [
-        { q: "Pour un bon e-mail, il faut surtout préciser…", options: ["La météo", "À qui on écrit et le ton voulu"], answer: 1, explain: "Le destinataire et le ton changent tout." }
-      ]
-    },
-    "prompts10": {
-      icon: "📋", level: "Pratique", tier: 3, title: "10 prompts à copier-coller",
-      short: "Des prompts prêts à l'emploi, à copier dans ton IA.",
+    "devoirs": {
+      icon: "🧮", level: "Je deviens malin", tier: 3, title: "L'IA pour mes devoirs",
+      short: "Comment l'IA peut t'aider à apprendre… sans tricher !",
       duration: "4 min",
       content: [
-        { title: "Prompts pour écrire ✍️",
-          html: "<div class='lesson-example'><span class='lbl'>Idées de contenu</span><span class='ptxt'>Donne-moi 10 idées de posts Instagram sur [ton sujet], avec une accroche pour chacun.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-example'><span class='lbl'>Résumé</span><span class='ptxt'>Résume ce texte en 5 points simples : [colle ton texte].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-example'><span class='lbl'>Correction</span><span class='ptxt'>Corrige les fautes et améliore ce texte sans changer le sens : [colle ton texte].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" },
-        { title: "Prompts pour apprendre 📚",
-          html: "<div class='lesson-example'><span class='lbl'>Expliquer simplement</span><span class='ptxt'>Explique-moi [un sujet] comme si j'avais 12 ans, avec un exemple concret.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-example'><span class='lbl'>Quiz de révision</span><span class='ptxt'>Crée-moi un quiz de 5 questions pour réviser [ton sujet], avec les réponses à la fin.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-example'><span class='lbl'>Plan d'apprentissage</span><span class='ptxt'>Fais-moi un plan pour apprendre [une compétence] en 1 semaine, étape par étape.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" },
-        { title: "Prompts pour ton quotidien ⚡",
-          html: "<div class='lesson-example'><span class='lbl'>Organisation</span><span class='ptxt'>Organise ma journée en planning, à partir de cette liste de tâches : [tes tâches].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-example'><span class='lbl'>Décision</span><span class='ptxt'>Aide-moi à choisir entre [option A] et [option B] : liste les avantages et inconvénients.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-example'><span class='lbl'>Idées cadeaux</span><span class='ptxt'>Propose-moi 10 idées de cadeaux pour [personne], budget [montant].</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" +
-                "<div class='lesson-tip'>💡 Remplace ce qui est entre [crochets] par tes infos, puis colle dans ChatGPT ou Gemini.</div>" }
+        { title: "L'IA explique, elle ne fait pas à ta place",
+          html: "<p>L'IA peut t'<strong>expliquer</strong> une leçon difficile avec des mots simples. Mais le travail, c'est <strong>toi</strong> qui le fais&nbsp;: c'est comme ça qu'on apprend&nbsp;! 💪</p>" },
+        { title: "La bonne façon de l'utiliser",
+          html: "<div class='lesson-example'><span class='lbl'>✅ Bien</span>« Explique-moi les fractions avec un exemple de pizza. »</div>" +
+                "<div class='lesson-example'><span class='lbl'>❌ Tricher</span>« Fais tout mon devoir à ma place. »</div>" +
+                "<div class='lesson-tip'>🧠 Si l'IA fait tout, tu n'apprends rien. Utilise-la pour COMPRENDRE.</div>" },
+        { title: "Vérifie toujours",
+          html: "<p>L'IA peut se tromper. Relis bien, et demande à ton maître ou ta maîtresse si tu n'es pas sûr.</p>" }
       ],
       quiz: [
-        { q: "Dans un prompt tout prêt, les [crochets] servent à…", options: ["Décorer le texte", "Être remplacés par tes propres infos"], answer: 1, explain: "Tu remplaces [crochets] par ta situation à toi." }
+        { q: "La meilleure façon d'utiliser l'IA pour les devoirs ?", options: ["Lui faire tout faire", "Lui demander d'expliquer pour comprendre"], answer: 1, explain: "On apprend en comprenant, pas en copiant !" }
       ]
     },
-    "atelier": {
-      icon: "🎯", level: "Pratique", tier: 3, title: "Atelier : améliore tes prompts",
-      short: "Entraîne-toi à transformer un prompt moyen en super prompt.",
-      duration: "6 min",
+    "verifier": {
+      icon: "🕵️", level: "Je deviens malin", tier: 3, title: "L'IA se trompe parfois",
+      short: "Apprends à ne pas tout croire et à vérifier.",
+      duration: "4 min",
       content: [
-        { title: "Repère le problème",
-          html: "<p>Un prompt vague donne une réponse vague. Regarde cet exemple :</p>" +
-                "<div class='lesson-example'><span class='lbl'>❌ Prompt faible</span>« Donne-moi des conseils. »</div>" +
-                "<p>Trop vague : conseils sur quoi ? pour qui ? Il manque tout.</p>" },
-        { title: "Applique la méthode R-C-T",
-          html: "<p>Ajoute un <strong>Rôle</strong>, un <strong>Contexte</strong> et une <strong>Tâche</strong> précise :</p>" +
-                "<div class='lesson-example'><span class='lbl'>✅ Prompt amélioré</span><span class='ptxt'>Tu es un coach en productivité. Je suis étudiant débordé qui n'arrive pas à m'organiser. Donne-moi 5 conseils concrets et faciles à appliquer cette semaine.</span><button class='pcopy' onclick='copyPrompt(this)'>Copier</button></div>" },
-        { title: "À toi de jouer 💪",
-          html: "<p>Entraîne-toi : prends une de tes demandes et ajoute-lui les 3 ingrédients (Rôle + Contexte + Tâche). Puis teste-la dans ton IA.</p>" +
-                "<div class='lesson-tip'>💡 Pas envie de le faire à la main ? Le générateur d'IA Hub crée ce genre de prompt pour toi automatiquement.</div>" }
+        { title: "L'IA n'a pas toujours raison",
+          html: "<p>L'IA est très forte, mais elle peut <strong>se tromper</strong> ou inventer des choses fausses sans le faire exprès.</p>" +
+                "<div class='lesson-tip'>🕵️ Sois un petit détective : vérifie ce que dit l'IA !</div>" },
+        { title: "Comment vérifier ?",
+          html: "<ul><li>📖 Regarde dans un vrai livre</li><li>👨‍👩‍👧 Demande à un adulte</li><li>🔎 Vérifie sur un site sérieux</li></ul>" },
+        { title: "Garde ton esprit malin",
+          html: "<p>Tu es plus intelligent que tu crois&nbsp;! L'IA est un outil&nbsp;: c'est <strong>toi</strong> qui décides si la réponse est bonne.</p>" }
       ],
       quiz: [
-        { q: "Qu'est-ce qui transforme un prompt faible en bon prompt ?", options: ["Le rendre plus court", "Ajouter rôle, contexte et tâche précise"], answer: 1, explain: "Plus c'est précis et cadré, meilleure est la réponse." }
+        { q: "Est-ce que l'IA a toujours raison ?", options: ["Oui, toujours", "Non, elle peut se tromper"], answer: 1, explain: "Il faut toujours vérifier !" }
       ]
     },
-    "exo": {
-      icon: "🧪", level: "Pratique", tier: 3, title: "Exercices corrigés par l'IA",
-      short: "On te donne une mission, tu écris le prompt, l'IA le corrige !",
-      duration: "8 min",
+    "securite": {
+      icon: "🛡️", level: "Je deviens malin", tier: 3, title: "Utiliser l'IA en sécurité",
+      short: "Les règles d'or pour utiliser l'IA sans danger.",
+      duration: "4 min",
       content: [
-        { type: "exercise", title: "Mission : génère une image", task: "Écris un prompt pour générer l'image d'un paysage de montagne au coucher du soleil, en style photo réaliste." },
-        { type: "exercise", title: "Mission : rédige un texte", task: "Écris un prompt pour demander à l'IA un court e-mail de remerciement à envoyer à un client après un achat." },
-        { type: "exercise", title: "Mission : un peu de code", task: "Écris un prompt pour demander à l'IA une petite fonction qui additionne deux nombres, avec une explication simple." }
+        { title: "Ne donne jamais tes secrets",
+          html: "<p>Ne dis <strong>jamais</strong> à l'IA ton nom complet, ton adresse, ton école ou ton mot de passe. Ce sont des secrets&nbsp;! 🔒</p>" },
+        { title: "Demande à un adulte",
+          html: "<p>Utilise l'IA avec un <strong>adulte de confiance</strong> à côté, surtout si tu débutes.</p>" +
+                "<div class='lesson-tip'>👨‍👩‍👧 Un parent ou un professeur peut t'aider et te protéger.</div>" },
+        { title: "Si quelque chose te gêne",
+          html: "<p>Si l'IA dit quelque chose de <strong>bizarre ou qui te met mal à l'aise</strong>, arrête et préviens un adulte tout de suite.</p>" +
+                "<div class='lesson-tip'>🛡️ Tu as bien retenu les règles d'or ? Bravo, tu es un pro de l'IA en sécurité !</div>" }
       ],
       quiz: [
-        { q: "Dans un bon prompt, qu'est-ce qui compte le plus ?", options: ["La longueur", "La précision : sujet, style et objectif clairs"], answer: 1, explain: "Un prompt précis donne toujours une meilleure réponse." }
+        { q: "Peux-tu donner ton adresse à l'IA ?", options: ["Oui, sans problème", "Non, jamais, c'est un secret"], answer: 1, explain: "On ne donne jamais ses informations personnelles !" },
+        { q: "Si l'IA dit un truc bizarre, tu…", options: ["Préviens un adulte", "Continues tout seul"], answer: 0, explain: "On prévient toujours un adulte de confiance." }
       ]
     }
   };
@@ -1532,7 +1549,7 @@
   const COURSE_ARROW = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
   let courseState = { id: null, index: 0, answered: {} };
 
-  const TIER_LABELS = { 1: "Niveau 1 · Débutant", 2: "Niveau 2 · Intermédiaire", 3: "Pratique · Entraînement" };
+  const TIER_LABELS = { 1: "Niveau 1 · Je découvre 🌱", 2: "Niveau 2 · Je m'entraîne 💪", 3: "Niveau 3 · Je deviens malin 🚀" };
 
   function courseCardHTML(id) {
     const c = COURSES[id];
@@ -1741,9 +1758,9 @@
     btn.innerHTML = '<span class="spinner"></span> L\'IA analyse ton prompt…';
     fb.innerHTML = "";
 
-    const systemPrompt = "Tu es un professeur d'IA bienveillant qui corrige les prompts d'élèves débutants. " +
-      "Commence ta réponse par « ✅ Bien joué ! » si le prompt répond correctement à la mission, ou par « ⚠️ À améliorer : » sinon. " +
-      "Ensuite, donne 1 à 2 conseils courts, concrets et encourageants pour améliorer le prompt. Maximum 4 lignes. Réponds en français.";
+    const systemPrompt = "Tu es un gentil maître/maîtresse qui aide un ENFANT de primaire à écrire sa demande à l'IA. " +
+      "Commence par « ✅ Bravo ! » si la demande est bien, ou par « 💡 Petite astuce : » sinon. " +
+      "Ensuite, donne 1 ou 2 conseils très simples, gentils et encourageants. Maximum 3 phrases courtes, avec des mots faciles. Reste toujours adapté aux enfants. Réponds en français.";
     const userMsg = "Mission de l'exercice : " + s.task + "\n\nVoici le prompt écrit par l'élève :\n\"" + val + "\"";
 
     try {
