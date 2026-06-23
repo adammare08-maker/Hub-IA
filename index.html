@@ -573,6 +573,11 @@
     .pcopy:hover { background: var(--surface-2); }
     .exo-fb { margin-top: 14px; background: var(--bg-soft); border: 1px solid var(--border); border-left: 3px solid #34a853; border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; color: var(--text); }
     .exo-fb.err { border-left-color: #d33; color: #d33; }
+    .teacher-call { margin-top: 14px; display: flex; align-items: center; gap: 14px; background: #fff4e0; border: 2px solid #ffd27a; border-radius: 14px; padding: 16px; }
+    .tc-bell { font-size: 32px; animation: ring 1s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes ring { 0%,100% { transform: rotate(0); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
+    .tc-title { font-weight: 700; color: #8a5a00; font-size: 15px; margin-bottom: 3px; }
+    .tc-text { font-size: 13.5px; color: #8a5a00; line-height: 1.5; }
     .course-tier { margin-bottom: 36px; }
     .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
@@ -1658,6 +1663,49 @@
       quiz: [
         { q: "Une bonne histoire a besoin de…", options: ["Un héros, un lieu, une aventure", "Rien du tout"], answer: 0, explain: "Héros + lieu + aventure = super histoire !" }
       ]
+    },
+    "atelier-poeme": {
+      icon: "🎵", level: "Atelier", tier: 4, title: "Atelier poèmes & chansons",
+      short: "Écris un prompt et l'IA crée un joli poème rien que pour toi.",
+      duration: "7 min",
+      content: [
+        { title: "Un poème, c'est quoi ?",
+          html: "<p>Un poème, c'est un texte qui <strong>chante</strong> et qui fait de jolies images dans la tête. Dis le <strong>sujet</strong> et l'<strong>ambiance</strong> (joyeuse, calme, rigolote).</p>" },
+        { type: "challenge", kind: "texte", title: "Mission : un poème sur la nature", goal: "Écris un prompt pour un petit poème joyeux sur la nature (les fleurs, la mer, la forêt…). Dis le sujet et l'ambiance." },
+        { type: "challenge", kind: "texte", title: "Mission : une comptine", goal: "Écris un prompt pour une petite comptine rigolote qui rime, sur un animal de ton choix." }
+      ],
+      quiz: [
+        { q: "Dans un poème, on précise…", options: ["Le sujet et l'ambiance", "Rien"], answer: 0, explain: "Le sujet + l'ambiance = un beau poème !" }
+      ]
+    },
+    "atelier-devinettes": {
+      icon: "🧩", level: "Atelier", tier: 4, title: "Atelier devinettes & quiz",
+      short: "Demande à l'IA de créer des devinettes et des quiz rigolos.",
+      duration: "7 min",
+      content: [
+        { title: "Une bonne demande de quiz",
+          html: "<p>Pour un quiz, dis le <strong>thème</strong>, le <strong>nombre de questions</strong> et que tu veux les <strong>réponses</strong> à la fin.</p>" },
+        { type: "challenge", kind: "texte", title: "Mission : des devinettes", goal: "Écris un prompt pour demander 3 devinettes rigolotes pour enfants, avec les réponses à la fin." },
+        { type: "challenge", kind: "texte", title: "Mission : un quiz", goal: "Écris un prompt pour un petit quiz de 5 questions sur les animaux, avec les bonnes réponses." }
+      ],
+      quiz: [
+        { q: "Pour un bon quiz, on précise…", options: ["Le thème, le nombre de questions, les réponses", "Juste un mot"], answer: 0, explain: "Plus c'est précis, mieux c'est !" }
+      ]
+    },
+    "atelier-bd": {
+      icon: "🦸", level: "Atelier pro", tier: 4, title: "Atelier BD & héros (niveau pro)",
+      short: "Le plus pointu : décris un personnage en détail pour un super dessin !",
+      duration: "9 min",
+      content: [
+        { title: "Le secret des pros",
+          html: "<p>Pour les images les plus belles, les pros donnent <strong>beaucoup de détails</strong> : le personnage, ses habits, son émotion, le décor, les couleurs et le style.</p>" +
+                "<div class='lesson-tip'>💡 Plus tu donnes de détails, plus le dessin est incroyable !</div>" },
+        { type: "challenge", kind: "image", title: "Mission : un héros détaillé", goal: "Décris en détail un super-héros : son costume, sa couleur, son émotion (content, courageux…), où il se trouve et le style (dessin animé, BD…)." },
+        { type: "challenge", kind: "image", title: "Mission : une scène de BD", goal: "Décris une scène complète de bande dessinée : qui, où, ce qui se passe, l'ambiance et les couleurs. Sois très précis comme un pro !" }
+      ],
+      quiz: [
+        { q: "Pour une image de pro, il faut…", options: ["Beaucoup de détails", "Le moins de mots possible"], answer: 0, explain: "Les pros décrivent tout : personnage, décor, couleurs, style !" }
+      ]
     }
   };
 
@@ -1752,7 +1800,7 @@
   }
 
   function openCourse(id) {
-    courseState = { id: id, index: 0, answered: {} };
+    courseState = { id: id, index: 0, answered: {}, attempts: {} };
     goTo("cours");
     renderLesson();
   }
@@ -1907,7 +1955,8 @@
   // ── Défis enfants : l'IA corrige, et si le prompt est bon, ça se génère tout seul ! ──
   async function checkChallenge() {
     const c = COURSES[courseState.id];
-    const s = c.content[courseState.index];
+    const idx = courseState.index;
+    const s = c.content[idx];
     const ta = document.getElementById("exo-input");
     const fb = document.getElementById("exo-feedback");
     const res = document.getElementById("exo-result");
@@ -1915,13 +1964,20 @@
     const val = (ta.value || "").trim();
     if (!val) { ta.focus(); return; }
 
+    courseState.attempts[idx] = (courseState.attempts[idx] || 0) + 1;
+    const n = courseState.attempts[idx];
+
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> L\'IA regarde ton prompt…';
     fb.innerHTML = ""; res.innerHTML = "";
 
+    // Aide de plus en plus détaillée selon le nombre d'essais
+    let aide = "Ensuite, ajoute 1 phrase courte, gentille et encourageante, avec des mots simples.";
+    if (n >= 2) aide = "L'enfant a déjà essayé " + n + " fois. S'il n'a pas réussi, explique TRÈS clairement et gentiment ce qui manque dans son prompt, et donne-lui un petit exemple d'idée à ajouter. Mots très simples, 2 phrases maximum.";
+
     const sys = "Tu es un gentil maître/maîtresse pour un enfant de primaire. L'enfant doit écrire un prompt pour réussir cette mission : « " + s.goal + " ». " +
       "Si le prompt de l'enfant est assez clair et complet pour réussir la mission, commence ta réponse EXACTEMENT par le mot VALIDE. Sinon commence EXACTEMENT par le mot ENCORE. " +
-      "Ensuite, ajoute 1 phrase courte, gentille et encourageante, avec des mots simples. Réponds en français.";
+      aide + " Réponds en français.";
 
     try {
       const r = await fetch(API_URL, {
@@ -1937,8 +1993,12 @@
         const clean = txt.replace(/^\s*(valide|encore)\s*[:.!\-–]*/i, "").trim();
         fb.innerHTML = '<div class="exo-fb"' + (ok ? '' : ' style="border-left-color:#ffb020"') + '">' + (ok ? '🎉 Bravo, ton prompt est super ! ' : '💡 Presque ! ') + clean + '</div>';
         if (ok) {
+          courseState.attempts[idx] = 0;
           if (s.kind === "image") { await runChallengeImage(val, res); }
           else { await runChallengeText(val, res); }
+        } else if (n >= 3) {
+          // L'enfant bloque vraiment : on appelle le professeur 🔔
+          callTeacher(res);
         }
       }
     } catch (e) {
@@ -1946,6 +2006,32 @@
     }
     btn.disabled = false;
     btn.innerHTML = '✨ Vérifier mon prompt';
+  }
+
+  // Petite sonnette + message pour appeler le professeur quand l'enfant bloque
+  function callTeacher(holder) {
+    playBell();
+    holder.innerHTML = '<div class="teacher-call">' +
+      '<div class="tc-bell">🔔</div>' +
+      '<div><div class="tc-title">Besoin d\'un coup de main ?</div>' +
+      '<div class="tc-text">Pas de souci, c\'est en t\'entraînant qu\'on apprend ! Appelle ton <strong>professeur</strong> ou un <strong>adulte</strong> pour qu\'il t\'aide sur cette mission. 💛</div></div>' +
+    '</div>';
+  }
+
+  function playBell() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      [880, 1175].forEach((freq, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = freq;
+        o.connect(g); g.connect(ctx.destination);
+        const t = ctx.currentTime + i * 0.18;
+        g.gain.setValueAtTime(0.001, t);
+        g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+        o.start(t); o.stop(t + 0.36);
+      });
+    } catch (e) { /* son indisponible */ }
   }
 
   async function runChallengeImage(prompt, holder) {
