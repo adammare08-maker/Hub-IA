@@ -1626,13 +1626,45 @@
         { q: "Peux-tu donner ton adresse à l'IA ?", options: ["Oui, sans problème", "Non, jamais, c'est un secret"], answer: 1, explain: "On ne donne jamais ses informations personnelles !" },
         { q: "Si l'IA dit un truc bizarre, tu…", options: ["Préviens un adulte", "Continues tout seul"], answer: 0, explain: "On prévient toujours un adulte de confiance." }
       ]
+    },
+    "atelier-dessin": {
+      icon: "🎨", level: "Atelier", tier: 4, title: "Atelier dessins magiques",
+      short: "Des missions où tu écris un prompt, et ton dessin se crée tout seul !",
+      duration: "8 min",
+      content: [
+        { title: "Comment ça marche ?",
+          html: "<p>Pour chaque mission, tu écris un <strong>prompt</strong> (ta demande). L'IA vérifie&nbsp;: si c'est bon, ton dessin <strong>se crée automatiquement</strong>&nbsp;! 🎉</p>" +
+                "<div class='lesson-tip'>💡 N'oublie pas : dis le sujet, le lieu et les couleurs.</div>" },
+        { type: "challenge", kind: "image", title: "Mission : un animal rigolo", goal: "Écris un prompt pour dessiner un animal rigolo qui fait quelque chose de drôle. Dis lequel, où il est et de quelle couleur." },
+        { type: "challenge", kind: "image", title: "Mission : un lieu magique", goal: "Écris un prompt pour dessiner un endroit magique (un château, une forêt, l'espace…). Donne plein de détails colorés !" },
+        { type: "challenge", kind: "image", title: "Mission : ton super-héros", goal: "Écris un prompt pour dessiner un super-héros que tu inventes. Décris son costume, sa couleur et son super-pouvoir." }
+      ],
+      quiz: [
+        { q: "Pour un beau dessin, il faut…", options: ["Donner des détails (sujet, lieu, couleurs)", "Écrire un seul mot"], answer: 0, explain: "Plus tu décris, plus le dessin est réussi !" }
+      ]
+    },
+    "atelier-histoire": {
+      icon: "📖", level: "Atelier", tier: 4, title: "Atelier histoires magiques",
+      short: "Écris un bon prompt et ton histoire s'écrit toute seule !",
+      duration: "8 min",
+      content: [
+        { title: "Comment ça marche ?",
+          html: "<p>Tu écris ta demande, l'IA vérifie, et si c'est bon, ton <strong>histoire se crée automatiquement</strong>&nbsp;! 📖✨</p>" +
+                "<div class='lesson-tip'>💡 Donne un héros, un lieu et une petite aventure.</div>" },
+        { type: "challenge", kind: "texte", title: "Mission : une aventure", goal: "Écris un prompt pour que l'IA invente une courte histoire d'aventure. Donne un héros, un lieu et un problème à résoudre." },
+        { type: "challenge", kind: "texte", title: "Mission : une histoire drôle", goal: "Écris un prompt pour une petite histoire très rigolote avec un animal qui parle." },
+        { type: "challenge", kind: "texte", title: "Mission : un poème", goal: "Écris un prompt pour demander à l'IA un petit poème mignon sur un sujet que tu aimes (les étoiles, ton animal, l'été…)." }
+      ],
+      quiz: [
+        { q: "Une bonne histoire a besoin de…", options: ["Un héros, un lieu, une aventure", "Rien du tout"], answer: 0, explain: "Héros + lieu + aventure = super histoire !" }
+      ]
     }
   };
 
   const COURSE_ARROW = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
   let courseState = { id: null, index: 0, answered: {} };
 
-  const TIER_LABELS = { 1: "Niveau 1 · Je découvre 🌱", 2: "Niveau 2 · Je m'entraîne 💪", 3: "Niveau 3 · Je deviens malin 🚀" };
+  const TIER_LABELS = { 1: "Niveau 1 · Je découvre 🌱", 2: "Niveau 2 · Je m'entraîne 💪", 3: "Niveau 3 · Je deviens malin 🚀", 4: "Ateliers · Je crée pour de vrai ! 🎨" };
 
   function courseCardHTML(id) {
     const c = COURSES[id];
@@ -1694,7 +1726,7 @@
     '</div>';
 
     let tiers = "";
-    [1, 2, 3].forEach(t => {
+    [1, 2, 3, 4].forEach(t => {
       const ids = Object.keys(COURSES).filter(id => COURSES[id].tier === t);
       if (!ids.length) return;
       const nodes = ids.map(id => {
@@ -1790,6 +1822,12 @@
           '<textarea id="exo-input" rows="4" placeholder="Écris ton prompt ici…"></textarea>' +
           '<button class="btn-run" style="margin-top:12px" id="exo-btn" onclick="checkExercise(this)">✓ Vérifier mon prompt</button>' +
           '<div id="exo-feedback"></div></div>';
+      } else if (s.type === "challenge") {
+        inner = '<div class="lesson-step"><div class="lesson-step-num">🎯 Mission ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' +
+          '<p>' + s.goal + '</p>' +
+          '<textarea id="exo-input" rows="3" placeholder="Écris ton prompt ici…"></textarea>' +
+          '<button class="btn-run" style="margin-top:12px" id="exo-btn" onclick="checkChallenge()">✨ Vérifier mon prompt</button>' +
+          '<div id="exo-feedback"></div><div id="exo-result"></div></div>';
       } else {
         inner = '<div class="lesson-step"><div class="lesson-step-num">Étape ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' + s.html + '</div>';
       }
@@ -1864,6 +1902,77 @@
     }
     btn.disabled = false;
     btn.innerHTML = '✓ Vérifier mon prompt';
+  }
+
+  // ── Défis enfants : l'IA corrige, et si le prompt est bon, ça se génère tout seul ! ──
+  async function checkChallenge() {
+    const c = COURSES[courseState.id];
+    const s = c.content[courseState.index];
+    const ta = document.getElementById("exo-input");
+    const fb = document.getElementById("exo-feedback");
+    const res = document.getElementById("exo-result");
+    const btn = document.getElementById("exo-btn");
+    const val = (ta.value || "").trim();
+    if (!val) { ta.focus(); return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> L\'IA regarde ton prompt…';
+    fb.innerHTML = ""; res.innerHTML = "";
+
+    const sys = "Tu es un gentil maître/maîtresse pour un enfant de primaire. L'enfant doit écrire un prompt pour réussir cette mission : « " + s.goal + " ». " +
+      "Si le prompt de l'enfant est assez clair et complet pour réussir la mission, commence ta réponse EXACTEMENT par le mot VALIDE. Sinon commence EXACTEMENT par le mot ENCORE. " +
+      "Ensuite, ajoute 1 phrase courte, gentille et encourageante, avec des mots simples. Réponds en français.";
+
+    try {
+      const r = await fetch(API_URL, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: "Prompt de l'enfant : \"" + val + "\"", systemPrompt: sys })
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        fb.innerHTML = '<div class="exo-fb err">⚠ ' + (data.error || "Erreur") + '</div>';
+      } else {
+        const txt = (data.text || "").trim();
+        const ok = /^\s*valide/i.test(txt);
+        const clean = txt.replace(/^\s*(valide|encore)\s*[:.!\-–]*/i, "").trim();
+        fb.innerHTML = '<div class="exo-fb"' + (ok ? '' : ' style="border-left-color:#ffb020"') + '">' + (ok ? '🎉 Bravo, ton prompt est super ! ' : '💡 Presque ! ') + clean + '</div>';
+        if (ok) {
+          if (s.kind === "image") { await runChallengeImage(val, res); }
+          else { await runChallengeText(val, res); }
+        }
+      }
+    } catch (e) {
+      fb.innerHTML = '<div class="exo-fb err">⚠ Erreur réseau. Réessaie.</div>';
+    }
+    btn.disabled = false;
+    btn.innerHTML = '✨ Vérifier mon prompt';
+  }
+
+  async function runChallengeImage(prompt, holder) {
+    holder.innerHTML = '<div class="exo-fb">🎨 Je dessine ton image… (un petit instant)</div>';
+    const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt + ", dessin pour enfant, coloré, mignon") +
+      "?width=768&height=768&nologo=true&seed=" + Math.floor(Math.random() * 1000000);
+    const img = new Image();
+    img.onload = function () {
+      holder.innerHTML = '<div class="result-box"><div class="result-bar"><span class="result-label">🎉 Voici ton dessin !</span></div>' +
+        '<div style="padding:12px"><img src="' + url + '" alt="ton dessin" style="width:100%;border-radius:8px;display:block"></div></div>';
+    };
+    img.onerror = function () { holder.innerHTML = '<div class="exo-fb err">⚠ Le dessin n\'a pas marché, réessaie !</div>'; };
+    img.src = url;
+  }
+
+  async function runChallengeText(prompt, holder) {
+    holder.innerHTML = '<div class="exo-fb">📖 J\'écris ça pour toi…</div>';
+    try {
+      const r = await fetch(API_URL, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: prompt, systemPrompt: "Tu es un conteur magique pour enfants. Réalise la demande de l'enfant avec un texte court, joyeux, simple et adapté aux enfants. Réponds en français." })
+      });
+      const data = await r.json();
+      if (!r.ok) { holder.innerHTML = '<div class="exo-fb err">⚠ ' + (data.error || "Erreur") + '</div>'; return; }
+      holder.innerHTML = '<div class="result-box"><div class="result-bar"><span class="result-label">🎉 Et voilà, regarde !</span></div><div class="result-text" id="ch-text"></div></div>';
+      document.getElementById("ch-text").textContent = data.text;
+    } catch (e) { holder.innerHTML = '<div class="exo-fb err">⚠ Erreur réseau. Réessaie.</div>'; }
   }
 
   // Init
