@@ -582,6 +582,29 @@
     .pause-emoji { font-size: 54px; margin-bottom: 10px; animation: bob 3s ease-in-out infinite; }
     .pause-bar { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; max-width: 320px; margin: 18px auto 0; }
     .pause-fill { height: 100%; width: 0; background: var(--accent-4); border-radius: 999px; transition: width 1s linear; }
+    .idea-block { margin-bottom: 4px; }
+    .idea-title { font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+    .idea-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .idea-chip { font-size: 13px; font-weight: 500; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); border-radius: 999px; padding: 7px 13px; cursor: pointer; font-family: inherit; transition: transform .12s var(--ease), border-color .15s; }
+    .idea-chip:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .bilan-card { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; border-radius: 18px; padding: 26px; text-align: center; margin-bottom: 28px; }
+    .bilan-emoji { font-size: 42px; margin-bottom: 6px; }
+    .bilan-card h3 { color: #fff; font-size: 20px; margin-bottom: 8px; }
+    .bilan-card p { color: rgba(255,255,255,.9); font-size: 14.5px; margin-bottom: 16px; }
+    .bilan-card .btn-primary { background: #fff; color: var(--accent); }
+    .bilan-msg { background: rgba(255,255,255,.95); color: var(--text); border-radius: 12px; padding: 16px; margin-top: 16px; font-size: 14.5px; line-height: 1.7; white-space: pre-wrap; text-align: left; }
+    /* Livre d'or */
+    .gb-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+    .gb-tab { padding: 9px 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--text-dim); }
+    .gb-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .gb-form { display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto 24px; }
+    .gb-form input, .gb-form textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; font-size: 14.5px; background: var(--bg); color: var(--text); }
+    .gb-form button { align-self: center; padding: 12px 26px; background: var(--accent); color: #fff; border: none; border-radius: 12px; font-weight: 600; font-size: 14.5px; cursor: pointer; font-family: inherit; }
+    .gb-list { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .gb-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+    .gb-item .gb-name { font-weight: 700; font-size: 14px; }
+    .gb-item .gb-msg { font-size: 14px; color: var(--text-dim); line-height: 1.5; margin-top: 4px; }
+    .gb-empty { text-align: center; color: var(--text-faint); font-size: 14px; }
     .course-tier { margin-bottom: 36px; }
     .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
@@ -691,6 +714,27 @@
       .tool-btn { justify-content: center; }
       .sidebar-label { display: none; }
       .play-body { padding: 18px; }
+      .home-title { letter-spacing: -1px; }
+      .mascot svg { width: 92px; height: 92px; }
+      .nav-links { gap: 2px; }
+      .btn-partner { padding: 8px 11px; font-size: 12.5px; margin-left: 2px; }
+      .hero { padding: 40px 18px 48px; }
+      .home-actions { gap: 10px; width: 100%; }
+      .btn-primary, .btn-outline { flex: 1; min-width: 140px; padding: 13px 16px; text-align: center; justify-content: center; }
+      .ecole-perks, .partner-perks { flex-direction: column; gap: 10px; align-items: center; }
+      .lesson-card { padding: 20px 16px; }
+      .lesson-title { font-size: 16px; }
+      .path-node { padding-left: 56px; }
+      .game-frame iframe { height: 360px; }
+      .coursestats { gap: 8px; }
+      .cstat { padding: 8px 13px; font-size: 13px; }
+      .auth-area { display: none; }
+    }
+    /* Boutons et zones tactiles plus grands (tablette/smartphone) */
+    @media (hover: none) and (pointer: coarse) {
+      .idea-chip, .quiz-opt, .tool-btn, .nav-link, .lesson-btn, .btn-run, .path-node { -webkit-tap-highlight-color: transparent; }
+      .quiz-opt { padding: 16px; }
+      textarea, .p-form input { font-size: 16px; }
     }
   </style>
 </head>
@@ -912,6 +956,27 @@
     </div>
   </section>
 
+  <!-- SECTION LIVRE D'OR (COMMENTAIRES) -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">💬 Votre avis</div>
+        <h2 class="section-title">Le livre d'or</h2>
+        <p class="section-sub">Laisse un petit mot ! Un espace pour les enfants 🧒 et un pour les parents 👨‍👩‍👧</p>
+      </div>
+      <div class="gb-tabs reveal">
+        <button class="gb-tab active" id="gb-tab-enfants" onclick="gbSwitch('enfants')">🧒 Les enfants</button>
+        <button class="gb-tab" id="gb-tab-parents" onclick="gbSwitch('parents')">👨‍👩‍👧 Les parents</button>
+      </div>
+      <div class="gb-form reveal">
+        <input id="gb-name" maxlength="30" placeholder="Ton prénom (ou ton pseudo)">
+        <textarea id="gb-msg" rows="3" maxlength="300" placeholder="Écris ton petit mot ici…"></textarea>
+        <button onclick="gbAdd()">Envoyer mon message 💌</button>
+      </div>
+      <div class="gb-list" id="gb-list"></div>
+    </div>
+  </section>
+
   <!-- SECTION POUR LES ÉCOLES -->
   <section class="section section-alt">
     <div class="container">
@@ -1053,12 +1118,14 @@
       name: "Écrire une histoire", icon: "📖", cat: "L'IA écrit pour toi",
       desc: "Demande une histoire, un poème ou des idées, et l'IA les écrit pour toi !",
       placeholder: "Ex : Raconte-moi une histoire rigolote avec un dinosaure et un robot…",
+      ideas: ["🐉 une histoire avec un dragon gentil", "🚀 une aventure dans l'espace", "🦸 un super-héros rigolo", "🧚 un conte de fées magique"],
       system: "Tu es un conteur magique pour enfants. Écris des textes et des histoires amusants, positifs et faciles à lire." + KID_SAFE
     },
     "Génération-Codage": {
       name: "Petit codeur", icon: "💻", cat: "L'IA crée des pages web",
       desc: "Demande une petite page web colorée et regarde l'IA la fabriquer !",
       placeholder: "Ex : Fais une page avec un gros bouton qui dit bonjour quand on clique…",
+      ideas: ["🌈 une page très colorée", "🎈 un bouton qui dit bonjour", "⭐ une page avec des étoiles", "🎂 une carte d'anniversaire"],
       system: "Tu crées des petites pages web simples et colorées pour des enfants. Renvoie TOUJOURS un fichier HTML complet et autonome (avec le <style> et le <script> inclus) prêt à être affiché. Donne le code en premier, puis une explication très courte et simple." + KID_SAFE
     },
     "Génération-Vision": {
@@ -1071,12 +1138,14 @@
       name: "Faire un dessin", icon: "🎨", cat: "L'IA dessine pour toi",
       desc: "Décris un dessin rigolo et l'IA le dessine directement sur le site !",
       placeholder: "Ex : un chat astronaute dans l'espace avec des étoiles colorées…",
+      ideas: ["🐱 un chat astronaute", "🏰 un château en bonbons", "🦄 une licorne arc-en-ciel", "🐲 un dragon dans les nuages"],
       system: "Tu aides un enfant à décrire une image. Génère un prompt d'image détaillé, mignon et adapté aux enfants." + KID_SAFE
     },
     "Génération-Jeux": {
       name: "Créer un jeu", icon: "🎮", cat: "L'IA fabrique un jeu",
       desc: "Décris un jeu et l'IA le crée — tu y joues tout de suite !",
       placeholder: "Ex : un jeu du serpent, un casse-briques, un jeu de mémoire…",
+      ideas: ["🐍 un jeu du serpent", "🧱 un casse-briques", "🧠 un jeu de mémoire", "🏓 un jeu de pong"],
       system: "Tu crées des mini-jeux web amusants et adaptés aux enfants. Tu renvoies TOUJOURS un seul fichier HTML complet et autonome (avec <style> et <script> inclus) d'un jeu jouable immédiatement, coloré, sans dépendance externe, qui fonctionne au clavier et/ou à la souris. Réponds UNIQUEMENT avec le code HTML." + KID_SAFE
     }
   };
@@ -1131,6 +1200,7 @@
           '</div>' +
         '</div>' +
         '<div class="play-body">' +
+          (t.ideas ? '<div class="idea-block"><div class="idea-title">💡 Des idées pour t\'inspirer :</div><div class="idea-chips">' + t.ideas.map(function (id) { return '<button class="idea-chip" onclick="fillPrompt(this)">' + id + '</button>'; }).join('') + '</div></div>' : '') +
           '<div>' +
             '<div class="row" style="margin-bottom:8px">' +
               '<span class="field-label">Prompt</span>' +
@@ -1155,6 +1225,14 @@
     const el2 = document.getElementById("cc");
     el2.textContent = n + " / 4000";
     el2.className = "cc" + (n > 3600 ? " warn" : "");
+  }
+
+  function fillPrompt(btn) {
+    const ta = document.getElementById("prompt-input");
+    if (!ta) return;
+    ta.value = btn.textContent.trim();
+    countChars(ta);
+    ta.focus();
   }
 
   async function sendPromptToAPI() {
@@ -1840,11 +1918,43 @@
       tiers += '<div class="course-tier"><div class="course-tier-label">' + TIER_LABELS[t] + '</div><div class="path">' + nodes + '</div></div>';
     });
 
+    const bilan = allCoursesDone()
+      ? '<div class="bilan-card">' +
+          '<div class="bilan-emoji">🎓</div>' +
+          '<h3>Tu as fini TOUS les cours, bravo !</h3>' +
+          '<p>Le professeur IA a un message rien que pour toi. Et tes outils sont débloqués ! 🎉</p>' +
+          '<button class="btn-primary" id="bilan-btn" onclick="generateBilan()">📩 Voir mon message du prof IA</button>' +
+          '<div id="bilan-out"></div>' +
+        '</div>'
+      : '';
+
     wrap.innerHTML =
       '<div class="course-page-head">' +
         '<h2>Ton parcours pour apprendre l\'IA</h2>' +
         '<p>Gagne des XP, garde ta série 🔥 et débloque tous les cours, un par un.</p>' +
-      '</div>' + stats + tiers;
+      '</div>' + stats + bilan + tiers;
+  }
+
+  async function generateBilan() {
+    const out = document.getElementById("bilan-out");
+    const btn = document.getElementById("bilan-btn");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Le prof IA écrit ton message…';
+    out.innerHTML = "";
+    const sys = "Tu es un gentil professeur d'IA pour un enfant de primaire qui vient de TERMINER tous les cours sur l'intelligence artificielle. " +
+      "Félicite-le très chaleureusement, rappelle en 2 points ce qu'il a appris (parler à l'IA, bien demander, rester prudent), " +
+      "et donne-lui 2 conseils simples pour continuer à bien progresser et à s'améliorer. Mots très simples, ton joyeux, des emojis, 6 lignes maximum. Réponds en français.";
+    try {
+      const r = await fetch(API_URL, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: "J'ai fini tous les cours ! Fais-moi mon petit bilan et dis-moi comment m'améliorer.", systemPrompt: sys })
+      });
+      const data = await r.json();
+      if (!r.ok) { out.innerHTML = '<div class="exo-fb err">⚠ ' + (data.error || "Erreur") + '</div>'; }
+      else { out.innerHTML = '<div class="bilan-msg" id="bilan-msg"></div>'; document.getElementById("bilan-msg").textContent = data.text; }
+    } catch (e) { out.innerHTML = '<div class="exo-fb err">⚠ Erreur réseau. Réessaie.</div>'; }
+    btn.disabled = false;
+    btn.innerHTML = '📩 Revoir mon message du prof IA';
   }
 
   function openCourse(id) {
@@ -2135,9 +2245,43 @@
     } catch (e) { holder.innerHTML = '<div class="exo-fb err">⚠ Erreur réseau. Réessaie.</div>'; }
   }
 
+  // ── Livre d'or (commentaires, sauvegardés en local) ──
+  let gbState = "enfants";
+  function gbKey() { return "gb_" + gbState; }
+  function gbGet() { try { return JSON.parse(localStorage.getItem(gbKey()) || "[]"); } catch (e) { return []; } }
+  function gbSave(arr) { try { localStorage.setItem(gbKey(), JSON.stringify(arr)); } catch (e) {} }
+  function gbEscape(s) { return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+  function gbRender() {
+    const list = document.getElementById("gb-list");
+    if (!list) return;
+    const arr = gbGet();
+    if (!arr.length) { list.innerHTML = '<div class="gb-empty">Sois le premier à laisser un petit mot ! ✨</div>'; return; }
+    list.innerHTML = arr.slice().reverse().map(c =>
+      '<div class="gb-item"><div class="gb-name">' + gbEscape(c.name || "Anonyme") + '</div><div class="gb-msg">' + gbEscape(c.msg) + '</div></div>'
+    ).join("");
+  }
+  function gbSwitch(tab) {
+    gbState = tab;
+    document.getElementById("gb-tab-enfants").classList.toggle("active", tab === "enfants");
+    document.getElementById("gb-tab-parents").classList.toggle("active", tab === "parents");
+    gbRender();
+  }
+  function gbAdd() {
+    const nameEl = document.getElementById("gb-name");
+    const msgEl = document.getElementById("gb-msg");
+    const msg = (msgEl.value || "").trim();
+    if (!msg) { msgEl.focus(); return; }
+    const arr = gbGet();
+    arr.push({ name: (nameEl.value || "").trim(), msg: msg });
+    gbSave(arr);
+    nameEl.value = ""; msgEl.value = "";
+    gbRender();
+  }
+
   // Init
   buildToolCards();
   buildCourseCards();
+  gbRender();
   observeReveals();
   window.addEventListener("load", initAuth);
 </script>
