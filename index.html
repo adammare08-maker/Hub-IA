@@ -2038,7 +2038,7 @@
           '<p>' + s.task + '</p>' +
           '<textarea id="exo-input" rows="4" placeholder="Écris ton prompt ici…"></textarea>' +
           '<button class="btn-run" style="margin-top:12px" id="exo-btn" onclick="checkExercise(this)">✓ Vérifier mon prompt</button>' +
-          '<div id="exo-feedback"></div></div>';
+          '<div id="exo-feedback"></div><div id="exo-result"></div></div>';
       } else if (s.type === "challenge") {
         inner = '<div class="lesson-step"><div class="lesson-step-num">🎯 Mission ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' +
           '<p>' + s.goal + '</p>' +
@@ -2111,19 +2111,28 @@
   async function checkExercise(btn) {
     const ta = document.getElementById("exo-input");
     const fb = document.getElementById("exo-feedback");
+    const res = document.getElementById("exo-result");
     const val = (ta.value || "").trim();
     if (!val) { ta.focus(); return; }
 
     const c = COURSES[courseState.id];
-    const s = c.content[courseState.index];
+    const idx = courseState.index;
+    const s = c.content[idx];
+
+    courseState.attempts[idx] = (courseState.attempts[idx] || 0) + 1;
+    const n = courseState.attempts[idx];
 
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> L\'IA analyse ton prompt…';
     fb.innerHTML = "";
+    if (res) res.innerHTML = "";
+
+    let aide = "Ensuite, donne 1 ou 2 conseils très simples, gentils et encourageants. Maximum 3 phrases courtes, avec des mots faciles.";
+    if (n >= 2) aide = "L'enfant a déjà essayé " + n + " fois. S'il n'a pas réussi, explique TRÈS clairement et gentiment ce qui manque, et donne-lui un petit exemple d'idée à ajouter. Mots très simples, 2 phrases maximum.";
 
     const systemPrompt = "Tu es un gentil maître/maîtresse qui aide un ENFANT de primaire à écrire sa demande à l'IA. " +
-      "Commence par « ✅ Bravo ! » si la demande est bien, ou par « 💡 Petite astuce : » sinon. " +
-      "Ensuite, donne 1 ou 2 conseils très simples, gentils et encourageants. Maximum 3 phrases courtes, avec des mots faciles. Reste toujours adapté aux enfants. Réponds en français.";
+      "Commence ta réponse EXACTEMENT par « ✅ Bravo ! » si la demande est bien, ou EXACTEMENT par « 💡 Petite astuce : » sinon. " +
+      aide + " Reste toujours adapté aux enfants. Réponds en français.";
     const userMsg = "Mission de l'exercice : " + s.task + "\n\nVoici le prompt écrit par l'élève :\n\"" + val + "\"";
 
     try {
@@ -2136,8 +2145,12 @@
       if (!resp.ok) {
         fb.innerHTML = '<div class="exo-fb err">⚠ ' + (data.error || "Erreur") + '</div>';
       } else {
+        const txt = (data.text || "").trim();
+        const ok = /^\s*✅/.test(txt) || /^\s*bravo/i.test(txt);
         fb.innerHTML = '<div class="exo-fb"></div>';
-        fb.querySelector(".exo-fb").textContent = data.text;
+        fb.querySelector(".exo-fb").textContent = txt;
+        if (ok) { courseState.attempts[idx] = 0; }
+        else if (n >= 3 && res) { callTeacher(res); }
       }
     } catch (e) {
       fb.innerHTML = '<div class="exo-fb err">⚠ Erreur réseau. Vérifie ta connexion.</div>';
