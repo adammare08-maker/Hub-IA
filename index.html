@@ -606,6 +606,11 @@
     .path-meta { display: flex; gap: 10px; margin-top: 9px; font-size: 12px; color: var(--text-faint); align-items: center; flex-wrap: wrap; }
     .path-xp { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-weight: 600; color: var(--text-dim); }
     .path-badge-done { color: #1f6b34; font-weight: 600; }
+    .path-badge-lock { color: var(--text-faint); font-weight: 600; }
+    .path-node.locked { cursor: not-allowed; opacity: .65; }
+    .path-node.locked:hover .path-card { border-color: var(--border); box-shadow: none; }
+    .path-node.locked:hover .path-dot { transform: none; }
+    .path-dot.locked { background: var(--surface-2); border-color: var(--border); }
     .xp-pop { display: inline-block; background: #eafaf0; color: #1f6b34; border: 1px solid #bfe6cb; border-radius: 999px; padding: 6px 16px; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
 
     .lesson-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
@@ -1100,13 +1105,14 @@
     document.getElementById("page-" + page).classList.add("active");
     document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
     if (page === "home")  document.getElementById("nav-home").classList.add("active");
-    if (page === "tools") document.getElementById("nav-tools").classList.add("active");
+    if (page === "tools") { document.getElementById("nav-tools").classList.add("active"); if (!allCoursesDone()) renderToolsLocked(); }
     if (page === "cours") { document.getElementById("nav-cours").classList.add("active"); renderCoursesPage(); }
     window.scrollTo({ top: 0, behavior: "auto" });
   }
 
   function openTool(id) {
     goTo("tools");
+    if (!allCoursesDone()) { renderToolsLocked(); return; }
     activeTool = id;
     const t = TOOLS[id];
 
@@ -1770,6 +1776,34 @@
     return { gained, xp: p.xp, streak: p.streak, first };
   }
 
+  // ── Verrouillage : il faut finir les cours dans l'ordre, et tout finir pour les outils ──
+  function courseIds() { return Object.keys(COURSES); }
+  function isCourseUnlocked(id) {
+    const ids = courseIds();
+    const i = ids.indexOf(id);
+    if (i <= 0) return true;
+    return !!getProgress().done[ids[i - 1]];
+  }
+  function allCoursesDone() {
+    const p = getProgress();
+    return courseIds().every(id => p.done[id]);
+  }
+  function lockedCourseAlert() {
+    alert("🔒 Termine d'abord le cours juste avant pour débloquer celui-là ! Tu vas y arriver 💪");
+  }
+  function renderToolsLocked() {
+    const m = document.getElementById("main");
+    if (!m) return;
+    const total = courseIds().length;
+    const done = courseIds().filter(id => getProgress().done[id]).length;
+    m.innerHTML = '<div class="empty-state">' +
+      '<div class="big">🔒</div>' +
+      '<p style="font-size:16px; max-width:440px; text-align:center; color:var(--text)">Les outils sont <strong>verrouillés</strong> !<br>Termine d\'abord <strong>tous les cours</strong> pour les débloquer. 🎓</p>' +
+      '<p style="color:var(--text-faint)">Tu as fini ' + done + ' / ' + total + ' cours.</p>' +
+      '<button class="btn-primary" onclick="goTo(\'cours\')">Continuer mes cours →</button>' +
+    '</div>';
+  }
+
   function renderCoursesPage() {
     const wrap = document.getElementById("course-wrap");
     if (!wrap) return;
@@ -1789,12 +1823,17 @@
       const nodes = ids.map(id => {
         const c = COURSES[id];
         const done = !!p.done[id];
-        return '<div class="path-node" onclick="openCourse(\'' + id + '\')">' +
-          '<div class="path-dot' + (done ? ' done' : '') + '">' + (done ? '✓' : c.icon) + '</div>' +
+        const unlocked = isCourseUnlocked(id);
+        const click = unlocked ? "openCourse('" + id + "')" : "lockedCourseAlert()";
+        const dotInner = done ? '✓' : (unlocked ? c.icon : '🔒');
+        const dotCls = done ? ' done' : (unlocked ? '' : ' locked');
+        let badge = done ? '<span class="path-badge-done">Terminé ✓</span>' : (unlocked ? '' : '<span class="path-badge-lock">🔒 Verrouillé</span>');
+        return '<div class="path-node' + (unlocked ? '' : ' locked') + '" onclick="' + click + '">' +
+          '<div class="path-dot' + dotCls + '">' + dotInner + '</div>' +
           '<div class="path-card">' +
             '<h3>' + c.title + '</h3>' +
             '<p>' + c.short + '</p>' +
-            '<div class="path-meta"><span>⏱ ' + c.duration + '</span><span class="path-xp">+20 XP</span>' + (done ? '<span class="path-badge-done">Terminé ✓</span>' : '') + '</div>' +
+            '<div class="path-meta"><span>⏱ ' + c.duration + '</span><span class="path-xp">+20 XP</span>' + badge + '</div>' +
           '</div>' +
         '</div>';
       }).join("");
@@ -1809,6 +1848,7 @@
   }
 
   function openCourse(id) {
+    if (!isCourseUnlocked(id)) { lockedCourseAlert(); return; }
     courseState = { id: id, index: 0, answered: {}, attempts: {} };
     goTo("cours");
     renderLesson();
