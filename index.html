@@ -578,6 +578,10 @@
     @keyframes ring { 0%,100% { transform: rotate(0); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
     .tc-title { font-weight: 700; color: #8a5a00; font-size: 15px; margin-bottom: 3px; }
     .tc-text { font-size: 13.5px; color: #8a5a00; line-height: 1.5; }
+    .pause-step { text-align: center; padding: 20px 0; }
+    .pause-emoji { font-size: 54px; margin-bottom: 10px; animation: bob 3s ease-in-out infinite; }
+    .pause-bar { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; max-width: 320px; margin: 18px auto 0; }
+    .pause-fill { height: 100%; width: 0; background: var(--accent-4); border-radius: 999px; transition: width 1s linear; }
     .course-tier { margin-bottom: 36px; }
     .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
@@ -732,7 +736,7 @@
       Deviens un <span>champion de l'IA&nbsp;!</span>
     </h1>
     <p class="home-sub reveal in" data-d="2">
-      Crée des <strong>histoires</strong>, des <strong>images</strong> et des <strong>jeux</strong> avec l'intelligence artificielle, et apprends à bien t'en servir avec des <strong>cours rigolos</strong>. C'est simple, gratuit, et fait pour toi&nbsp;!
+      Crée des <strong>histoires</strong>, des <strong>images</strong> et des <strong>jeux</strong> avec l'intelligence artificielle, et apprends à bien t'en servir avec des <strong>cours rigolos</strong>. C'est simple, rigolo, et fait pour toi&nbsp;!
     </p>
     <div class="home-actions reveal in" data-d="3">
       <button class="btn-primary" onclick="goTo('cours')">
@@ -747,7 +751,7 @@
       <div class="proof-item"><div class="proof-num">9</div><div class="proof-label">Cours rigolos</div></div>
       <div class="proof-item"><div class="proof-num">🤖</div><div class="proof-label">Une mascotte</div></div>
       <div class="proof-item"><div class="proof-num">⭐</div><div class="proof-label">Des récompenses</div></div>
-      <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Sûr & gratuit</div></div>
+      <div class="proof-item"><div class="proof-num">100%</div><div class="proof-label">Sécurisé</div></div>
     </div>
   </section>
 
@@ -858,8 +862,8 @@
         </div>
         <div class="why-card reveal" data-d="3">
           <div class="why-icon">🆓</div>
-          <div class="why-name">Gratuit pour commencer</div>
-          <div class="why-desc">Tu peux apprendre et t'amuser sans rien payer.</div>
+          <div class="why-name">Facile à commencer</div>
+          <div class="why-desc">Pas besoin d'être un expert : tout est simple, expliqué et amusant.</div>
         </div>
       </div>
     </div>
@@ -924,11 +928,11 @@
     <div class="container">
       <div class="partner-cta reveal">
         <h2>Prêt à devenir un champion de l'IA ? 🏆</h2>
-        <p>Commence ton premier cours ou crée ta première histoire. C'est gratuit, rigolo, et fait pour toi !</p>
+        <p>Commence ton premier cours ou crée ta première histoire. C'est rigolo et fait pour toi !</p>
         <div class="partner-perks">
           <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 9 cours rigolos</div>
           <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Des récompenses</div>
-          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 100% sûr & gratuit</div>
+          <div class="partner-perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 100% sûr & adapté</div>
         </div>
         <button class="btn-white" onclick="goTo('cours')">Commencer à apprendre</button>
       </div>
@@ -1641,6 +1645,7 @@
           html: "<p>Pour chaque mission, tu écris un <strong>prompt</strong> (ta demande). L'IA vérifie&nbsp;: si c'est bon, ton dessin <strong>se crée automatiquement</strong>&nbsp;! 🎉</p>" +
                 "<div class='lesson-tip'>💡 N'oublie pas : dis le sujet, le lieu et les couleurs.</div>" },
         { type: "challenge", kind: "image", title: "Mission : un animal rigolo", goal: "Écris un prompt pour dessiner un animal rigolo qui fait quelque chose de drôle. Dis lequel, où il est et de quelle couleur." },
+        { type: "pause" },
         { type: "challenge", kind: "image", title: "Mission : un lieu magique", goal: "Écris un prompt pour dessiner un endroit magique (un château, une forêt, l'espace…). Donne plein de détails colorés !" },
         { type: "challenge", kind: "image", title: "Mission : ton super-héros", goal: "Écris un prompt pour dessiner un super-héros que tu inventes. Décris son costume, sa couleur et son super-pouvoir." }
       ],
@@ -1657,6 +1662,7 @@
           html: "<p>Tu écris ta demande, l'IA vérifie, et si c'est bon, ton <strong>histoire se crée automatiquement</strong>&nbsp;! 📖✨</p>" +
                 "<div class='lesson-tip'>💡 Donne un héros, un lieu et une petite aventure.</div>" },
         { type: "challenge", kind: "texte", title: "Mission : une aventure", goal: "Écris un prompt pour que l'IA invente une courte histoire d'aventure. Donne un héros, un lieu et un problème à résoudre." },
+        { type: "pause" },
         { type: "challenge", kind: "texte", title: "Mission : une histoire drôle", goal: "Écris un prompt pour une petite histoire très rigolote avec un animal qui parle." },
         { type: "challenge", kind: "texte", title: "Mission : un poème", goal: "Écris un prompt pour demander à l'IA un petit poème mignon sur un sujet que tu aimes (les étoiles, ton animal, l'été…)." }
       ],
@@ -1672,6 +1678,7 @@
         { title: "Un poème, c'est quoi ?",
           html: "<p>Un poème, c'est un texte qui <strong>chante</strong> et qui fait de jolies images dans la tête. Dis le <strong>sujet</strong> et l'<strong>ambiance</strong> (joyeuse, calme, rigolote).</p>" },
         { type: "challenge", kind: "texte", title: "Mission : un poème sur la nature", goal: "Écris un prompt pour un petit poème joyeux sur la nature (les fleurs, la mer, la forêt…). Dis le sujet et l'ambiance." },
+        { type: "pause" },
         { type: "challenge", kind: "texte", title: "Mission : une comptine", goal: "Écris un prompt pour une petite comptine rigolote qui rime, sur un animal de ton choix." }
       ],
       quiz: [
@@ -1686,6 +1693,7 @@
         { title: "Une bonne demande de quiz",
           html: "<p>Pour un quiz, dis le <strong>thème</strong>, le <strong>nombre de questions</strong> et que tu veux les <strong>réponses</strong> à la fin.</p>" },
         { type: "challenge", kind: "texte", title: "Mission : des devinettes", goal: "Écris un prompt pour demander 3 devinettes rigolotes pour enfants, avec les réponses à la fin." },
+        { type: "pause" },
         { type: "challenge", kind: "texte", title: "Mission : un quiz", goal: "Écris un prompt pour un petit quiz de 5 questions sur les animaux, avec les bonnes réponses." }
       ],
       quiz: [
@@ -1701,6 +1709,7 @@
           html: "<p>Pour les images les plus belles, les pros donnent <strong>beaucoup de détails</strong> : le personnage, ses habits, son émotion, le décor, les couleurs et le style.</p>" +
                 "<div class='lesson-tip'>💡 Plus tu donnes de détails, plus le dessin est incroyable !</div>" },
         { type: "challenge", kind: "image", title: "Mission : un héros détaillé", goal: "Décris en détail un super-héros : son costume, sa couleur, son émotion (content, courageux…), où il se trouve et le style (dessin animé, BD…)." },
+        { type: "pause" },
         { type: "challenge", kind: "image", title: "Mission : une scène de BD", goal: "Décris une scène complète de bande dessinée : qui, où, ce qui se passe, l'ambiance et les couleurs. Sois très précis comme un pro !" }
       ],
       quiz: [
@@ -1876,6 +1885,12 @@
           '<textarea id="exo-input" rows="3" placeholder="Écris ton prompt ici…"></textarea>' +
           '<button class="btn-run" style="margin-top:12px" id="exo-btn" onclick="checkChallenge()">✨ Vérifier mon prompt</button>' +
           '<div id="exo-feedback"></div><div id="exo-result"></div></div>';
+      } else if (s.type === "pause") {
+        inner = '<div class="lesson-step pause-step"><div class="pause-emoji">😌</div>' +
+          '<h3>Petite pause !</h3>' +
+          '<p>Respire un grand coup, étire-toi… On continue dans <span id="pause-count">20</span> secondes.</p>' +
+          '<div class="pause-bar"><div class="pause-fill" id="pause-fill"></div></div></div>';
+        canNext = false;
       } else {
         inner = '<div class="lesson-step"><div class="lesson-step-num">Étape ' + (courseState.index + 1) + '</div><h3>' + s.title + '</h3>' + s.html + '</div>';
       }
@@ -1893,6 +1908,25 @@
         '<button class="lesson-btn next" onclick="lessonNext()"' + (canNext ? '' : ' disabled') + '>' + (courseState.index === total - 1 ? 'Terminer' : 'Suivant →') + '</button>' +
       '</div></div>';
     window.scrollTo({ top: 0 });
+    if (courseState.index < c.content.length && c.content[courseState.index].type === "pause") startPause();
+  }
+
+  function startPause() {
+    let t = 20;
+    const el = document.getElementById("pause-count");
+    const fill = document.getElementById("pause-fill");
+    const nextBtn = document.querySelector(".lesson-btn.next");
+    const timer = setInterval(function () {
+      t--;
+      if (el) el.textContent = t;
+      if (fill) fill.style.width = Math.round(((20 - t) / 20) * 100) + "%";
+      if (t <= 0) {
+        clearInterval(timer);
+        if (nextBtn) nextBtn.disabled = false;
+        const step = document.querySelector(".pause-step p");
+        if (step) step.innerHTML = "C'est reparti ! Clique sur <strong>Suivant →</strong> 🚀";
+      }
+    }, 1000);
   }
 
   function answerQuiz(qi, i) {
