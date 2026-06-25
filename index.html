@@ -578,6 +578,10 @@
     @keyframes ring { 0%,100% { transform: rotate(0); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
     .tc-title { font-weight: 700; color: #8a5a00; font-size: 15px; margin-bottom: 3px; }
     .tc-text { font-size: 13.5px; color: #8a5a00; line-height: 1.5; }
+    .tc-code { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .tc-code input { width: 110px; padding: 8px 10px; border: 1px solid #ffd27a; border-radius: 8px; font-family: inherit; font-size: 14px; background: #fff; }
+    .tc-code button { padding: 8px 14px; background: #8a5a00; color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+    .tc-code #bell-err { font-size: 12.5px; color: #c0392b; font-weight: 600; }
     .pause-step { text-align: center; padding: 20px 0; }
     .pause-emoji { font-size: 54px; margin-bottom: 10px; animation: bob 3s ease-in-out infinite; }
     .pause-bar { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; max-width: 320px; margin: 18px auto 0; }
@@ -1893,6 +1897,7 @@
   }
 
   function renderCoursesPage() {
+    if (typeof stopBellSilent === "function") stopBellSilent();
     const wrap = document.getElementById("course-wrap");
     if (!wrap) return;
     const p = getProgress();
@@ -2002,6 +2007,7 @@
   }
 
   function renderLesson() {
+    if (typeof stopBellSilent === "function") stopBellSilent();
     const c = COURSES[courseState.id];
     const wrap = document.getElementById("course-wrap");
     const total = c.content.length + c.quiz.length;
@@ -2216,13 +2222,38 @@
   }
 
   // Petite sonnette + message pour appeler le professeur quand l'enfant bloque
+  // Code que l'adulte/professeur tape pour arrêter la sonnette
+  const TEACHER_CODE = "1234";
+  let bellInterval = null;
+
+  function stopBellSilent() {
+    if (bellInterval) { clearInterval(bellInterval); bellInterval = null; }
+  }
+
   function callTeacher(holder) {
+    stopBellSilent();
     playBell();
+    bellInterval = setInterval(playBell, 2000); // sonne toutes les 2 secondes
     holder.innerHTML = '<div class="teacher-call">' +
       '<div class="tc-bell">🔔</div>' +
-      '<div><div class="tc-title">Besoin d\'un coup de main ?</div>' +
-      '<div class="tc-text">Pas de souci, c\'est en t\'entraînant qu\'on apprend ! Appelle ton <strong>professeur</strong> ou un <strong>adulte</strong> pour qu\'il t\'aide sur cette mission. 💛</div></div>' +
+      '<div style="flex:1">' +
+        '<div class="tc-title">Un adulte, s\'il vous plaît !</div>' +
+        '<div class="tc-text">Pas de souci, c\'est en t\'entraînant qu\'on apprend ! Un <strong>professeur</strong> ou un <strong>adulte</strong> va venir t\'aider. 💛</div>' +
+        '<div class="tc-code"><input id="bell-code" inputmode="numeric" maxlength="6" placeholder="Code adulte"><button onclick="stopBell()">Arrêter 🔕</button><span id="bell-err"></span></div>' +
+      '</div>' +
     '</div>';
+  }
+
+  function stopBell() {
+    const inp = document.getElementById("bell-code");
+    const err = document.getElementById("bell-err");
+    if ((inp.value || "").trim() === TEACHER_CODE) {
+      stopBellSilent();
+      const tc = document.querySelector(".teacher-call");
+      if (tc) tc.innerHTML = '<div class="tc-bell" style="animation:none">🤝</div><div><div class="tc-title">Un adulte est là pour t\'aider !</div><div class="tc-text">Reprends ta mission tranquillement. 💪</div></div>';
+    } else {
+      if (err) { err.textContent = "Mauvais code"; setTimeout(function () { err.textContent = ""; }, 2000); }
+    }
   }
 
   function playBell() {
