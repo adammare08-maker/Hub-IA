@@ -611,6 +611,8 @@
     .gb-item .gb-name { font-weight: 700; font-size: 14px; }
     .gb-item .gb-msg { font-size: 14px; color: var(--text-dim); line-height: 1.5; margin-top: 4px; }
     .gb-empty { text-align: center; color: var(--text-faint); font-size: 14px; }
+    .reset-btn { background: var(--surface); color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 10px 20px; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: inherit; transition: border-color .15s, color .15s; }
+    .reset-btn:hover { border-color: #e0564f; color: #c0392b; }
     .course-tier { margin-bottom: 36px; }
     .course-tier-label { font-size: 13px; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
 
@@ -1956,6 +1958,12 @@
     catch (e) { return { xp: 0, done: {}, streak: 0, lastActive: null }; }
   }
   function saveProgress(p) { try { localStorage.setItem("hubProgress", JSON.stringify(p)); } catch (e) {} }
+  function resetAll() {
+    if (!confirm("Veux-tu vraiment TOUT recommencer à zéro ?\n\nTu vas perdre ta progression, tes points (XP), ta série, et il faudra recréer le code adulte.")) return;
+    try { localStorage.removeItem("hubProgress"); localStorage.removeItem("adultCode"); } catch (e) {}
+    if (typeof stopBellSilent === "function") stopBellSilent();
+    renderCoursesPage();
+  }
   function touchStreak(p) {
     const today = new Date().toISOString().slice(0, 10);
     if (p.lastActive === today) return;
@@ -2048,11 +2056,15 @@
         '</div>'
       : '';
 
+    const resetZone = '<div style="text-align:center; margin-top:36px;">' +
+      '<button class="reset-btn" onclick="resetAll()">🔄 Tout recommencer à zéro</button>' +
+      '</div>';
+
     wrap.innerHTML =
       '<div class="course-page-head">' +
         '<h2>Ton parcours pour apprendre l\'IA</h2>' +
         '<p>Gagne des XP, garde ta série 🔥 et débloque tous les cours, un par un.</p>' +
-      '</div>' + stats + bilan + tiers;
+      '</div>' + stats + bilan + tiers + resetZone;
   }
 
   async function generateBilan() {
