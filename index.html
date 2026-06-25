@@ -735,6 +735,26 @@
       .coursestats { gap: 8px; }
       .cstat { padding: 8px 13px; font-size: 13px; }
       .auth-area { display: none; }
+      /* Logo court sur mobile */
+      .logo-word { font-size: 0; }
+      .logo-word::after { content: "Apprendre l'IA"; font-size: 15px; }
+      /* Page Outils : la barre d'outils passe en haut, horizontale */
+      #page-tools { flex-direction: column; height: auto; min-height: calc(100vh - 60px); }
+      .sidebar { width: 100%; min-width: 0; display: flex; gap: 6px; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 10px; -webkit-overflow-scrolling: touch; }
+      .sidebar-label { display: none; }
+      .tool-btn { flex-direction: column; gap: 4px; min-width: 64px; padding: 8px 6px; font-size: 11px; }
+      .tool-btn span:not(.t-icon) { display: block; }
+      .main { min-height: 50vh; }
+      .play-body { max-width: 100%; }
+      .section-title { font-size: 26px; }
+      .home-title { font-size: 36px; }
+      .ecole-box, .partner-cta { padding: 32px 20px; }
+      .gb-actions { flex-direction: column; }
+      .gb-form button { width: 100%; }
+      footer { padding: 28px 18px; }
+    }
+    @media (max-width: 380px) {
+      .btn-partner { display: none; }
     }
     /* Boutons et zones tactiles plus grands (tablette/smartphone) */
     @media (hover: none) and (pointer: coarse) {
@@ -750,7 +770,7 @@
 <nav id="nav">
   <button class="logo" onclick="goTo('home')">
     <span class="logo-icon">IA</span>
-    Apprendre l'intelligence artificielle
+    <span class="logo-word">Apprendre l'intelligence artificielle</span>
   </button>
   <div class="nav-links">
     <button class="nav-link active" id="nav-home" onclick="goTo('home')">Accueil</button>
