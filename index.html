@@ -2229,10 +2229,8 @@
   function getAdultCode() { try { return localStorage.getItem("adultCode") || ""; } catch (e) { return ""; } }
   function saveAdultCode() {
     const a = (document.getElementById("setcode-1").value || "").trim();
-    const b = (document.getElementById("setcode-2").value || "").trim();
     const err = document.getElementById("setcode-err");
     if (!/^\d{4}$/.test(a)) { err.textContent = "Le code doit contenir exactement 4 chiffres."; return; }
-    if (a !== b) { err.textContent = "Les deux codes ne sont pas identiques."; return; }
     try { localStorage.setItem("adultCode", a); } catch (e) {}
     renderCoursesPage();
   }
@@ -2241,10 +2239,9 @@
       '<div class="legal-wrap" style="max-width:480px; text-align:center">' +
         '<div style="font-size:52px">👨‍👩‍👧</div>' +
         '<h1>Un adulte, s\'il vous plaît !</h1>' +
-        '<p class="legal-intro">Avant de commencer les cours, un <strong>parent</strong> ou un <strong>professeur</strong> doit créer un <strong>code secret à 4 chiffres</strong>. Ce code servira à aider l\'enfant et à arrêter la sonnette d\'appel. 🔔</p>' +
+        '<p class="legal-intro">Avant de commencer les cours, un <strong>parent</strong> ou un <strong>professeur</strong> doit créer un <strong>code secret à 4 chiffres</strong>. Ce code servira à aider l\'enfant et à arrêter la sonnette d\'appel. 🔔<br>Garde-le secret, ne le montre pas à l\'enfant !</p>' +
         '<div class="gb-form" style="max-width:280px">' +
-          '<input id="setcode-1" inputmode="numeric" maxlength="4" placeholder="Code à 4 chiffres">' +
-          '<input id="setcode-2" inputmode="numeric" maxlength="4" placeholder="Répète le code">' +
+          '<input id="setcode-1" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="Choisis un code à 4 chiffres" onkeydown="if(event.key===\'Enter\')saveAdultCode()">' +
           '<button onclick="saveAdultCode()">Valider le code ✅</button>' +
           '<div id="setcode-err" style="color:#c0392b; font-size:13px; font-weight:600"></div>' +
         '</div>' +
@@ -2264,7 +2261,7 @@
       '<div style="flex:1">' +
         '<div class="tc-title">Un adulte, s\'il vous plaît !</div>' +
         '<div class="tc-text">Pas de souci, c\'est en t\'entraînant qu\'on apprend ! Un <strong>professeur</strong> ou un <strong>adulte</strong> va venir t\'aider. 💛</div>' +
-        '<div class="tc-code"><input id="bell-code" inputmode="numeric" maxlength="6" placeholder="Code adulte"><button onclick="stopBell()">Arrêter 🔕</button><span id="bell-err"></span></div>' +
+        '<div class="tc-code"><input id="bell-code" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="Code adulte"><button onclick="stopBell()">Arrêter 🔕</button><span id="bell-err"></span></div>' +
       '</div>' +
     '</div>';
   }
