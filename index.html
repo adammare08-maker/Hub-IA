@@ -1203,15 +1203,27 @@
     }).join("");
   }
 
-  function goTo(page) {
+  function goTo(page, fromHistory) {
+    const target = document.getElementById("page-" + page);
+    if (!target) return;
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    document.getElementById("page-" + page).classList.add("active");
+    target.classList.add("active");
     document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
     if (page === "home")  document.getElementById("nav-home").classList.add("active");
     if (page === "tools") { document.getElementById("nav-tools").classList.add("active"); if (!allCoursesDone()) renderToolsLocked(); }
     if (page === "cours") { document.getElementById("nav-cours").classList.add("active"); renderCoursesPage(); }
     window.scrollTo({ top: 0, behavior: "auto" });
+    // Mémorise la page dans l'historique du navigateur (pour les flèches ◀ ▶)
+    if (!fromHistory) {
+      try { history.pushState({ page: page }, "", "#" + page); } catch (e) {}
+    }
   }
+
+  // Les flèches « précédent / suivant » du navigateur changent de page
+  window.addEventListener("popstate", function (e) {
+    const page = (e.state && e.state.page) || "home";
+    goTo(page, true);
+  });
 
   function openTool(id) {
     goTo("tools");
@@ -2390,6 +2402,15 @@
   gbRender();
   observeReveals();
   window.addEventListener("load", initAuth);
+
+  // État initial de l'historique (pour les flèches du navigateur)
+  (function () {
+    const valid = ["home", "tools", "cours", "partners", "legal"];
+    const start = (location.hash || "").replace("#", "");
+    const page = valid.indexOf(start) !== -1 ? start : "home";
+    try { history.replaceState({ page: page }, "", "#" + page); } catch (e) {}
+    if (page !== "home") goTo(page, true);
+  })();
 </script>
 </body>
 </html>
